@@ -1,0 +1,76 @@
+body {
+	background-color: rgb(209, 193, 236, .7);
+	z-index: 0;
+}
+ul {
+	list-style: none;
+}
+#mainList > li {
+	padding-top: 14vh;
+	padding-bottom: 10vh;
+}
+#mainList > li:first-child {
+	padding-top: 30vh;
+	padding-left: 20vh;
+	padding-bottom: 20vh;
+}
+#backgroundVideo {
+	position: fixed;
+	right: 0;
+	bottom: 0;
+	min-width: 100%;
+	min-height: 100%;
+	z-index: -1;
+	filter: opacity(40%);
+	transition: filter 1s;
+}
+.filteredVid {
+	filter: opacity(20%) !important;
+}
+#header {
+	max-width: 100%;
+	padding-bottom: 20px;
+	padding-left: 5vw;
+	margin-right: 0;
+}
+h1 {
+	font-family: 'Cinzel Decorative', sans-serif;
+	font-weight: 700;
+	font-size: 5em;
+}
+h2 {
+	font-family: 'Cabin', sans-serif;
+	font-weight: 400;
+	font-size: 2.5em;
+	text-align: center;
+}
+h3 {
+	font-family: 'Cabin', sans-serif;
+	font-weight: 400;
+}
+.sticky {
+	/* position: static; */
+	/* top: 0; */
+	/* left: 0; */
+	margin-left: 10vw;
+	padding-top: 20vh;
+	width: 89.9%;
+	transition: margin-left 1.5s, background-color 1.5s, width 1.5s;
+	background-color: rgba(227, 203, 241, 0);
+}
+.fixed {
+	background-color: rgba(227, 203, 241, 1);
+	position: fixed;
+	top: 0;
+	padding-top: 5vh;
+	/* left: 0; */
+	margin-left: 10vw;
+	width: 100%;
+	transition: margin-left 1.5s, background-color 1.5s, width 0s;
+}
+.shifting {
+	margin-left: 0px;
+}
+.topMargined {
+	margin-top: calc(20vh + 103.994px);
+}

@@ -3,7 +3,9 @@ const express 	= require('express'),
 		router	= express.Router();
 
 router.get('/', (req, res) => {
-	res.render('landing');
+	res.render('portfolio/landing',{
+		title: "Lavra's Space"
+	});
 });
 
 module.exports = router;
