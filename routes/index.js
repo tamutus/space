@@ -7,5 +7,10 @@ router.get('/', (req, res) => {
 		title: "Lavra's Space"
 	});
 });
+router.get('/animations', (req, res)=>{
+	res.render('portfolio/animations', {
+		title: "CSS Animations Collection"
+	});
+});
 
 module.exports = router;
