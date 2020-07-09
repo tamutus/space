@@ -100,6 +100,36 @@ h3 {
 	filter: grayscale(80%);
 	transition: filter .6s;
 }
+#navToggler {
+	transform: translate(0, 0);
+	transition: transform .2s cubic-bezier(0.275, 1.640, 0.545, 1.650);
+}
+#navToggler:active {
+	transform: translateY(3px);
+}
+#navToggler img {
+	animation: flowerPower 10s 50ms infinite linear forwards paused;
+}
+#navToggler img:hover {
+	animation-play-state: running;
+}
+@keyframes flowerPower {
+	0% {
+		transform: rotate(0deg) translate(0px, 0px);
+	}
+	25% {
+		transform: rotate(90deg) translate(3px, 0px);
+	}
+	50% {
+		transform: rotate(180deg) translate(0px, 0px)
+	}
+	75% {
+		transform: rotate(270deg) translate(-3px, 0px);
+	}
+	100% {
+		transform: rotate(360deg) translate(0px, 0px);
+	}
+}
 #nav-main.collapsed {
 	background-color: rgba(227, 203, 241, 0);
 }
