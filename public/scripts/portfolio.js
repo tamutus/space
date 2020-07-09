@@ -1,4 +1,10 @@
 window.onload = function() {
+	const navToggler = document.getElementById('navToggler');
+	let menuOpenedAt = undefined;
+	navToggler.onclick = function(){
+		$('#nav-main').toggleClass('collapsed');
+		menuOpenedAt = $(window).scrollTop();
+	}
 	$(window).scroll(function(){
 		const header = $('#header'),
 				content = $('#allContent'),
@@ -6,6 +12,12 @@ window.onload = function() {
 				scroll = $(window).scrollTop(),
 				height = $(window).height(),
 				nav = $('#nav-main');
+		if(scroll/height >= .10 && $(window).width() <= 750){
+			if( (menuOpenedAt && Math.abs(menuOpenedAt - scroll) > 200) || (!menuOpenedAt)) {
+				nav.addClass('collapsed');
+				menuOpenedAt = undefined;
+			}
+		}
 		if(scroll >= height * 0.19){
 			header.addClass('fixed');
 			header.addClass('shifting');
@@ -21,20 +33,16 @@ window.onload = function() {
 			if(scroll === 0){
 				nav.removeClass('collapsed');
 			}
-			else{
-				nav.addClass('collapsed');
-			}
 		}
 	});
 	window.onresize = function(){
 		const nav = $('#nav-main');
-		if($(window).scrollTop() !== 0){
+		if($(window).scrollTop() >= 25 && $(window).width() <= 770){
 			nav.addClass('collapsed');
 		}
-	}
-	const navToggler = document.getElementById('navToggler');
-	navToggler.onclick = function(){
-		$('#nav-main').toggleClass('collapsed');
+		else {
+			nav.removeClass('collapsed');
+		}
 	}
 }
 function completeLoading(){

@@ -1,3 +1,7 @@
+/* ================ */
+/* General styling  */
+/* ================ */
+
 body {
 	background-color: rgb(209, 193, 236, .7);
 	z-index: 0;
@@ -18,26 +22,6 @@ ul {
 	padding-left: 20vh;
 	padding-bottom: 20vh;
 }
-#backgroundVideo {
-	position: fixed;
-	right: 0;
-	bottom: 0;
-	min-width: 100%;
-	min-height: 100%;
-	z-index: -1;
-	filter: opacity(40%);
-	transition: filter 1s;
-}
-.filteredVid {
-	filter: opacity(20%) !important;
-}
-#header {
-	max-width: 100%;
-	padding-bottom: 0;
-	padding-left: 5vw;
-	margin-right: 0;
-	z-index: 10;
-}
 
 h1 {
 	font-family: 'Cinzel Decorative', sans-serif;
@@ -51,6 +35,37 @@ h2 {
 }
 h3 {
 	font-weight: 400;
+}
+
+/* ================================================ */
+/* Background video that fades in on scrolling down */
+/* ================================================ */
+
+#backgroundVideo {
+	position: fixed;
+	right: 0;
+	bottom: 0;
+	min-width: 100%;
+	min-height: 100%;
+	z-index: -1;
+	filter: opacity(40%);
+	transition: filter 1s;
+}
+.filteredVid {
+	filter: opacity(20%) !important;
+}
+
+/* ============================================================================================= */
+/* Dynamic header CSS, without using position: sticky, which is incompatible with older browsers */
+/* ============================================================================================= */
+
+#header {
+	max-width: 100%;
+	margin-bottom: 0;
+	padding-bottom: 0;
+	padding-left: 5vw;
+	margin-right: 0;
+	z-index: 10;
 }
 .sticky {
 	/* position: static; */
@@ -68,30 +83,44 @@ h3 {
 	top: 0;
 	padding-top: 1vh;
 	margin-left: 10vw;
+	min-height: 65px;
 	width: 100%;
 	transition: margin-left 1.5s, background-color 1.5s, width 0s;
 }
 .shifting {
 	margin-left: 0px;
 }
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+.topMargined {
+	margin-top: calc(20vh + 103.994px);
+}
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+/* ================== */
+/* Dynamic navbar CSS */
+/* ================== */
+
 #nav-main {
 	position: fixed;
 	display: flex;
 	border-radius: 10%;
+	height: 96px;
 	top: 0;
 	right: 0;
 	margin-right: 3vw;
 	z-index: 11;
 	justify-content: flex-end;
 	align-items: center;
-	transition: background-color 3s;
+	transition: background-color 1.5s, height .5s;
 }
 #nav-main.shadeable {
 	background-color: rgba(227, 203, 241, 1);
 }
 #nav-main li {
 	display: inline;
-	margin: auto 8px auto 8px;
+	margin: auto 20px auto 20px;
 	list-style: none;
 	opacity: 1;
 	transition: transform .8s, opacity .5s;
@@ -102,13 +131,13 @@ h3 {
 }
 #navToggler {
 	transform: translate(0, 0);
-	transition: transform .2s cubic-bezier(0.275, 1.640, 0.545, 1.650);
+	transition: transform .3s cubic-bezier(0.275, 1.640, 0.545, 1.650);
 }
 #navToggler:active {
 	transform: translateY(3px);
 }
 #navToggler img {
-	animation: flowerPower 10s 50ms infinite linear forwards paused;
+	animation: flowerPower 10s 50ms infinite linear paused;
 }
 #navToggler img:hover {
 	animation-play-state: running;
@@ -140,10 +169,11 @@ h3 {
 #nav-main.collapsed a img {
 	filter: none;
 }
-.topMargined {
-	margin-top: calc(20vh + 103.994px);
-}
-@media screen and (max-width: 1000px){
+
+@media screen and (max-width: 1050px){
+	#nav-main {
+		height: 65px;
+	}
 	h1 {
 		font-size: 2.7em;
 	}
@@ -157,9 +187,26 @@ h3 {
 		margin-top: calc(20vh + 51px);
 	}
 }
-@media screen and (max-width: 650px){
+@media screen and (max-width: 750px){
 	#nav-main {
 		flex-direction: column-reverse;
-		justify-content: flex-start;
+		justify-content: flex-end;
+		height: auto;
+		transition: flex-direction 0s .8s, background-color .8s;
 	}
+	#nav-main > li {
+		margin-top: 20px;
+		margin-bottom: 20px;
+	}
+	#nav-main > li > a {
+		padding-top: 15px;
+		padding-bottom: 15px;
+	}
+	#navToggler {
+		align-self: flex-end;
+		transform: translateX(-30px);
+	}
+	#navToggler:active {
+	transform: translate(-30px, 3px);
+}
 }
