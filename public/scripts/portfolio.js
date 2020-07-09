@@ -1,21 +1,42 @@
-$(window).scroll(function(){
-	const header = $('#header'),
-			content = $('#allContent'),
-			vid = $('#backgroundVideo'),
-			scroll = $(window).scrollTop(),
-			height = $(window).height();
-	if(scroll >= height * 0.15){
-		header.addClass('fixed');
-		header.addClass('shifting');
-		content.addClass('topMargined');
-		vid.addClass('filteredVid');
-	} else {
-		header.removeClass('shifting');
-		header.removeClass('fixed');
-		content.removeClass('topMargined');
-		vid.removeClass('filteredVid');
+window.onload = function() {
+	$(window).scroll(function(){
+		const header = $('#header'),
+				content = $('#allContent'),
+				vid = $('#backgroundVideo'),
+				scroll = $(window).scrollTop(),
+				height = $(window).height(),
+				nav = $('#nav-main');
+		if(scroll >= height * 0.19){
+			header.addClass('fixed');
+			header.addClass('shifting');
+			content.addClass('topMargined');
+			vid.addClass('filteredVid');
+			nav.addClass('shadeable');
+		} else {
+			header.removeClass('shifting');
+			header.removeClass('fixed');
+			content.removeClass('topMargined');
+			vid.removeClass('filteredVid');
+			nav.removeClass('shadeable');
+			if(scroll === 0){
+				nav.removeClass('collapsed');
+			}
+			else{
+				nav.addClass('collapsed');
+			}
+		}
+	});
+	window.onresize = function(){
+		const nav = $('#nav-main');
+		if($(window).scrollTop() !== 0){
+			nav.addClass('collapsed');
+		}
 	}
-});
+	const navToggler = document.getElementById('navToggler');
+	navToggler.onclick = function(){
+		$('#nav-main').toggleClass('collapsed');
+	}
+}
 function completeLoading(){
 	console.log("function is working");
 	const loaderText = $("#loader .square h1");
@@ -36,18 +57,18 @@ function completeLoading(){
 		$("#completeButton").text("Reload");
 		loaderText.text("O:");
 		window.setTimeout(() => {
-			$("#loader .square:nth-child(1)").html("<h1>C   O</h1>");
-			$("#loader .square:nth-child(2)").html("<h1>M   P</h1>");
-			$("#loader .square:nth-child(3)").html("<h1>L   E</h1>");
-			$("#loader .square:nth-child(4)").html("<h1>T   E</h1>");
+			$("#loader .square:nth-child(1)").html("<span><h1>C</h1><h1>O</h1></span>");
+			$("#loader .square:nth-child(2)").html("<span><h1>M</h1><h1>P</h1></span>");
+			$("#loader .square:nth-child(3)").html("<span><h1>L</h1><h1>E</h1></span>");
+			$("#loader .square:nth-child(4)").html("<span><h1>T</h1><h1>E</h1></span>");
 		}, 1500);
 	}
 	else {
-		$("#loader .square:nth-child(1)").html("22<h1>Here</h1>");
+		$("#loader .square:nth-child(1)").html("<h1>Here</h1>");
 		$("#loader .square:nth-child(2)").html("<h1>we</h1>");
 		$("#loader .square:nth-child(3)").html("<h1>go</h1>");
 		$("#loader .square:nth-child(4)").html("<h1>again...</h1>");
-		
+
 		$('#completeButton').text("Finish Loading");
 		window.setTimeout(() => {
 			$("#loader .square:nth-child(1)").html("<h1>Loading</h1>");

@@ -374,14 +374,33 @@
 }
 
 /* Loading icon 1 */
-
+#completeButton {
+	height: 100px;
+	width: 200px;
+	font-size: 27px;
+	text-align: center;
+	color: white;
+	background-color: #c098d4;
+	border: 3px outset #9567ab;
+	border-radius: 13px;
+	outline: none !important;
+	box-shadow: 0px 5px #31183d;
+}
+#completeButton:hover {
+	box-shadow: 0px 3px #25132e;
+	transform: translateY(2px);
+}
+#completeButton:active {
+	box-shadow: none;
+	transform: translateY(5px);
+}
 #loader {
 	position: static;
 	height: 500px;
 	width: 500px;
 	margin: 200px auto 0 auto;
 	transform: translateX(25%);
-	animation: 
+	transition: height .5s, width .5s;
 }
 #loader .square {
 	position: absolute;
@@ -394,15 +413,31 @@
 	animation-fill-mode: forwards;
 	transition-duration: 1s;
 }
-#loader .square * {
+#loader .square > * {
 	position: absolute;
 	width: 100%;
+	transform: rotate(-90deg) translateX(10%);
+}
+#loader .square h1 {
 	margin: auto;
 	text-align: center;
-	transform: rotate(-90deg) translateX(10%);
 	font-family: 'Comfortaa', cursive;
 	font-size: 4vh;
 	transition-duration: 1s all;
+}
+@media screen and (max-width: 1200px){
+	#completeButton {
+		height: 70px;
+		width: 140px;
+		font-size: 19px;
+	}
+	#loader {
+		height: 250px;
+		width: 250px;
+	}
+	#loader .square h1 {
+		font-size: 2vh;
+	}
 }
 #loader .square:nth-child(1) {
 	z-index: 4;	
@@ -415,6 +450,10 @@
 }
 #loader .square:nth-child(4) {
 	z-index: 1;	
+}
+#loader .square span {
+	display: flex;
+	justify-content: space-around;
 }
 .loading.square {
 	background-color: #ad82cf;

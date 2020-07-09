@@ -1,6 +1,10 @@
 body {
 	background-color: rgb(209, 193, 236, .7);
 	z-index: 0;
+	font-family: 'Cabin', sans-serif;
+}
+body * {
+	transition: font-size .8s;
 }
 ul {
 	list-style: none;
@@ -29,24 +33,23 @@ ul {
 }
 #header {
 	max-width: 100%;
-	padding-bottom: 20px;
+	padding-bottom: 0;
 	padding-left: 5vw;
 	margin-right: 0;
 	z-index: 10;
 }
+
 h1 {
 	font-family: 'Cinzel Decorative', sans-serif;
 	font-weight: 700;
 	font-size: 5em;
 }
 h2 {
-	font-family: 'Cabin', sans-serif;
 	font-weight: 400;
 	font-size: 2.5em;
 	text-align: center;
 }
 h3 {
-	font-family: 'Cabin', sans-serif;
 	font-weight: 400;
 }
 .sticky {
@@ -63,8 +66,7 @@ h3 {
 	background-color: rgba(227, 203, 241, 1);
 	position: fixed;
 	top: 0;
-	padding-top: 5vh;
-	/* left: 0; */
+	padding-top: 1vh;
 	margin-left: 10vw;
 	width: 100%;
 	transition: margin-left 1.5s, background-color 1.5s, width 0s;
@@ -72,6 +74,62 @@ h3 {
 .shifting {
 	margin-left: 0px;
 }
+#nav-main {
+	position: fixed;
+	display: flex;
+	border-radius: 10%;
+	top: 0;
+	right: 0;
+	margin-right: 3vw;
+	z-index: 11;
+	justify-content: flex-end;
+	align-items: center;
+	transition: background-color 3s;
+}
+#nav-main.shadeable {
+	background-color: rgba(227, 203, 241, 1);
+}
+#nav-main li {
+	display: inline;
+	margin: auto 8px auto 8px;
+	list-style: none;
+	opacity: 1;
+	transition: transform .8s, opacity .5s;
+}
+#nav-main a img {
+	filter: grayscale(80%);
+	transition: filter .6s;
+}
+#nav-main.collapsed {
+	background-color: rgba(227, 203, 241, 0);
+}
+#nav-main.collapsed li {
+	transform: scale(0);
+	opacity: 0;
+}
+#nav-main.collapsed a img {
+	filter: none;
+}
 .topMargined {
 	margin-top: calc(20vh + 103.994px);
+}
+@media screen and (max-width: 1000px){
+	h1 {
+		font-size: 2.7em;
+	}
+	h2 {
+		font-size: 1.5em;
+	}
+	h3 {
+		font-size: 1.3em;
+	}
+	.topMargined {
+		margin-top: calc(20vh + 51px);
+	}
+}
+@media screen and (max-width: 650px){
+	#nav-main {
+		flex-direction: column-reverse;
+		justify-content: flex-start;
+	}
 }
