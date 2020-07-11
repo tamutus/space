@@ -1,4 +1,26 @@
 window.onload = function() {
+	// For mobile compatibility, change vmax to a css custom property and pass to css (code from https://css-tricks.com/the-trick-to-viewport-units-on-mobile/)
+	// First we get the viewport height and we multiple it by 1% to get a value for a vh unit
+	// let vh = .01 * window.innerHeight;
+	// let vw = .01 * window.innerWidth;
+	let vw = window.innerWidth * .01;
+	let vh = window.innerHeight * .01;
+	let vmax = vw > vh ? vw : vh;
+	// Then we set the value in the --vh custom property to the root of the document
+	document.documentElement.style.setProperty('--vw', `${vw}px`);
+	document.documentElement.style.setProperty('--vh', `${vh}px`);
+	document.documentElement.style.setProperty('--vmax', `${vmax}px`);
+	// We listen to the resize event (following code can cause jumps, so I've commented this out for now)
+	window.addEventListener('resize', () => {
+		// We execute the same script as before
+		let vw = window.innerWidth * .01;
+		let vh = window.innerHeight * .01;
+		let vmax = vw > vh ? vw : vh;
+		document.documentElement.style.setProperty('--vw', `${vw}px`);
+		document.documentElement.style.setProperty('--vh', `${vh}px`);
+		document.documentElement.style.setProperty('--vmax', `${vmax}px`);
+	});
+	
 	const navToggler = document.getElementById('navToggler');
 	let menuOpenedAtScroll = undefined,
 		 menuOpenedAtWidth = undefined;
