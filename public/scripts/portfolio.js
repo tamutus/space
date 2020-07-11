@@ -1,10 +1,13 @@
 window.onload = function() {
 	const navToggler = document.getElementById('navToggler');
-	let menuOpenedAt = undefined;
+	let menuOpenedAtScroll = undefined,
+		 menuOpenedAtWidth = undefined;
 	navToggler.onclick = function(){
 		$('#nav-main').toggleClass('collapsed');
-		menuOpenedAt = $(window).scrollTop();
+		menuOpenedAtScroll = $(window).scrollTop();
+		menuOpenedAtWidth = $(window).innerWidth();
 	}
+	// Nav autohides upon scrolling enough 
 	$(window).scroll(function(){
 		const header = $('#header'),
 				content = $('#allContent'),
@@ -12,10 +15,11 @@ window.onload = function() {
 				scroll = $(window).scrollTop(),
 				height = $(window).height(),
 				nav = $('#nav-main');
-		if(scroll/height >= .10 && $(window).width() <= 750){
-			if( (menuOpenedAt && Math.abs(menuOpenedAt - scroll) > 200) || (!menuOpenedAt)) {
+		if(scroll/height >= .10 && $(window).innerWidth() <= 990){
+			if( (menuOpenedAtScroll && Math.abs(menuOpenedAtScroll - scroll) > 200) || (!menuOpenedAtScroll)) {
 				nav.addClass('collapsed');
-				menuOpenedAt = undefined;
+				menuOpenedAtScroll = undefined;
+				menuOpenedAtWidth = undefined;
 			}
 		}
 		if(scroll >= height * 0.19){
@@ -35,18 +39,46 @@ window.onload = function() {
 			}
 		}
 	});
+	// Nav pivots down on small-width screen and raises back up when large again. Hides when you resize window more than 200px.
 	window.onresize = function(){
 		const nav = $('#nav-main');
-		if($(window).scrollTop() >= 25 && $(window).width() <= 770){
-			nav.addClass('collapsed');
+		let width = $(window).innerWidth();
+		if(width <= 990){
+			if(!nav.hasClass('fallen')) {
+					nav.removeClass('risen');
+					nav.removeClass('resurrected');
+					nav.addClass('fallen');
+					nav.addClass('collapsed');
+				}
+			else if( (menuOpenedAtWidth && Math.abs(menuOpenedAtWidth - width) > 200) || (!menuOpenedAtWidth)) {
+				nav.addClass('collapsed');
+				menuOpenedAtScroll = undefined;
+				menuOpenedAtWidth = undefined;
+				
+			}
 		}
 		else {
+			if(nav.hasClass('collapsed')){
+				nav.addClass('resurrected');
+				setTimeout(()=> {
+					if($(nav).hasClass('risen')){
+						$(nav).removeClass('resurrected');
+					}
+				}, 1500);
+			}
 			nav.removeClass('collapsed');
+			if(nav.hasClass('fallen')){
+				nav.removeClass('fallen');
+				nav.addClass('risen');
+				menuOpenedAtScroll = $(window).scrollTop();
+				menuOpenedAtWidth = $(window).innerWidth();
+			}
 		}
 	}
+	
+	glimmerize();
 }
 function completeLoading(){
-	console.log("function is working");
 	const loaderText = $("#loader .square h1");
 	const loadingSquares = $("#loader .square");
 	loadingSquares.each(function(index, square){
@@ -65,10 +97,11 @@ function completeLoading(){
 		$("#completeButton").text("Reload");
 		loaderText.text("O:");
 		window.setTimeout(() => {
-			$("#loader .square:nth-child(1)").html("<span><h1>C</h1><h1>O</h1></span>");
-			$("#loader .square:nth-child(2)").html("<span><h1>M</h1><h1>P</h1></span>");
-			$("#loader .square:nth-child(3)").html("<span><h1>L</h1><h1>E</h1></span>");
-			$("#loader .square:nth-child(4)").html("<span><h1>T</h1><h1>E</h1></span>");
+			$("#loader .square:nth-child(1)").html("<span><h1 class=\"ethereal\">C</h1><h1 class=\"ethereal\">O</h1></span>");
+			$("#loader .square:nth-child(2)").html("<span><h1 class=\"ethereal\">M</h1><h1 class=\"ethereal\">P</h1></span>");
+			$("#loader .square:nth-child(3)").html("<span><h1 class=\"ethereal\">L</h1><h1 class=\"ethereal\">E</h1></span>");
+			$("#loader .square:nth-child(4)").html("<span><h1 class=\"ethereal\">T</h1><h1 class=\"ethereal\">E</h1></span>");
+			glimmerize();
 		}, 1500);
 	}
 	else {
@@ -85,4 +118,19 @@ function completeLoading(){
 			$("#loader .square:nth-child(4)").html("");
 		}, 1500);
 	}
+}
+// Glowy text animation occurs once per mouseenter on anything with class "umbral" or "ethereal"
+function glimmerize(){
+	$(".umbral").bind("webkitAnimationEnd mozAnimationEnd animationend", function(){
+		$(this).removeClass("darklyGlowing");
+	});
+	$(".umbral").mouseenter(function(){
+	  $(this).addClass("darklyGlowing");
+	});
+	$(".ethereal").bind("webkitAnimationEnd mozAnimationEnd animationend", function(){
+		$(this).removeClass("etherealPulser");
+	});
+	$(".ethereal").mouseenter(function(){
+	  $(this).addClass("etherealPulser");
+	});
 }

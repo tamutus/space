@@ -484,34 +484,60 @@
 	}
 	5% {
 		transform: rotate(45deg);
+		box-shadow: 0px 0px 20px 20px rgba(224, 249, 255, .30);
+	}
+	10% {
+		box-shadow: none;
 	}
 	15% {
 		transform: rotate(45deg) translate(99%, 0%);
+		box-shadow: 0px 0px 10px 5px rgba(224, 249, 255, .30);
+	}
+	20% {
+		box-shadow: none;
 	}
 	25% {
 		transform: rotate(45deg) translate(99%, 99%);
+		box-shadow: 0px 0px 10px 5px rgba(224, 249, 255, .30);
+	}
+	30% {
+		box-shadow: none;
 	}
 	35% {
 		transform: rotate(45deg) translate(0%, 99%);
+		box-shadow: 0px 0px 10px 5px rgba(224, 249, 255, .30);
+	}
+	40% {
+		box-shadow: none;
 	}
 	45%, 75% {
 		transform: rotate(45deg) translate(0, 0);
+		box-shadow: 0px 0px 20px 20px rgba(224, 249, 255, .30);
+	}
+	50%, 60%, 70% {
+		box-shadow: none;
+	}
+	55%, 65%, 75% {
+		box-shadow: 0px 0px 10px 5px rgba(224, 249, 255, .30);
 	}
 	80% {
 		transform: rotate(90deg);
 		background-color: #ad82cf;
 		border-radius: 0;
+		box-shadow: none;
 	}
 	90% {
 		transform: rotate(90deg) translateY(-50%);
 		background-color: #84dba7;
 		animation-timing-function: linear;
 		border-radius: 30%;
+		box-shadow: 0px 0px 20px 20px rgba(224, 249, 255, .30);
 	}
 	96% {
 		background-color: #ad82cf;
 		transform: rotate(0) translateY(0);
 		border-radius: 0;
+		box-shadow: none;
   }
 }
 @keyframes square2 {
