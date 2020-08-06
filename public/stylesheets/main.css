@@ -24,6 +24,13 @@ body * {
 	-o-transition: font-size .8s;
 	transition: font-size .8s;
 }
+section {
+	padding-top: 100px;
+}
+section > h2 {
+	font-size: 4rem;
+	text-shadow: -1px -2px 13px #f0e1f5;
+}
 ul {
 	list-style: none;
 }
@@ -576,7 +583,7 @@ h3 {
 		        transform: rotate(-90deg) translate(-62px, 62px);
 	}
 	80% {
-		width: 407px;
+		width: 371px;
 		height: 65px;
 		-webkit-transform: rotate(0deg) translate(0, 0);
 		        transform: rotate(0deg) translate(0, 0);
@@ -594,7 +601,7 @@ h3 {
 		        transform: rotate(-90deg) translate(-62px, 62px);
 	}
 	80% {
-		width: 407px;
+		width: 371px;
 		height: 65px;
 		-webkit-transform: rotate(0deg) translate(0, 0);
 		        transform: rotate(0deg) translate(0, 0);

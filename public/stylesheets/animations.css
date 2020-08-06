@@ -96,7 +96,7 @@
   bottom: -24px;
 }
 .purple.stripe {
-	--stripe-color: #7A42BD;
+	--stripe-color: #9C59D1;
 	background-color: var(--stripe-color);
 	z-index: 3;
 }
@@ -122,7 +122,7 @@
   bottom: -24px;
 }
 .yellow.stripe {
-	--stripe-color: #fae364;
+	--stripe-color: #FFF430;
 	background-color: var(--stripe-color);
 	z-index: 1;
 }

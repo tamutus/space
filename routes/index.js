@@ -7,9 +7,19 @@ router.get('/', (req, res) => {
 		title: "Lavra's Space"
 	});
 });
-router.get('/animations', (req, res)=>{
-	res.render('portfolio/animations', {
+router.get('/gallery', (req, res)=>{
+	res.render('portfolio/gallery', {
 		title: "CSS Animations Collection"
+	});
+});
+router.get('/commission', (req, res) => {
+	res.render('portfolio/commission', {
+		title: "Commissioning Lavra"
+	})
+});
+router.get('/commission-terms', (req, res) => {
+	res.render('portfolio/commission-terms.ejs', {
+		title: "Terms of Service"
 	});
 });
 
