@@ -7,6 +7,11 @@ router.get('/', (req, res) => {
 		title: "Lavra's Space"
 	});
 });
+router.get('/blog', (req, res)=> {
+	res.render('portfolio/blog', {
+		title: "Lavra Tamutus' Blog"
+	})
+});
 router.get('/gallery', (req, res)=>{
 	res.render('portfolio/gallery', {
 		title: "CSS Animations Collection"
