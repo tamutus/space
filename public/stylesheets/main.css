@@ -8,6 +8,12 @@
 /* mobile compatibility fix? */
 body {
 	min-height: -webkit-fill-available;	
+    padding-bottom: 70px;
+    font-size: 20px;
+}
+::selection {
+    background-color: rgb(84, 10, 145);
+    color: rgb(149, 236, 252);
 }
 
 /* ================ */
@@ -18,6 +24,7 @@ body {
 	background-color: rgb(209, 193, 236, .7);
 	z-index: 0;
 	font-family: 'Cabin', sans-serif;
+
 }
 body * {
 	-webkit-transition: font-size .8s;
@@ -35,8 +42,8 @@ ul {
 	list-style: none;
 }
 #mainList > li {
-	padding-top: 14vh;
-	padding-bottom: 10vh;
+	padding-top: 8vh;
+	padding-bottom: 6vh;
 }
 #mainList > li:first-child {
 	padding-top: 30vh;
@@ -47,9 +54,9 @@ ul {
 h1 {
 	font-family: 'Cinzel Decorative', sans-serif;
 	font-weight: 700;
-	font-size: 5em;
+	font-size: 80px;
 }
-h1.hover: {
+h1.hover {
 	-webkit-animation: darkGlow 10s .5s !important;
 	        animation: darkGlow 10s .5s !important;
 	-webkit-animation-timing-function: cubic-bezier(0.777, 0.265, 0.300, 0.813) !important;
@@ -57,11 +64,69 @@ h1.hover: {
 }
 h2 {
 	font-weight: 400;
-	font-size: 2.5em;
+	font-size: 40px;
 	text-align: center;
+    margin: 20px auto 30px auto;
 }
 h3 {
 	font-weight: 400;
+    text-align: center;
+}
+p {
+    margin: 20px 30px;
+}
+a {
+    color: rgb(164, 23, 230);
+    transition: text-decoration .3s ease-out, color .3s ease-out, text-shadow .8s ease-out;
+}
+a:hover {
+    text-decoration: none;
+    color: rgb(230, 166, 48);
+    text-shadow: 2px -2px 10px rgba(187, 83, 236, 0.884), 4px -4px 4px #423042;
+}
+
+  /*========================*/
+ /* Commission page styles */
+/*========================*/
+
+.pop {
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0px 15px 10px purple, 0px -15px 10px rgb(200, 124, 232);
+    background-color: rgba(255, 77, 208, .40);
+    margin-bottom: 50px;
+    transition: background-color .5s ease-in-out, box-shadow .7s ease-in-out;
+}
+.pop.active {
+    background-color: rgba(255, 163, 84, .40);
+    box-shadow: 0px 15px 10px rgb(255, 84, 127), 0px -15px 10px rgb(229, 255, 84);
+}
+#intriguer {
+    display: block;
+    margin: 10px auto;
+}
+
+#intriguer button {
+    width: 100%;
+    height: 100%;
+    /* background-color: rgba(255, 77, 208, .4); */
+    background-color: rgb(211, 117, 255);
+    transition: background-color .5s linear, transform .5s linear;
+}
+#intriguer:hover button {
+    animation: eager 1.5s infinite;
+    background-color:  rgb(245, 182, 65);
+}
+@keyframes eager {
+    0%, 25%, 100% {
+        transform: translate(0, 0) scale(1);
+    }
+    7%, 32% {
+        transform: translate(0, 5px) scale(1.1, .9);
+    }
+    13%, 38% {
+        transform: translate(0, -30px) scale(.8, 1.2);
+    }
 }
 
 /* ====================== */
@@ -194,8 +259,8 @@ h3 {
 	height: 100vmax;
 	height: calc(100 * var(--vmax));
 	z-index: -1;
-	-webkit-filter: opacity(40%);
-	        filter: opacity(40%);
+	-webkit-filter: opacity(50%);
+	        filter: opacity(50%);
 	-webkit-transition: -webkit-filter 1s;
 	transition: -webkit-filter 1s;
 	-o-transition: filter 1s;
@@ -203,8 +268,8 @@ h3 {
 	transition: filter 1s, -webkit-filter 1s;
 }
 .filteredVid {
-	-webkit-filter: opacity(20%) !important;
-	        filter: opacity(20%) !important;
+	-webkit-filter: opacity(35%) !important;
+	        filter: opacity(35%) !important;
 }
 
 /* ============================================================================================= */
@@ -423,13 +488,13 @@ h3 {
 		height: 65px;
 	}
 	h1 {
-		font-size: 2.7em;
+		font-size: 43px;
 	}
 	h2 {
-		font-size: 1.5em;
+		font-size: 25px;
 	}
 	h3 {
-		font-size: 1.3em;
+		font-size: 20px;
 	}
 	.topMargined {
 		margin-top: calc(20vh + 51px);
@@ -652,4 +717,50 @@ h3 {
 		margin-right: 20px;
 		opacity: 1;
 	}
+}
+
+  /*=================*/
+ /* Project styling */
+/*=================*/
+
+#project-ions {
+
+}
+
+  /*============================*/
+ /* Technologies table styling */
+/*============================*/
+
+.tech-table {
+    width: 100%;
+    margin: 30px auto 40px auto;
+    padding: 10px;
+    border-radius: 10%;
+    background-color: rgba(208, 128, 245, 0.39);
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+    align-items: flex-start;
+}
+.tech-table > div {
+    flex: 1 1 300px;
+    padding: 30px;
+    border-radius: 10%;
+    color: rgb(33, 37, 41);
+    transition: color .4s ease-out;
+}
+.tech-table > div:hover {
+    color: rgb(226, 225, 255);
+    animation: active-highlighting infinite 2s .4s;
+}
+@keyframes active-highlighting {
+    0%, 100% {
+        color: rgb(226, 225, 255);
+    }
+    50% {
+        color: rgb(181, 253, 147);
+    }
+}
+.tech-table > div:nth-child(even) {
+    background-color: rgb(250, 178, 127, .65);
 }

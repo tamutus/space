@@ -275,11 +275,11 @@
     transition-timing-function: ease-in;
   }
   40% {
-    background-color: #fc9b3a
+    background-color: #fc9b3a;
       transition: background-color;
     transition-timing-function: ease-in;
   }
-  50%, {
+  50% {
     background-color: #fcb53a;
     transition: background-color;
     transition-timing-function: ease-out;

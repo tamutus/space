@@ -3,25 +3,33 @@ window.onload = function() {
 	// First we get the viewport height and we multiple it by 1% to get a value for a vh unit
 	// let vh = .01 * window.innerHeight;
 	// let vw = .01 * window.innerWidth;
-	let vw = window.innerWidth * .01;
-	let vh = window.innerHeight * .01;
-	let vmax = vw > vh ? vw : vh;
-	// Then we set the value in the --vh custom property to the root of the document
-	document.documentElement.style.setProperty('--vw', `${vw}px`);
-	document.documentElement.style.setProperty('--vh', `${vh}px`);
-	document.documentElement.style.setProperty('--vmax', `${vmax}px`);
-	// We listen to the resize event (following code can cause jumps, so I've commented this out for now)
+	let vw, vh, vmax, bgWidth;
+    function setVProperties(){
+        vw = window.innerWidth * .01;
+        vh = window.innerHeight * .01;
+        vmax = vw > vh ? vw : vh;
+        // Then we set the value in the --vh custom property to the root of the document
+        document.documentElement.style.setProperty('--vw', `${vw}px`);
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+        document.documentElement.style.setProperty('--vmax', `${vmax}px`);
+    }
+    
+    setVProperties();
 	window.addEventListener('resize', () => {
-		// We execute the same script as before
-		let vw = window.innerWidth * .01;
-		let vh = window.innerHeight * .01;
-		let vmax = vw > vh ? vw : vh;
-		document.documentElement.style.setProperty('--vw', `${vw}px`);
-		document.documentElement.style.setProperty('--vh', `${vh}px`);
-		document.documentElement.style.setProperty('--vmax', `${vmax}px`);
+		setVProperties();
 	});
 	
-	const navToggler = document.getElementById('navToggler');
+	const   navToggler = document.getElementById('navToggler'),
+            header = $('#header'),
+            content = $('#allContent'),
+            vid = $('#backgroundVideo'),
+            nav = $('#nav-main'),
+            bgPara = $("#background-image.parallax");
+    
+    if(bgPara.length){
+        bgWidth = bgPara.first().width();
+    }
+
 	let menuOpenedAtScroll = undefined,
 		 menuOpenedAtWidth = undefined;
 	navToggler.onclick = function(){
@@ -31,12 +39,8 @@ window.onload = function() {
 	}
 	// Nav autohides upon scrolling enough 
 	$(window).scroll(function(){
-		const header = $('#header'),
-				content = $('#allContent'),
-				vid = $('#backgroundVideo'),
-				scroll = $(window).scrollTop(),
-				height = $(window).height(),
-				nav = $('#nav-main');
+		const   scroll = $(window).scrollTop(),
+			    height = $(window).height();
 		if(scroll/height >= .10 && $(window).innerWidth() <= 990){
 			if( (menuOpenedAtScroll && Math.abs(menuOpenedAtScroll - scroll) > 200) || (!menuOpenedAtScroll)) {
 				nav.addClass('collapsed');
@@ -60,6 +64,31 @@ window.onload = function() {
 				nav.removeClass('collapsed');
 			}
 		}
+        // 
+        if(bgPara.length){
+            bgWidth = bgPara.first().width();
+            // 0% scroll should have bg left = 0. 100% scroll should have bg left = bgPara.first().width() - window.innerWidth;
+            bgPara.css({left: ($(window).scrollTop() / document.documentElement.scrollHeight) * (window.innerWidth - bgWidth)});
+        };
+        // go through each .pop and remove focus class until the first one with DOMRect with positive y value, to which you add it
+        const poppers = document.querySelectorAll(".pop");
+        for(let i = 0; i < poppers.length; i++) {
+            const popper = poppers.item(i);
+            let domrect = popper.getBoundingClientRect();
+            if(domrect.y < 50){
+                popper.classList.remove("active");
+            } else {
+                if(window.scrollY > 100 && domrect.y < 50 * vh){
+                    popper.classList.add("active");
+                } else {
+                    popper.classList.remove("active");
+                }
+                for(let j = i + 1; j < poppers.length; j++){
+                    poppers.item(j).classList.remove("active");
+                }
+                break;
+            }
+        }
 	});
 	// Nav pivots down on small-width screen and raises back up when large again. Hides when you resize window more than 200px.
 	window.onresize = function(){
