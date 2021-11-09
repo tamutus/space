@@ -31,6 +31,11 @@ body * {
 	-o-transition: font-size .8s;
 	transition: font-size .8s;
 }
+#all-content {
+    margin-left: auto;
+    margin-right: auto;
+    /* transition: margin .5s ease-in-out; */
+}
 section {
 	padding-top: 100px;
 }
@@ -95,12 +100,14 @@ a:hover {
     box-shadow: 0px 15px 10px purple, 0px -15px 10px rgb(200, 124, 232);
     background-color: rgba(255, 77, 208, .40);
     margin-bottom: 50px;
-    transition: background-color .5s ease-in-out, box-shadow .7s ease-in-out;
+    transition: background-color .5s ease-in-out, box-shadow .7s ease-in-out, transform .4s ease-in;
 }
 .pop.active {
     background-color: rgba(255, 163, 84, .40);
     box-shadow: 0px 15px 10px rgb(255, 84, 127), 0px -15px 10px rgb(229, 255, 84);
+    transform: translateX(-50px);
 }
+
 #intriguer {
     display: block;
     margin: 10px auto;
@@ -483,6 +490,10 @@ a:hover {
 	        filter: none;
 }
 
+  /*===========================*/
+ /* Small screen size changes */
+/*===========================*/
+
 @media screen and (max-width: 1300px){
 	#nav-main {
 		height: 65px;
@@ -499,6 +510,10 @@ a:hover {
 	.topMargined {
 		margin-top: calc(20vh + 51px);
 	}
+    /* #all-content {
+        margin-left: 75px;
+        margin-right: 75px;
+    } */
 }
 @media screen and (max-width: 1007px){
 	#nav-main {
@@ -536,6 +551,24 @@ a:hover {
 		    -ms-transform: translate(-40px, 3px);
 		        transform: translate(-40px, 3px);
 	}
+    .theater {
+        transform: scale(.8);
+    }
+    /* #all-content {
+        margin-left: 75px;
+    } */
+}
+
+@media screen and (max-width: 800px){
+    .theater {
+        transform: scale(.6);
+    }
+}
+
+@media screen and (max-width: 600px){
+    .theater {
+        transform: scale(.4);
+    }
 }
 
 @-webkit-keyframes dropNav {
@@ -719,12 +752,90 @@ a:hover {
 	}
 }
 
-  /*=================*/
- /* Project styling */
-/*=================*/
+  /*===============*/
+ /* Ultra gallery */
+/*===============*/
 
-#project-ions {
-
+.theater {
+    width: 900px;
+    height: 800px;
+    margin: 0 auto;
+    padding-top: 30px;
+    background-color: rgb(56, 3, 3);
+    overflow: hidden;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    color: rgb(255, 237, 75);
+    position: relative;
+    transform-origin: left;
+    transition: transform .5s ease-in-out;
+}
+.theater h2 {
+    margin: 35px auto 15px auto;
+}
+.theater .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    pointer-events: none;
+    z-index: 3;
+}
+.projector {
+    background-color: black;
+    width: 700px;
+    border: 5px solid black;
+    overflow: hidden;
+    margin-bottom: 50px;
+    color: rgb(33, 37, 41);
+}
+.projections {
+    margin: 20px auto 40px auto;
+    display: flex;
+    flex-flow: row nowrap;
+    transition: transform .5s cubic-bezier(0.630, 0.370, 0.645, 1.375);
+}
+.projections .projection {
+    flex: 0 0 700px;
+    height: 393.75px;
+    background-color: rgb(191, 135, 224);
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-evenly;
+    align-items: center;
+    overflow-y: auto;
+}
+.projection img {
+    max-width: 80%;
+}
+.film {
+    display: flex;
+    flex-flow: row nowrap;
+    background-color: rgb(41, 23, 23);
+    padding: 0 0 0 8px;
+    border-width: 10px 0;
+    border-color: rgba(168, 137, 106, 0.719);
+    border-style: dashed none;
+}
+.film .still {
+    width: 150px;
+    height: 100px;
+    padding: 3px;
+    background-color: rgba(209, 177, 144, 0.719);
+    color: rgba(75, 43, 38, 0.788);
+    margin-right: 8px;
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: zoom-in;
+    transition: filter .3s ease-out;
+}
+.film .still:hover {
+    filter: brightness(1.5);
 }
 
   /*============================*/
@@ -732,8 +843,8 @@ a:hover {
 /*============================*/
 
 .tech-table {
-    width: 100%;
-    margin: 30px auto 40px auto;
+    width: calc(100% - 90px);
+    margin: 30px 30px 40px 30px;
     padding: 10px;
     border-radius: 10%;
     background-color: rgba(208, 128, 245, 0.39);

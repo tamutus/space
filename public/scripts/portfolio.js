@@ -21,7 +21,7 @@ window.onload = function() {
 	
 	const   navToggler = document.getElementById('navToggler'),
             header = $('#header'),
-            content = $('#allContent'),
+            content = $('#all-content'),
             vid = $('#backgroundVideo'),
             nav = $('#nav-main'),
             bgPara = $("#background-image.parallax");

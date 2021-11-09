@@ -8,7 +8,7 @@
 	</h1>
 </div>
 
-<div class="container" id="allContent">
+<div id="all-content">
 	<ul id="mainList">
 		<li>
 			<h2>
@@ -21,21 +21,44 @@
 			</h2>
 		</li>
 		<li>
-			<h3>
-				Current projects:
-			</h3>
-			<div id="project-ions">
-                <div>
-                    — BOLD website creation
+			<div id="project-ions" class="theater">
+                <img src="/assets/Better Curtains.png" class="overlay">
+                <h2>
+                    Project(ion)s
+                </h2>
+                <div class="projector">
+                    <div class="projections">
+                        <div class="projection" data-title="BOLD">
+                            <a href="https://bold-website.herokuapp.com/"><h3>BOLD website creation</h3></a>
+                            <img src="https://bold-website.herokuapp.com/assets/BOLD%20logo.jpg">
+                        </div>
+                        <div class="projection" data-title="Magnova">
+                            <a href="https://magnova.space"><h3>Magnova Carta</h3></a>
+                            <img src="/assets/Magnova_logo_wip.png">
+                        </div>
+                        <div class="projection" data-title="Portfolio">
+                            <h3>Portfolio development</h3>
+                            <img>
+                        </div>
+                        <div class="projection" data-title="MoSo">
+                            <h>Volunteering with <a href="https://moneylesssociety.com/">Moneyless Society</a></h3>
+                            <img>
+                        </div>
+                    </div>
                 </div>
-                <div>
-					— Magnova Carta
-				</div>
-				<div>
-					— Portfolio development
-                </div>
-                <div>
-                    — Volunteering with <a href="https://moneylesssociety.com/">Moneyless Society</a>
+                <div class="film">
+                    <div class="still" data-title="BOLD">
+                        <h5>BOLD website creation</h5>
+                    </div>
+                    <div class="still" data-title="Magnova">
+                        <h5>Magnova Carta</h5>
+                    </div>
+                    <div class="still" data-title="Portfolio">
+                        <h5>Portfolio development</h5>
+                    </div>
+                    <div class="still" data-title="MoSo">
+                        <h5>Volunteering with Moneyless Society</h5>
+                    </div>
                 </div>
 			</div>
 		</li>
@@ -82,5 +105,5 @@
 </div>
 
 
-
+<script src="/scripts/projector.js"></script>
 <%- include('./partials/footer'); %>
