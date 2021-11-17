@@ -3,7 +3,7 @@
 	left: 0;
 	bottom: 0;
 	height: 100vmax;
-	height: calc(100 * var(--vh));
+	height: calc(100 * var(--vmax));
 	z-index: -1;
 	filter: opacity(30%);
 	transition: filter 1s, height .2s, width .2s, left 2s ease-out;

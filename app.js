@@ -5,13 +5,16 @@ const express 			= require('express'),
 		mongoose 		= require('mongoose'),
 		passport 		= require('passport'),
 		LocalStrategy 	= require('passport-local'),
-		methodOverride = require('method-override'),
-		flash 			= require('connect-flash');
+		methodOverride  = require('method-override'),
+        path            = require("path"),
+        favicon         = require("serve-favicon");
+		// flash 			= require('connect-flash');
 		// ejs = require('ejs');
 
 // Route dependencies
 const indexRoutes = require('./routes/index'),
 		dreamRoutes = require('./routes/dream');
+
 
 // Mongoose Config
 
@@ -28,6 +31,9 @@ mongoose.connect(process.env.DATABASEURL, {
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public'));
 app.use(methodOverride("_method"));
+
+// Favicon handling
+app.use(favicon(path.join(__dirname, 'public/assets', 'lavrat_favicon.png')));
 
 // Routes
 app.use('/', indexRoutes);

@@ -14,7 +14,7 @@ router.get('/blog', (req, res)=> {
 });
 router.get('/gallery', (req, res)=>{
 	res.render('portfolio/gallery', {
-		title: "CSS Animations Collection"
+		title: "Lavra's Work"
 	});
 });
 router.get('/commission', (req, res) => {
