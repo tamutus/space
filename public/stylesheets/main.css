@@ -24,7 +24,7 @@ body {
 	background-color: rgb(209, 193, 236, .7);
 	z-index: 0;
 	font-family: 'Cabin', sans-serif;
-
+    cursor: url("../assets/cursors/Hoof cursor.cur"), default;
 }
 body * {
 	-webkit-transition: font-size .8s;
@@ -55,7 +55,9 @@ ul {
 	padding-left: 20vh;
 	padding-bottom: 20vh;
 }
-
+h1, h2, h3, h4, h5, h6, p {
+    cursor: url("../assets/cursors/Goat Text Select.cur"), text;
+}
 h1 {
 	font-family: 'Cinzel Decorative', sans-serif;
 	font-weight: 700;
@@ -95,6 +97,9 @@ a {
     color: rgb(164, 23, 230);
     transition: text-decoration .3s ease-out, color .3s ease-out, text-shadow .8s ease-out;
     font-size: inherit;
+}
+a, a * {
+    cursor: url("../assets/cursors/lavra_goat.cur"), pointer;
 }
 a:hover {
     text-decoration: none;

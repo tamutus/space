@@ -1,7 +1,7 @@
 // Dependencies
 require('dotenv').config();
 const express 			= require('express'),
-		app 				= express(),
+		app 		    = express(),
 		mongoose 		= require('mongoose'),
 		passport 		= require('passport'),
 		LocalStrategy 	= require('passport-local'),
@@ -18,16 +18,15 @@ const indexRoutes = require('./routes/index'),
 
 // Mongoose Config
 
+mongoose.set('useUnifiedTopology', true);
+mongoose.set('useFindAndModify', false);
 mongoose.connect(process.env.DATABASEURL, {
-	// user: process.env.DB_USER,
-	// pass: process.env.DB_PASS,
+	user: process.env.DB_USER,
+	pass: process.env.DB_PASS,
 	useNewUrlParser: true,
-	useCreateIndex: true,
-	useUnifiedTopology: true,
-	useFindAndModify: false
-}).catch(err =>{
-	console.log("Error: "+ err.message);
+	useCreateIndex: true
 });
+
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public'));
 app.use(methodOverride("_method"));
