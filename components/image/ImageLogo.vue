@@ -3,7 +3,7 @@
     <div class="image-container">
       <NuxtLink to="/" title="Home page"
         ><img
-          src="/assets/lit logo gradient.svg"
+          src="/assets/lit_logo_gradient.svg"
           alt="Fuchsia and violet letters in a boxy shape: L I T"
           :class="`logo ${logoSize}`"
         />
