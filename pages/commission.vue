@@ -56,6 +56,9 @@
         </ClientOnly>
         <div class="padded">
           <BackgroundHologram :delay="4">
+            <template #default>
+              <h3><em>Now using Nuxt 3</em></h3>
+            </template>
             <template #display
               ><p>
                 On today's Internet, seamless and performant animation is no
@@ -64,6 +67,17 @@
                 seen as antiquated and low-effort. Breathe life into the time
                 that your audience spends with your creations by adding CSS
                 animations.
+              </p>
+              <p>
+                My recommended technology for new websites is Nuxt 3, based on
+                the Vue frontend framework. This allows for custom transitions
+                between pages, dynamic loading of content, hot module
+                replacement, and all sorts of other fun things that amount to a
+                enjoyably performant and customizable website. Perhaps the
+                winning reason to use this technology is its server engine,
+                Nitro, which can compile your website into either a classic
+                server or even serverless functions that can be hosted for free
+                on a site like <a href="https://vercel.com">Vercel</a>.
               </p></template
             ></BackgroundHologram
           >
@@ -78,8 +92,24 @@
         <div class="padded">
           <BackgroundHologram :delay="6">
             <template #display>
-              <p></p> </template
-          ></BackgroundHologram>
+              <p>
+                Getting a site of your own gives you the chance to highlight
+                exactly what you want to highlight, in a style that matches your
+                personal aesthetic or brand. Interface design can influence how
+                people feel or interact, as do the paths your audience can take
+                from page to page, paragraph to paragraph. Captivating attention
+                requires thinking outside the box.
+              </p>
+              <p>
+                I leverage a background in neuroscience, psychology, and art
+                theory to help you make confident decisions about user flow and
+                visual identity. It remains important to keep up to date on
+                industry standards, so I am continually paying attention to
+                public discourse on tools and strategies I use, as well as their
+                alternatives.
+              </p>
+            </template></BackgroundHologram
+          >
         </div>
       </section>
       <section>
@@ -109,6 +139,7 @@
           </BackgroundHologram>
         </div>
       </section>
+
       <!-- <section>
         <ClientOnly>
           <BoxPop><h2>Monetize Your Creations</h2> </BoxPop></ClientOnly

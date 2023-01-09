@@ -98,6 +98,57 @@
           </template>
         </BackgroundHologram>
       </section>
+      <section>
+        <div class="padded">
+          <BackgroundHologram :delay="10">
+            <template #default><h3>My default stack</h3> </template>
+            <template #display>
+              <p>
+                If you'd like to use a different set of technologies, or a
+                different host, that's perfectly okay. The following setup is
+                what I have found to be most enjoyable to work with, and the
+                hosts I've listed have the most generous free tiers that are
+                compatible out of the box.
+              </p>
+              <TableTech>
+                <template #1>
+                  <div>
+                    <h4>Web framework</h4>
+                  </div></template
+                ><template #2>
+                  <div>
+                    <h4>Nuxt 3</h4>
+                    <h4>Vue</h4>
+                  </div>
+                </template> </TableTech
+              ><TableTech>
+                <template #1>
+                  <div>
+                    <h4>Hosting</h4>
+                  </div></template
+                ><template #2>
+                  <div>
+                    <h4>Vercel.com</h4>
+                    <h4>Railway.app</h4>
+                  </div>
+                </template>
+              </TableTech>
+              <TableTech>
+                <template #1>
+                  <div>
+                    <h4>Database</h4>
+                  </div></template
+                ><template #2>
+                  <div>
+                    <h4>MongoDB</h4>
+                    <h4>PostgreSQL <em>(soon)</em></h4>
+                  </div>
+                </template>
+              </TableTech>
+            </template>
+          </BackgroundHologram>
+        </div>
+      </section>
       <section id="pricing">
         <ClientOnly>
           <BoxPop><h2>Prices</h2> </BoxPop>
