@@ -19,6 +19,17 @@
               </template>
             </BoxWaterfall>
           </ImageFocused>
+          <TableTech>
+            <template #1><h2>Pronouns</h2> </template>
+            <template #2>
+              <h2>
+                <a href="https://en.pronouns.page/@lavratamutus">
+                  <UserPronoun pronoun="they" morpheme="subject" /> /
+                  <UserPronoun pronoun="they" morpheme="object" />
+                </a>
+              </h2>
+            </template>
+          </TableTech>
         </div>
       </section>
     </BackgroundTexture>
@@ -67,6 +78,9 @@
                         <a href="https://render.com/">Render</a> Docker image
                         hosting
                       </li>
+                      <li>
+                        <a href="https://vercel.com">Vercel</a> static hosting
+                      </li>
                       <li>Nuxt</li>
                       <li>Nitro</li>
                     </ul>
@@ -94,7 +108,11 @@
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+useHead({
+  title: `Lavra Tamutus`,
+});
+</script>
 
 <style scoped>
 section:not(:first-of-type) {
