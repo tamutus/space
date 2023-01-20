@@ -1,5 +1,11 @@
 <template>
-  <div class="bg" :style="{ 'background-image': `url('${imageSource}')` }">
+  <div
+    class="bg"
+    :style="{
+      'background-image': `url('${imageSource}')`,
+      'background-attachment': attachment,
+    }"
+  >
     <slot></slot>
   </div>
 </template>
@@ -9,6 +15,13 @@ const props = defineProps({
   imageFileName: {
     type: String,
     required: true,
+  },
+  attachment: {
+    default: "scroll",
+    type: String,
+    validator(input: string) {
+      return ["fixed", "scroll"].includes(input);
+    },
   },
 });
 const imageSource = computed(() => `/${props.imageFileName}`);
@@ -22,6 +35,5 @@ const imageSource = computed(() => `/${props.imageFileName}`);
   border-bottom: 20px solid rgb(27, 27, 27);
   height: 100%;
   background-size: cover;
-  /* background-attachment: fixed; */
 }
 </style>
