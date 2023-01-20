@@ -31,6 +31,8 @@ h1 {
 @media screen and (max-width: 500px) {
   h1 {
     margin-right: auto;
+    padding: 12px 10px 10px 2.5vw;
+    max-width: calc(100vw - 5rem - 27px);
     font-size: 1.5rem;
   }
 }

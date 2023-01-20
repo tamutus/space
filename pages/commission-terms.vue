@@ -318,7 +318,11 @@
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+useHead({
+  title: `Terms of Commissioning Lavra Tamutus`,
+});
+</script>
 
 <style scoped>
 h3 {

@@ -61,18 +61,17 @@
             </template>
             <template #display
               ><p>
-                On today's Internet, seamless and performant animation is no
-                longer optional if you want to woo your viewers. A website that
-                doesn't move and doesn't adapt to different browser windows is
-                seen as antiquated and low-effort. Breathe life into the time
-                that your audience spends with your creations by adding CSS
-                animations.
+                On today's Internet, seamless animation is no longer optional if
+                you want to woo your viewers. A website that doesn't move and
+                doesn't adapt to different browser windows is seen as antiquated
+                and low-effort. Breathe life into the time that your audience
+                spends with your creations by adding CSS animations.
               </p>
               <p>
                 My recommended technology for new websites is Nuxt 3, based on
                 the Vue frontend framework. This allows for custom transitions
                 between pages, dynamic loading of content, hot module
-                replacement, and all sorts of other fun things that amount to a
+                replacement, and all sorts of other fun things that amount to an
                 enjoyably performant and customizable website. Perhaps the
                 winning reason to use this technology is its server engine,
                 Nitro, which can compile your website into either a classic
@@ -186,7 +185,11 @@
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+useHead({
+  title: `Commissioning Lavra`,
+});
+</script>
 
 <style scoped>
 h3 {

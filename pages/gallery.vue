@@ -52,11 +52,21 @@
           >
         </h3>
       </BoxTube>
+      <BoxTube
+        ><p>Who doesn't like to share their photos?</p>
+        <h3>
+          <NuxtLink :to="`/${encodeURIComponent('📷')}`">Photography</NuxtLink>
+        </h3>
+      </BoxTube>
     </BackgroundTexture>
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+useHead({
+  title: `Lavra's Gallery`,
+});
+</script>
 
 <style scoped>
 section {

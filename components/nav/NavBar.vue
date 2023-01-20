@@ -171,9 +171,6 @@ function toggleNav() {
     height 0.8s, rotate 0.8s;
   background-color: rgba(61, 4, 87, 0.85);
 }
-#nav-main.shadeable {
-  background-color: rgba(227, 203, 241, 1);
-}
 #nav-main li {
   position: absolute;
   margin: auto 20px auto 20px;
