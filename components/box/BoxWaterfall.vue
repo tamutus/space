@@ -35,7 +35,7 @@
 .level {
   flex-basis: 90%;
   min-width: 280px;
-  max-width: 60vw;
+  max-width: 75%;
   box-sizing: border-box;
   border-radius: 0 40px 5% 3% / 0 40px 30px 80%;
   border-bottom: 15px solid rgba(79, 240, 173, 0.95);
@@ -50,11 +50,26 @@
   background-size: 200% 100%;
   background-position: 50% 0;
 
-  padding: 10px 15%;
+  padding: 10px 5vw;
 }
 h2 {
   text-align: left;
   margin-right: auto;
+}
+@media screen and (max-width: 500px) {
+  .level {
+    min-width: 200px;
+    /* max-width: 50vw; */
+  }
+  h2 {
+    font-size: 2em;
+  }
+}
+@media screen and (max-height: 600px) {
+  h2 {
+    margin: 10px auto;
+    font-size: 2em;
+  }
 }
 @keyframes pump {
   0%,
