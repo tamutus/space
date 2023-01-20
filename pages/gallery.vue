@@ -47,15 +47,13 @@
           here:
         </p>
         <h3>
-          <NuxtLink :to="`/${encodeURIComponent('🐐')}`"
-            >Reconcilography</NuxtLink
-          >
+          <NuxtLink to="/furry">Reconcilography</NuxtLink>
         </h3>
       </BoxTube>
       <BoxTube
         ><p>Who doesn't like to share their photos?</p>
         <h3>
-          <NuxtLink :to="`/${encodeURIComponent('📷')}`">Photography</NuxtLink>
+          <NuxtLink to="/photos">Photography</NuxtLink>
         </h3>
       </BoxTube>
     </BackgroundTexture>
