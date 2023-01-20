@@ -1,13 +1,17 @@
 <template>
   <div class="illustrated-content" :style="layoutStyle">
     <div class="image-container">
-      <NuxtLink to="/" title="Home page"
+      <NuxtLink
+        v-if="logoSource === '/assets/lit_logo_gradient.svg'"
+        to="/"
+        title="Home page"
         ><img
-          src="/assets/lit_logo_gradient.svg"
+          :src="logoSource"
           alt="Fuchsia and violet letters in a boxy shape: L I T"
           :class="`logo ${logoSize}`"
         />
       </NuxtLink>
+      <img v-else :src="logoSource" :class="`logo ${logoSize}`" />
     </div>
 
     <slot class="content"></slot>
@@ -25,6 +29,10 @@ const props = defineProps({
   alignment: {
     type: String,
     default: "left",
+  },
+  logoSource: {
+    type: String,
+    default: "/assets/lit_logo_gradient.svg",
   },
 });
 const layoutStyle = computed(() => {
@@ -68,15 +76,15 @@ const layoutStyle = computed(() => {
   object-fit: contain;
 }
 .logo.small {
-  max-height: 10vh;
-  max-width: 10vh;
+  max-height: 3em;
+  max-width: 10vmax;
 }
 .logo.medium {
-  max-height: 20vh;
+  max-height: 4em;
   max-width: 20vh;
 }
 .logo.large {
-  max-height: 30vh;
+  max-height: 5em;
   max-width: 30vh;
   margin-bottom: 50px;
   margin-top: 50px;

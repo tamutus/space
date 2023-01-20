@@ -3,8 +3,9 @@
     <div class="image-container">
       <img :src="imageSource" :alt="altText" />
     </div>
-
-    <slot class="content"></slot>
+    <div class="content">
+      <slot></slot>
+    </div>
   </div>
 </template>
 

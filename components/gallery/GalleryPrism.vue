@@ -252,10 +252,9 @@ watch(prismSides, (newSideCount) => {
   font-size: 1em;
   padding: 20px;
   position: sticky;
-  margin-top: 60vh;
+  margin-top: 35vh;
   margin-bottom: 17vh;
   top: calc(95vh - 50px);
-
   left: 3vw;
   z-index: 2;
   background-color: rgba(61, 4, 87, 0.85);

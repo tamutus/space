@@ -3,7 +3,7 @@
     <BackgroundTexture texture="velvet">
       <NavHeader> Photography </NavHeader>
 
-      <p>Behold the picture prism</p>
+      <p>Peruse pictures portrayed prismically</p>
       <section>
         <div class="gallery-container">
           <ClientOnly>
