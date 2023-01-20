@@ -214,7 +214,7 @@ watch(prismSides, (newSideCount) => {
   position: absolute;
   height: 100%;
   width: 100%;
-  overflow-x: hidden;
+  overflow-x: clip;
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;
