@@ -1,6 +1,5 @@
 import { H3Event } from "h3";
 import { Prisma, PrismaClient } from "@prisma/client";
-import { BlogPost } from ".prisma/client";
 import { reqHasScope } from "@/utils/authUtils";
 
 const blogPostWithTags = Prisma.validator<Prisma.BlogPostArgs>()({
@@ -13,12 +12,7 @@ const blogPostWithTags = Prisma.validator<Prisma.BlogPostArgs>()({
   },
 });
 
-export type BlogPostWithTags = Prisma.BlogPostGetPayload<
-  typeof blogPostWithTags
->;
-export type BlogPostWithTagStrings = BlogPost & {
-  tags: string[];
-};
+type BlogPostWithTags = Prisma.BlogPostGetPayload<typeof blogPostWithTags>;
 
 const trimPost = function (fullPost: any) {
   const trimmedInsert = fullPost?.content?.ops[0]?.insert

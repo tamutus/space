@@ -71,10 +71,7 @@
 </template>
 
 <script setup lang="ts">
-import {
-  BlogPostWithTags,
-  BlogPostWithTagStrings,
-} from "@/server/api/blog/index.get";
+import { BlogPostWithTags, BlogPostWithTagStrings } from "@/types/models";
 import { ComputedRef, Ref } from "vue";
 import { useAuth0 } from "@auth0/auth0-vue";
 

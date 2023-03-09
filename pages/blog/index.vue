@@ -55,17 +55,14 @@
 
 <script setup lang="ts">
 import { ComputedRef, Ref } from "vue";
-import { useAuth0 } from "@auth0/auth0-vue";
-import {
-  BlogPostWithTags,
-  BlogPostWithTagStrings,
-} from "@/server/api/blog/index.get";
+import Auth0 from "@auth0/auth0-vue";
+import { BlogPostWithTags, BlogPostWithTagStrings } from "@/types/models";
 
 useHead({
   title: "Lavra's Writing",
 });
 
-const auth0 = useAuth0();
+const auth0 = Auth0.useAuth0();
 const loadingAuth = computed(() => {
   return auth0 && auth0.isLoading && auth0.isLoading.value;
 });
