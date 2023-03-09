@@ -1,0 +1,107 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("PG_URL")
+}
+
+model Person {
+  id          Int          @id @default(autoincrement())
+  auth0sub    String       @unique
+  email       String       @unique
+  personNames PersonNames?
+  // contracts   Contract[]
+  desk        Desk?
+}
+
+model PersonNames {
+  id         Int     @id @default(autoincrement())
+  person     Person? @relation(fields: [personId], references: [id])
+  personId   Int?    @unique
+  chosenName String
+  familyName String?
+  legalName  String?
+  pronoun    String?
+}
+
+model Desk {
+  id       Int     @id @default(autoincrement())
+  bio      String?
+  person   Person  @relation(fields: [personId], references: [id])
+  personId Int     @unique
+  dropBox  String
+}
+
+model BlogPost {
+  id        Int           @id @default(autoincrement())
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+  title     String        @db.VarChar(255)
+  content   Json
+  published Boolean       @default(false)
+  tags      TagsOnPosts[]
+}
+
+model TagsOnPosts {
+  post   BlogPost @relation(fields: [postId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  postId Int
+  tag    Tag      @relation(fields: [tagId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  tagId  Int
+
+  @@id([postId, tagId])
+}
+
+model Tag {
+  id    Int           @id @default(autoincrement())
+  name  String        @unique
+  info  String?
+  art   TagsOnArt[]
+  posts TagsOnPosts[]
+}
+
+model TagsOnArt {
+  art   Art @relation(fields: [artId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  artId Int
+  tag   Tag @relation(fields: [tagId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  tagId Int
+
+  @@id([artId, tagId])
+}
+
+model Art {
+  id       Int         @id @default(autoincrement())
+  bucket   String
+  fileName String
+  title    String
+  info     String?
+  tags     TagsOnArt[]
+}
+
+// model Contract {
+//   id        Int       @id @default(autoincrement())
+//   ordinal   Int       @unique
+//   person    Person    @relation(fields: [personId], references: [id])
+//   personId  Int
+//   medium    String
+//   payments  Json?
+//   charges   Json?
+//   createdAt DateTime  @default(now())
+//   updatedAt DateTime  @updatedAt
+//   startDate DateTime?
+//   endDate   DateTime?
+// }
+
+// model Payment {
+
+// }
+
+// model Charge {
+//   id   Int     @id @default(autoincrement())
+//   paid Decimal @db.Money
+//   cost Decimal @db.Money
+// }

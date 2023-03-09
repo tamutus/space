@@ -1,8 +1,7 @@
 <template>
   <div id="app-box">
-    <ClientOnly>
-      <NavBar />
-    </ClientOnly>
+    <NavBar />
+    <NavAuth />
     <NuxtPage />
   </div>
   <footer>
@@ -13,6 +12,7 @@
 </template>
 
 <script setup lang="ts"></script>
+
 <style>
 #app-box {
 }

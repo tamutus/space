@@ -8,6 +8,9 @@
       <img src="https://img.icons8.com/nolan/64/geometric-flowers.png" />
     </button>
     <ul>
+      <li>
+        <!-- <AuthLink></AuthLink> -->
+      </li>
       <li v-for="menuItem of menuItems" :style="menuItem.style.value">
         <NuxtLink
           :class="`menu-item ${menuItem.link === currentPath ? 'focused' : ''}`"
@@ -25,6 +28,7 @@ import { Ref } from "vue";
 
 const route = useRoute();
 const currentPath = ref(route.path);
+
 const { winX, winY } = useWindowResize();
 const { scrollY } = useWindowScroll();
 
@@ -33,7 +37,7 @@ const menuOpenedAtScroll: Ref<number | undefined> = ref(undefined);
 // const menuOpenedAtWidth: Ref<number | undefined> = ref(undefined);
 
 const menuOrientation = computed(() => {
-  if (winX.value < 990) {
+  if (winX.value < 1150) {
     return "vertical";
   } else {
     return "horizontal";
@@ -43,13 +47,13 @@ const menuOrientation = computed(() => {
 const navDimensions = computed(() => {
   if (menuOrientation.value === "horizontal") {
     return {
-      height: "4rem",
-      width: "20rem",
+      height: "3.5rem",
+      width: "23rem",
     };
   } else {
     return {
       height: "8rem",
-      width: "calc(80px + 8rem)",
+      width: "calc(60px + 10rem)",
       translate: "0px -8rem",
       rotate: "-90deg",
     };
@@ -67,21 +71,35 @@ const togglerStyle = computed(() => {
   }
 });
 
-const galleryStyle = computed(() => {
+const hubStyle = computed(() => {
   if (menuOrientation.value === "horizontal") {
     return {
       top: "1rem",
-      right: "280px",
+      right: "370px",
     };
   } else {
     return {
       top: "3rem",
-      right: "calc(40px + 6rem)",
+      right: "calc(20px + 8.5rem)",
       rotate: "90deg",
     };
   }
 });
-const hubStyle = computed(() => {
+const blogStyle = computed(() => {
+  if (menuOrientation.value === "horizontal") {
+    return {
+      top: "1rem",
+      right: "305px",
+    };
+  } else {
+    return {
+      top: "3rem",
+      right: "calc(20px + 6.3rem)",
+      rotate: "90deg",
+    };
+  }
+});
+const galleryStyle = computed(() => {
   if (menuOrientation.value === "horizontal") {
     return {
       top: "1rem",
@@ -90,7 +108,7 @@ const hubStyle = computed(() => {
   } else {
     return {
       top: "3rem",
-      right: "calc(40px + 4.5rem)",
+      right: "calc(20px + 3.5rem)",
       rotate: "90deg",
     };
   }
@@ -104,16 +122,33 @@ const commissionStyle = computed(() => {
   } else {
     return {
       top: "3rem",
-      right: "40px",
+      right: "20px",
       rotate: "90deg",
     };
   }
 });
+// const logStyle = computed(() => {
+//   return menuOrientation.value === "horizontal"
+//     ? {
+//         top: "1rem",
+//         right: "210px",
+//       }
+//     : {
+//         top: "3rem",
+//         right: "calc(40px + 3.5rem)",
+//         rotate: "90deg",
+//       };
+// });
 const menuItems = [
   {
     title: "Hub",
     link: "/",
     style: hubStyle,
+  },
+  {
+    title: "Blog",
+    link: "/blog",
+    style: blogStyle,
   },
   {
     title: "Gallery",
@@ -128,8 +163,10 @@ const menuItems = [
 ];
 
 watch(scrollY, (verticalScroll) => {
-  if (menuOpen.value === true) {
-    if (menuOpenedAtScroll.value) {
+  if (verticalScroll === 0 && menuOpen.value === false) {
+    toggleNav();
+  } else if (menuOpen.value === true) {
+    if (menuOpenedAtScroll.value !== undefined) {
       if (
         Math.abs(verticalScroll - menuOpenedAtScroll.value) >
         (winY.value * 3) / 4
@@ -167,9 +204,13 @@ function toggleNav() {
   justify-content: flex-end;
   align-items: center;
   transform-origin: bottom right;
-  transition: translate 0.7s, transform 0.8s, background-color 1.5s, width 0.8s,
-    height 0.8s, rotate 0.8s;
+  transition: translate 0.7s, transform 0.8s, background-color 0.4s, width 0.8s,
+    height 0.8s, rotate 0.8s, opacity 0.2s;
   background-color: rgba(61, 4, 87, 0.85);
+  opacity: 0.3;
+}
+#nav-main:hover {
+  opacity: 1;
 }
 #nav-main li {
   position: absolute;
