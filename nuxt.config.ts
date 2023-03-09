@@ -49,7 +49,9 @@ export default defineNuxtConfig({
   components: true,
   routeRules: {
     "/profile": { ssr: false },
-    "/blog/post": { ssr: false },
+    "/blog/**": { ssr: false },
+    "/desk": { ssr: false },
+    "/tag/**": { ssr: false },
   },
   runtimeConfig: {
     gcpPrivateKeyId: "",

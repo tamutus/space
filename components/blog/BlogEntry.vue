@@ -16,7 +16,7 @@
 </template>
 
 <script setup lang="ts">
-import { BlogPostWithTagStrings as BlogPost } from "@/server/api/blog/index.get";
+import { BlogPostWithTagStrings as BlogPost } from "@/types/models";
 import { PropType } from "vue";
 
 const props = defineProps({
