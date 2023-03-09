@@ -1,7 +1,7 @@
-// Surround components using this in ClientOnly (best Nuxt practice?)
+// Suffix components using this with .client.vue
 export function useVProperties() {
-  const vw = ref(window.innerWidth * 0.01),
-    vh = ref(window.innerHeight * 0.01),
+  const vw = ref(19),
+    vh = ref(10),
     vmax = ref(vw.value > vh.value ? vw.value : vh.value);
 
   function update() {
@@ -11,6 +11,8 @@ export function useVProperties() {
   }
 
   useEventListener(window, "resize", update);
-
+  onMounted(() => {
+    update();
+  });
   return { vw, vh, vmax };
 }

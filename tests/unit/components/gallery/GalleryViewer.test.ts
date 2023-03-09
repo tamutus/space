@@ -14,7 +14,6 @@ describe("GalleryViewer", async () => {
   it("starts with the right animation index", () => {
     const wrapper = mount(GalleryViewer);
     const animationIndex = wrapper.vm.animationIndex;
-    console.log(animationIndex);
     expect(animationIndex).toBe(0);
   });
   describe("when Next button is pressed", async () => {

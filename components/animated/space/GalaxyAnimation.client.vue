@@ -68,7 +68,7 @@ let space: d3.Selection<BaseType, unknown, HTMLElement, any>,
 
 // Dynamic variables, counters
 let starCount: number = 0,
-  nebula: NodeJS.Timeout, // tracks timeouts so the animation can be reset
+  nebula: Ref<NodeJS.Timeout | null> = ref(null), // tracks timeouts so the animation can be reset
   // Turn off for mobile by default
   exists: Ref<boolean> = ref(
     /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
@@ -99,7 +99,7 @@ function generateStar(
     .style("fill", starColor());
   starCount++;
   if (starCount < starMax) {
-    nebula = setTimeout(
+    nebula.value = setTimeout(
       () => generateStar(birthInterval * 0.99, stars),
       Math.floor(Math.random() * birthInterval)
     );
@@ -108,7 +108,10 @@ function generateStar(
 
 function toggleExistence() {
   if (exists.value) {
-    clearTimeout(nebula);
+    if (nebula.value !== null) {
+      clearTimeout(nebula.value);
+    }
+    nebula.value = null;
     stars.selectAll(".star").remove();
     starCount = 0;
     exists.value = false;
@@ -178,9 +181,9 @@ function loadUserPreferences() {
   }
 }
 
-onMounted(() => {
+onMounted(async () => {
   loadUserPreferences();
-
+  await nextTick();
   (space = d3.select("#space")), (stars = space.select("#stars"));
 
   newStar = stars.select(".new.star");

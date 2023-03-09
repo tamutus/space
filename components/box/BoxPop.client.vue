@@ -1,6 +1,8 @@
 <template>
-  <div :class="`pop ${active ? 'active' : ''}`" ref="popper">
-    <slot></slot>
+  <div>
+    <div :class="`pop ${active ? 'active' : ''}`" ref="popper">
+      <slot></slot>
+    </div>
   </div>
 </template>
 

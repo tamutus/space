@@ -17,9 +17,9 @@
         </div>
       </div>
     </div>
-    <button v-if="zoomable" class="zoomer" @click="toggleZoom">
+    <ButtonStandard v-if="zoomable" class="zoomer" @click="toggleZoom">
       {{ magnified ? "Zoom Out" : "Enhance" }}
-    </button>
+    </ButtonStandard>
   </div>
 </template>
 
@@ -247,17 +247,11 @@ watch(prismSides, (newSideCount) => {
   transform-style: preserve-3d;
 }
 .zoomer {
-  border: none;
-  border-radius: 10%;
-  font-size: 1em;
-  padding: 20px;
   position: sticky;
   margin-top: 35vh;
   margin-bottom: 17vh;
   top: calc(95vh - 50px);
   left: 3vw;
   z-index: 2;
-  background-color: rgba(61, 4, 87, 0.85);
-  color: rgb(228, 195, 255);
 }
 </style>

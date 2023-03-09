@@ -16,6 +16,13 @@ const props = defineProps({
     type: Number,
     default: 0,
   },
+  pad: {
+    type: String,
+    default: "l",
+    validator(p: string) {
+      return ["l", "m", "s"].includes(p);
+    },
+  },
 });
 const dropletDelay = computed(() => {
   return {
@@ -98,16 +105,21 @@ const dropletDelay = computed(() => {
   }
 }
 .header {
-  text-shadow: rgb(114, 8, 163) -2px 0 2px, rgb(61, 5, 192) 2px 0 2px;
   color: white;
   transition: font-size 0.2s 0s ease-out;
+  text-shadow: rgb(114, 8, 163) -1px 0 4px, rgb(61, 5, 192) 1px 0 4px;
+}
+.header h1,
+.header h2,
+.header h3 {
+  text-shadow: rgb(114, 8, 163) -2px 0 2px, rgb(61, 5, 192) 2px 0 2px;
 }
 .display {
   color: rgb(76, 1, 168);
   text-shadow: rgb(227, 205, 253) -2px 0 8px, rgb(153, 255, 224) 2px 0 8px;
   border-radius: 20px;
   z-index: 1;
-  padding: 7vh 10vw;
+  padding: 7vh 12.3%;
   max-width: 900px;
   margin: 0 auto;
   background-color: rgba(193, 214, 253, 0.9);

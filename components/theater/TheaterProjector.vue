@@ -10,9 +10,9 @@
             v-for="projection of projections"
             :data-title="projection.frameTitle"
           >
-            <a v-if="projection.link" :href="projection.link"
-              ><h3>{{ projection.header }}</h3></a
-            >
+            <h3 v-if="projection.link">
+              <a :href="projection.link">{{ projection.header }} </a>
+            </h3>
 
             <h3 v-else>{{ projection.header }}</h3>
 

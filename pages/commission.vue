@@ -3,37 +3,33 @@
     <BackgroundTexture texture="velvet">
       <section>
         <NavHeader>Your New Website</NavHeader>
-        <ClientOnly>
-          <BoxFocus>
-            <BoxNeon color="orange">
-              Commissions are open!
-              <template #paragraph>
-                <div>
-                  <p>
-                    Hit me up to design your new website! I work with small
-                    business, startups, creatives, service providers, activists,
-                    or whomever else is looking to develop infrastructure that
-                    handles your needs with an energizing flair.
-                  </p>
-                  <p>
-                    Want to skip the pitch?
-                    <NuxtLink
-                      :to="{ path: '/commission-terms', hash: '#pricing' }"
-                      >Head straight to prices</NuxtLink
-                    >
-                  </p>
-                </div>
-              </template>
-            </BoxNeon>
-          </BoxFocus>
-        </ClientOnly>
+
+        <BoxFocus>
+          <BoxNeon color="orange">
+            Commissions are open!
+            <template #paragraph>
+              <div>
+                <p>
+                  Hit me up to design your new website! I work with small
+                  business, startups, creatives, service providers, activists,
+                  or whomever else is looking to develop infrastructure that
+                  handles your needs with an energizing flair.
+                </p>
+                <p>
+                  Want to skip the pitch?
+                  <NuxtLink
+                    :to="{ path: '/commission-terms', hash: '#pricing' }"
+                    >Head straight to prices</NuxtLink
+                  >
+                </p>
+              </div>
+            </template>
+          </BoxNeon>
+        </BoxFocus>
       </section>
       <section>
-        <ClientOnly>
-          <BoxPop>
-            <h2>Website Design, Construction, and Deployment</h2></BoxPop
-          >
-        </ClientOnly>
+        <BoxPop> <h2>Website Design, Construction, and Deployment</h2></BoxPop>
+
         <div class="padded">
           <BackgroundHologram :delay="2">
             <h3>
@@ -51,9 +47,7 @@
         </div>
       </section>
       <section>
-        <ClientOnly>
-          <BoxPop><h2>Impress Your Audience</h2> </BoxPop>
-        </ClientOnly>
+        <BoxPop><h2>Impress Your Audience</h2> </BoxPop>
         <div class="padded">
           <BackgroundHologram :delay="4">
             <template #default>
@@ -82,12 +76,16 @@
           >
         </div>
       </section>
+    </BackgroundTexture>
+    <BackgroundImage
+      image-file-name="assets/screenshots/You_need_to_work_to_support_your_wretched_lifestyle.png"
+      attachment="fixed"
+      :note="`Scene from Neo Yokio, episode 1, 7:07`"
+    >
       <section>
-        <ClientOnly>
-          <BoxPop>
-            <h2>Define your enterprise</h2>
-          </BoxPop>
-        </ClientOnly>
+        <BoxPop>
+          <h2>Define your enterprise</h2>
+        </BoxPop>
         <div class="padded">
           <BackgroundHologram :delay="6">
             <template #display>
@@ -112,9 +110,7 @@
         </div>
       </section>
       <section>
-        <ClientOnly
-          ><BoxPop><h2>Showcase Your Work Elegantly</h2></BoxPop></ClientOnly
-        >
+        <BoxPop><h2>Showcase Your Work Elegantly</h2></BoxPop>
         <div class="padded">
           <BackgroundHologram :delay="8">
             <template #display
@@ -138,11 +134,10 @@
           </BackgroundHologram>
         </div>
       </section>
-
-      <!-- <section>
-        <ClientOnly>
-          <BoxPop><h2>Monetize Your Creations</h2> </BoxPop></ClientOnly
-        >
+    </BackgroundImage>
+    <!-- <section>
+        
+          <BoxPop><h2>Monetize Your Creations</h2> </BoxPop>
         <div class="padded">
           <BackgroundHologram :delay="10">
             <template #display
@@ -156,7 +151,7 @@
             </template></BackgroundHologram
           >
         </div> -->
-      <!-- <p>
+    <!-- <p>
 			Art markets vary. Selling your art through a publishing house, whether print or digital, puts you into a box. Don't 
 		</p>
 		<p>
@@ -165,21 +160,20 @@
 		<p>
 			If you create multiple kinds of content, such as visual art, stories, films, have a  
 		</p> -->
-      <!-- </section> -->
+    <!-- </section> -->
+    <BackgroundTexture texture="velvet">
       <BoxFocus>
-        <ClientOnly>
-          <BoxNeon color="green">
-            Lavra is open for business!
-            <template #paragraph>
-              Click the button below for general prices. Email
-              <a href="mailto:them@lavrat.space">them</a> for more detailed
-              quotes.
-            </template>
-          </BoxNeon>
-        </ClientOnly>
+        <BoxNeon color="green">
+          Lavra is open for business!
+          <template #paragraph>
+            Click the button below for general prices. Email
+            <a href="mailto:them@lavrat.space">them</a> for more detailed
+            quotes.
+          </template>
+        </BoxNeon>
       </BoxFocus>
       <section>
-        ><ButtonRowdy to="commission-terms">I'M INTRIGUED</ButtonRowdy>
+        <ButtonRowdy to="commission-terms">I'M INTRIGUED</ButtonRowdy>
       </section>
     </BackgroundTexture>
   </div>

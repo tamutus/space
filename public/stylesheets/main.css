@@ -90,7 +90,7 @@ h1 {
 }
 h2 {
   font-weight: 400;
-  font-size: 3em;
+  font-size: 2.5em;
   line-height: 1.1em;
   text-align: center;
   margin: 20px auto 30px auto;
@@ -135,14 +135,34 @@ button * {
   cursor: url("../assets/cursors/lavra_goat.cur"), pointer;
 }
 a {
-  color: rgba(169, 10, 243, 0.75);
-  -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: rgba(140, 63, 175, 0.88);
-  transition: color 0.2s ease-out;
+  /* color: rgba(169, 10, 243, 0.75); */
+  color: rgba(212, 159, 237, 0.86);
+  transition: color 0.2s ease-out, -webkit-text-stroke-color 0.2s ease-out;
   font-size: inherit;
 }
 a:hover {
   color: rgba(255, 183, 134, 0.877);
+}
+h1 a,
+h2 a,
+h3 a,
+.tech-table a,
+.hologram .display a,
+.tubey a {
+  -webkit-text-stroke-width: 1px;
+  font-weight: 700;
+  -webkit-text-stroke-color: rgba(140, 63, 175, 0.88);
+}
+h1 a,
+h2 a {
+  -webkit-text-stroke-width: 2px;
+}
+h1 a:hover,
+h2 a:hover,
+h3 a:hover,
+.tech-table a:hover,
+.hologram .display a:hover,
+.tubey a:hover {
   -webkit-text-stroke-color: rgba(218, 69, 193, 0.88);
 }
 img.preview {
@@ -154,6 +174,15 @@ img.preview {
   padding-right: 4vw;
   padding-left: 4vw;
   max-width: 92vw;
+}
+
+/* Quill editor styles */
+.ql-toolbar.ql-bubble,
+.ql-toolbar.ql-snow,
+.ql-container.ql-bubble,
+.ql-container.ql-snow {
+  border-color: rgb(37, 151, 207) !important;
+  border-radius: 3px;
 }
 
 /*===========================*/
@@ -211,4 +240,9 @@ img.preview {
   /* #all-content {
     margin-left: 75px;
   } */
+}
+@media screen and (max-width: 450px) {
+  h2 {
+    font-size: 2em;
+  }
 }

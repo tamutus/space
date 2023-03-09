@@ -6,20 +6,18 @@
       <p>Peruse pictures portrayed prismically</p>
       <section>
         <div class="gallery-container">
-          <ClientOnly>
-            <GalleryPrism
-              :colors="backgroundColors"
-              :zoomable="true"
-              :max-height="900"
-              :max-width="900"
-            >
-              <template v-for="(image, imageNumber) of images" #[imageNumber]>
-                <div class="image-container">
-                  <img :src="image" class="" />
-                </div>
-              </template>
-            </GalleryPrism>
-          </ClientOnly>
+          <GalleryPrism
+            :colors="backgroundColors"
+            :zoomable="true"
+            :max-height="900"
+            :max-width="900"
+          >
+            <template v-for="(image, imageNumber) of images" #[imageNumber]>
+              <div class="image-container">
+                <img :src="image" class="" />
+              </div>
+            </template>
+          </GalleryPrism>
         </div>
       </section>
     </BackgroundTexture>
@@ -37,8 +35,16 @@ const images = [
   "/assets/photos/misty.jpg",
   "/assets/photos/Twilight_on_Douglass.jpg",
   "/assets/photos/henry_rav.JPG",
+  "/assets/photos/Chloe.jpg",
 ];
-const backgroundColors = ["rgba(21, 14, 69, .75)", "rgba(62, 22, 92,.75)"];
+const backgroundColors = [
+  "rgba(3, 3, 3, .75)",
+  "rgba(92, 108, 110, .75)",
+  "rgba(20, 114, 86,.75)",
+  "rgba(21, 50, 12,.75)",
+  "rgba(21,4,80,.75)",
+  "rgba(181,223,201,.75)",
+];
 </script>
 
 <style scoped>

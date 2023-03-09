@@ -2,43 +2,72 @@
   <div id="gallery-page">
     <BackgroundTexture texture="sherbet">
       <NavHeader>Gallery</NavHeader>
-      <ClientOnly>
-        <BoxFocus>
-          <BoxTube>
-            <p>
-              On this page is a sampling of some animations I'm proud of, and a
-              handful of gimmicky tech demos for libraries I like to use. You
-              can hire me to make CSS animations, widgets, or anything else that
-              these examples inspire.
-            </p>
-          </BoxTube>
-        </BoxFocus>
-      </ClientOnly>
+
+      <BoxFocus>
+        <BoxTube>
+          <ul class="separated">
+            <li><NuxtLink to="#animations">Animations</NuxtLink></li>
+            <li><NuxtLink to="#experiments">Experiments</NuxtLink></li>
+            <li><NuxtLink to="#websites">Websites</NuxtLink></li>
+            <li><NuxtLink to="#pictures">Pictures</NuxtLink></li>
+            <!-- <li><NuxtLink to="#"></NuxtLink></li> -->
+          </ul>
+        </BoxTube>
+      </BoxFocus>
     </BackgroundTexture>
     <BackgroundTexture texture="solarpunk">
       <section>
-        <BackgroundHologram :delay="1">
-          <ClientOnly>
-            <BoxNeon color="green"> Animations </BoxNeon>
-            <GalleryViewer category="animations" />
-          </ClientOnly>
+        <BackgroundHologram :delay="1" id="animations">
+          <BoxNeon color="green">
+            Animations
+            <template #paragraph>
+              <p>
+                You can hire me to make CSS animations, widgets, or anything
+                else that these examples inspire.
+              </p>
+            </template>
+          </BoxNeon>
+          <GalleryViewer category="animations" />
         </BackgroundHologram>
       </section>
     </BackgroundTexture>
     <BackgroundTexture texture="solarpunk">
       <section>
-        <BackgroundHologram :delay="5">
-          <ClientOnly>
-            <BoxNeon color="yellow"> Experiments </BoxNeon>
-            <GalleryViewer category="widgets" />
-          </ClientOnly>
+        <BackgroundHologram :delay="5" id="experiments">
+          <BoxNeon color="yellow">
+            Experiments
+            <template #paragraph>
+              <p>
+                These fun little projects had me practice a variety of
+                web/JavaScript tools. The galaxy uses d3, the shiny Pokémon
+                generator uses async data methods on an API, and the prism was
+                an exploration of 3D rendering with CSS (and I use that Vue
+                component elsewhere on my site).
+              </p>
+            </template>
+          </BoxNeon>
+          <GalleryViewer category="widgets" />
         </BackgroundHologram>
       </section>
     </BackgroundTexture>
-    <BackgroundTexture texture="sherbet">
-      <ClientOnly
-        ><BoxPop><h2>Personal pages</h2></BoxPop></ClientOnly
-      >
+    <BackgroundTexture texture="velvet" id="websites">
+      <section>
+        <BackgroundHologram :delay="9" id="experiments">
+          <BoxNeon color="white">
+            Websites
+            <template #paragraph>
+              <p>
+                Screenshots of websites that I've programmed. Click one to
+                launch it within this gallery.
+              </p>
+            </template>
+          </BoxNeon>
+          <GalleryViewer category="websites" />
+        </BackgroundHologram>
+      </section>
+    </BackgroundTexture>
+    <BackgroundTexture texture="fae" id="pictures">
+      <BoxPop><h2>Personal pages</h2></BoxPop>
 
       <BoxTube
         ><p>
@@ -67,6 +96,17 @@ useHead({
 </script>
 
 <style scoped>
+ul.separated {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: space-evenly;
+}
+ul.separated li {
+  text-align: center;
+  font-size: 1.5em;
+}
+
 section {
   padding: 50px 7%;
 }

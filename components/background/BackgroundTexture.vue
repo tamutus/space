@@ -34,6 +34,15 @@ const props = defineProps({
     ),
     linear-gradient(180deg, rgba(43, 25, 65, 1) 0%, rgb(65, 2, 94) 100%);
 }
+.fae.bg {
+  background-image: radial-gradient(
+      at 47% 20%,
+      rgba(255, 206, 244, 0.747) 10%,
+      rgba(245, 133, 221, 0.488) 50%,
+      rgba(137, 95, 253, 0.87) 100%
+    ),
+    linear-gradient(180deg, rgba(125, 51, 223, 0.76) 0%, rgb(189, 79, 240) 100%);
+}
 .solarpunk.bg {
   background-image: linear-gradient(
       -40deg,
@@ -64,6 +73,10 @@ const props = defineProps({
       rgba(254, 164, 155, 1) 67%,
       rgba(253, 223, 123, 1) 100%
     );
+}
+.wood.bg {
+  background-image: url("/assets/photos/wood_surface.jpg");
+  border-bottom-color: rgb(90, 7, 55);
 }
 @keyframes sunshine {
 }

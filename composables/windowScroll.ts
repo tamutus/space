@@ -1,4 +1,4 @@
-// Surround components using this in ClientOnly (best Nuxt practice?)
+// Suffix components using this with .client.vue
 export function useWindowScroll() {
   const scrollX = ref(0),
     scrollY = ref(0);

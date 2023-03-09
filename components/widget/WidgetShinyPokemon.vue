@@ -29,9 +29,7 @@ function newFetch() {
     .then(handleErrors)
     .then(parseJSON)
     .then(newShiny)
-    .catch((err) => {
-      console.log(err);
-    });
+    .catch(console.error);
 }
 
 function newXHR() {
@@ -40,7 +38,6 @@ function newXHR() {
   xhr.onreadystatechange = function () {
     if (xhr.readyState == 4 && xhr.status == 200)
       newShiny(JSON.parse(xhr.responseText));
-    else console.log(`${xhr.status} at ready state ${xhr.readyState}`);
   };
   xhr.open("GET", `${baseUrl}${pokemon.value}`);
   xhr.send();

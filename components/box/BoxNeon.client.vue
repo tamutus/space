@@ -1,12 +1,14 @@
 <template>
-  <div class="perspective" ref="container">
-    <div class="neon" :style="`transform: rotateX(${neonAngle}deg)`">
-      <h2 :class="`header ${color}`">
-        <slot></slot>
-      </h2>
-      <p v-if="$slots.paragraph" :class="`paragraph ${color}`">
-        <slot name="paragraph"></slot>
-      </p>
+  <div>
+    <div class="perspective" ref="container">
+      <div class="neon" :style="`transform: rotateX(${neonAngle}deg)`">
+        <h2 :class="`header ${color}`">
+          <slot></slot>
+        </h2>
+        <p v-if="$slots.paragraph" :class="`paragraph ${color}`">
+          <slot name="paragraph"></slot>
+        </p>
+      </div>
     </div>
   </div>
 </template>
@@ -28,8 +30,7 @@ const neonAngle = computed(() => {
     return 0;
   }
   const cy = componentY.value;
-  const vhValue = vh.value;
-  return 0.5 * Math.max(Math.min(60 - cy / vhValue, 31), -15);
+  return 0.5 * Math.max(Math.min(60 - cy / vh.value, 31), -15);
 });
 </script>
 
@@ -99,7 +100,7 @@ const neonAngle = computed(() => {
 }
 .red {
   color: rgb(253, 49, 63);
-  text-shadow: rgb(235, 222, 250) -2px 0 2px, rgb(248, 203, 224) 2px 0 2px;
+  text-shadow: rgb(235, 222, 250) -1px 0 2px, rgb(248, 203, 224) 1px 0 2px;
 }
 .orange {
   color: rgb(253, 200, 80);
@@ -110,6 +111,7 @@ const neonAngle = computed(() => {
 }
 .yellow {
   color: rgb(245, 255, 106);
+  text-shadow: rgb(236, 109, 70) -1px 0 2px, rgb(230, 146, 20) 2px 0 4px;
 }
 .green {
   color: rgb(117, 255, 159);

@@ -40,69 +40,65 @@
     </BackgroundTexture>
     <BackgroundTexture texture="solarpunk">
       <section>
-        <ClientOnly>
-          <BoxNeon color="orange">
-            Technologies:
-            <template #paragraph>
-              <TableTech>
-                <template #1>
-                  <div>
-                    <h4>General</h4>
-                    <ul>
-                      <li>TypeScript</li>
-                      <li>JavaScript</li>
-                      <li>Git</li>
-                      <li>GitHub</li>
-                      <li>Automated Testing</li>
-                      <li>Corel Painter</li>
-                      <li>Inkscape</li>
-                    </ul>
-                  </div>
-                </template>
-                <template #2>
-                  <div>
-                    <h4>Back-End Web</h4>
-                    <ul>
-                      <li>Node.js</li>
-                      <li>Express</li>
-                      <li>MongoDB and MongoDB Atlas</li>
-                      <li>Mongoose</li>
-                      <li>Mongoose-fuzzy-searching</li>
-                      <li>
-                        <a href="https://www.digitalocean.com/"
-                          >Digital Ocean</a
-                        >
-                        static hosting
-                      </li>
-                      <li>
-                        <a href="https://render.com/">Render</a> Docker image
-                        hosting
-                      </li>
-                      <li>
-                        <a href="https://vercel.com">Vercel</a> static hosting
-                      </li>
-                      <li>Nuxt</li>
-                      <li>Nitro</li>
-                    </ul>
-                  </div>
-                </template>
-                <template #3>
-                  <div>
-                    <h4>Front-End Web</h4>
-                    <ul>
-                      <li>Responsive development</li>
-                      <li>CSS design and animation</li>
-                      <li>d3</li>
-                      <li>Leaflet.js</li>
-                      <li>Vue</li>
-                      <li>Angular</li>
-                    </ul>
-                  </div>
-                </template>
-              </TableTech>
-            </template>
-          </BoxNeon>
-        </ClientOnly>
+        <BoxNeon color="orange">
+          Technologies:
+          <template #paragraph>
+            <TableTech>
+              <template #1>
+                <div>
+                  <h4>General</h4>
+                  <ul>
+                    <li>TypeScript</li>
+                    <li>JavaScript</li>
+                    <li>Git</li>
+                    <li>GitHub</li>
+                    <li>Automated Testing</li>
+                    <li>Corel Painter</li>
+                    <li>Inkscape</li>
+                    <li>Visual Studio Code</li>
+                  </ul>
+                </div>
+              </template>
+              <template #2>
+                <div>
+                  <h4>Back-End Web</h4>
+                  <ul>
+                    <li>Node.js</li>
+                    <li>Nuxt 3 with hybrid SSR</li>
+                    <li>Express</li>
+                    <li>MongoDB on Atlas</li>
+                    <li>Google Cloud Storage</li>
+                    <li>
+                      <a href="https://www.digitalocean.com/">Digital Ocean</a>
+                      static hosting
+                    </li>
+                    <li>
+                      <a href="https://render.com/">Render</a> Docker image
+                      hosting
+                    </li>
+                    <li>
+                      <a href="https://vercel.com">Vercel</a> static hosting
+                    </li>
+                  </ul>
+                </div>
+              </template>
+              <template #3>
+                <div>
+                  <h4>Front-End Web</h4>
+                  <ul>
+                    <li>Responsive development</li>
+                    <li>CSS design and animation</li>
+                    <li>Vue</li>
+                    <li>Auth0</li>
+                    <li>d3</li>
+                    <li>Leaflet.js</li>
+                    <li>Angular</li>
+                  </ul>
+                </div>
+              </template>
+            </TableTech>
+          </template>
+        </BoxNeon>
       </section>
     </BackgroundTexture>
   </div>
@@ -115,6 +111,9 @@ useHead({
 </script>
 
 <style scoped>
+section:first-of-type {
+  padding-top: 0;
+}
 section:not(:first-of-type) {
   padding-top: 150px;
   padding-bottom: 150px;

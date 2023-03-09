@@ -3,24 +3,22 @@
     <BackgroundTexture texture="velvet">
       <section>
         <NavHeader> Let's Talk! </NavHeader>
-        <ClientOnly>
-          <BoxFocus
-            ><BoxTube>
-              <div>
-                <h2><em>What to expect when commissioning Lavra</em></h2>
-                <p>
-                  If you are considering commissioning me, read through the
-                  walkthrough of my process below and peruse my prices.
-                </p>
-              </div>
-            </BoxTube></BoxFocus
-          >
-        </ClientOnly>
+
+        <BoxFocus
+          ><BoxTube>
+            <div>
+              <h2><em>What to expect when commissioning Lavra</em></h2>
+              <p>
+                If you are considering commissioning me, read through the
+                walkthrough of my process below and peruse my prices.
+              </p>
+            </div>
+          </BoxTube></BoxFocus
+        >
       </section>
       <section>
-        <ClientOnly>
-          <BoxPop> <h2>Walkthrough</h2></BoxPop>
-        </ClientOnly>
+        <BoxPop> <h2>Walkthrough</h2></BoxPop>
+
         <BackgroundHologram>
           <h3>
             <em>From concept to experience</em>
@@ -140,8 +138,8 @@
                   </div></template
                 ><template #2>
                   <div>
+                    <h4>PostgreSQL</h4>
                     <h4>MongoDB</h4>
-                    <h4>PostgreSQL <em>(soon)</em></h4>
                   </div>
                 </template>
               </TableTech>
@@ -150,9 +148,8 @@
         </div>
       </section>
       <section id="pricing">
-        <ClientOnly>
-          <BoxPop><h2>Prices</h2> </BoxPop>
-        </ClientOnly>
+        <BoxPop><h2>Prices</h2> </BoxPop>
+
         <BackgroundHologram>
           <template #display>
             <TableTech>
@@ -233,10 +230,8 @@
         </BackgroundHologram>
       </section>
       <section>
-        <ClientOnly
-          ><BoxPop
-            ><h2><span title="Disc">💽</span>ounts</h2></BoxPop
-          ></ClientOnly
+        <BoxPop
+          ><h2><span title="Disc">💽</span>ounts</h2></BoxPop
         >
         <BackgroundHologram>
           <template #display>
@@ -258,11 +253,9 @@
         </BackgroundHologram>
       </section>
       <section>
-        <ClientOnly>
-          <BoxPop
-            ><h2><span title="Disc">💽</span>laimers</h2>
-          </BoxPop></ClientOnly
-        >
+        <BoxPop
+          ><h2><span title="Disc">💽</span>laimers</h2>
+        </BoxPop>
         <BackgroundHologram>
           <template #display>
             <ul>
@@ -295,24 +288,22 @@
         >
       </section>
       <section id="contact-info">
-        <ClientOnly>
-          <BoxNeon color="green">
-            Lavra is open for business!
-            <template #paragraph>
-              <div>
-                <h3>
-                  Email
-                  <a href="mailto:them@lavrat.space">them</a> for a consultation
-                  + quote.
-                </h3>
+        <BoxNeon color="green">
+          Lavra is open for business!
+          <template #paragraph>
+            <div>
+              <h3>
+                Email
+                <a href="mailto:them@lavrat.space">them</a> for a consultation +
+                quote.
+              </h3>
 
-                <h4>
-                  Or <a href="/commission">Go Back to Commission Information</a>
-                </h4>
-              </div>
-            </template>
-          </BoxNeon>
-        </ClientOnly>
+              <h4>
+                Or <a href="/commission">Go Back to Commission Information</a>
+              </h4>
+            </div>
+          </template>
+        </BoxNeon>
       </section>
     </BackgroundTexture>
   </div>
@@ -325,6 +316,10 @@ useHead({
 </script>
 
 <style scoped>
+.tubey h2 {
+  font-family: "Odibee Sans", sans-serif;
+}
+
 h3 {
   font-family: Ubuntu, sans-serif;
   font-weight: 700;

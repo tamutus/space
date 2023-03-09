@@ -47,6 +47,12 @@ const animations = computed(() => {
       resolveComponent("WidgetPrism"),
       resolveComponent("WidgetShinyPokemon"),
     ];
+  } else if (props.category === "websites") {
+    return [
+      resolveComponent("WebsnapBold"),
+      resolveComponent("WebsnapVeritas"),
+      resolveComponent("WebsnapMagnova"),
+    ];
   } else {
     return [
       resolveComponent("AnimatedSunrise"),
