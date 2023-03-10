@@ -33,23 +33,23 @@ export default defineEventHandler(async (event: H3Event) => {
     return [];
   }
   const runtimeConfig = useRuntimeConfig();
+  const privKey =
+    bucketName === "adult-gallery"
+      ? runtimeConfig.gcpPrivateNsfwKey
+      : runtimeConfig.gcpPrivateKey;
+  const clientEmail =
+    bucketName === "adult-gallery"
+      ? runtimeConfig.gcpClientNsfwEmail
+      : runtimeConfig.gcpClientEmail;
+  const storage: Storage = new Storage({
+    projectId: runtimeConfig.public.gcpProjectId,
+    credentials: {
+      type: "service_account",
+      private_key: privKey.split(String.raw`\n`).join("\n"),
+      client_email: clientEmail,
+    },
+  });
   if ((await reqHasScope(event, requiredScope)) === true) {
-    const privKey =
-      bucketName === "adult-gallery"
-        ? runtimeConfig.gcpPrivateNsfwKey
-        : runtimeConfig.gcpPrivateKey;
-    const clientEmail =
-      bucketName === "adult-gallery"
-        ? runtimeConfig.gcpClientNsfwEmail
-        : runtimeConfig.gcpClientEmail;
-    const storage: Storage = new Storage({
-      projectId: runtimeConfig.public.gcpProjectId,
-      credentials: {
-        type: "service_account",
-        private_key: privKey.split(String.raw`\n`).join("\n"),
-        client_email: clientEmail,
-      },
-    });
     const fileListResponse: GetFilesResponse = await storage
       .bucket(bucketName)
       .getFiles();
