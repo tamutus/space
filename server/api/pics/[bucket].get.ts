@@ -31,9 +31,9 @@ export default defineEventHandler(async (event: H3Event) => {
   const requiredScope = bucketScope(bucketName);
   if (!requiredScope) {
     return [];
-  } else if ((await reqHasScope(event, requiredScope)) === true) {
-    const runtimeConfig = useRuntimeConfig();
-
+  }
+  const runtimeConfig = useRuntimeConfig();
+  if ((await reqHasScope(event, requiredScope)) === true) {
     const privKey =
       bucketName === "adult-gallery"
         ? runtimeConfig.gcpPrivateNsfwKey
@@ -42,17 +42,14 @@ export default defineEventHandler(async (event: H3Event) => {
       bucketName === "adult-gallery"
         ? runtimeConfig.gcpClientNsfwEmail
         : runtimeConfig.gcpClientEmail;
-    const storage: Storage | null = new Storage({
-      projectId: runtimeConfig.gcpProjectId,
+    const storage: Storage = new Storage({
+      projectId: runtimeConfig.public.gcpProjectId,
       credentials: {
         type: "service_account",
         private_key: privKey.split(String.raw`\n`).join("\n"),
         client_email: clientEmail,
       },
     });
-    if (!storage) {
-      return [];
-    }
     const fileListResponse: GetFilesResponse = await storage
       .bucket(bucketName)
       .getFiles();
