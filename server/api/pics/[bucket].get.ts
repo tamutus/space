@@ -24,8 +24,24 @@ export default defineEventHandler(async (event: H3Event) => {
   }
 
   const requiredScope = bucketScope(bucketName);
-  if ((await reqHasScope(event, requiredScope)) === true) {
-    const storage: Storage | null = createGoogleStorage(bucketName);
+  if (!requiredScope) {
+    return [];
+  } else if ((await reqHasScope(event, requiredScope)) === true) {
+    const runtimeConfig = useRuntimeConfig();
+
+    const privKey =
+      bucketName === "adult-gallery"
+        ? runtimeConfig.gcpPrivateNsfwKey
+        : runtimeConfig.gcpPrivateKey;
+    const clientEmail =
+      bucketName === "adult-gallery"
+        ? runtimeConfig.gcpClientNsfwEmail
+        : runtimeConfig.gcpClientEmail;
+    const storage: Storage | null = createGoogleStorage(
+      runtimeConfig.gcpProjectId,
+      privKey,
+      clientEmail
+    );
     if (!storage) {
       return [];
     }

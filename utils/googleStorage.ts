@@ -13,32 +13,19 @@ export const bucketScope = function (bucketName: string): string {
   return "";
 };
 
-export const createGoogleStorage = (bucketName: string) => {
-  let requiredScope = bucketScope(bucketName);
-  const runtimeConfig = useRuntimeConfig();
-  if (requiredScope === "access:adult") {
-    return new Storage({
-      projectId: runtimeConfig.gcpProjectId,
-      credentials: {
-        type: "service_account",
-        private_key: runtimeConfig.gcpPrivateNsfwKey
-          .split(String.raw`\n`)
-          .join("\n"),
-        client_email: runtimeConfig.gcpClientNsfwEmail,
-      },
-    });
-  } else {
-    return new Storage({
-      projectId: runtimeConfig.gcpProjectId,
-      credentials: {
-        type: "service_account",
-        private_key: runtimeConfig.gcpPrivateKey
-          .split(String.raw`\n`)
-          .join("\n"),
-        client_email: runtimeConfig.gcpClientEmail,
-      },
-    });
-  }
+export const createGoogleStorage = (
+  gcpProjectId: string,
+  gcpPrivateKey: string,
+  gcpClientEmail: string
+) => {
+  return new Storage({
+    projectId: gcpProjectId,
+    credentials: {
+      type: "service_account",
+      private_key: gcpPrivateKey.split(String.raw`\n`).join("\n"),
+      client_email: gcpClientEmail,
+    },
+  });
 };
 
 export const gcsSignedUrl = async (
