@@ -67,7 +67,7 @@ export default defineNuxtConfig({
     public: {
       authDomain: "dev-0ak48f02c4lk72ed.us.auth0.com",
       authClientId: "unDhjkc2PtfSU8BFQhHS30FQNRbTfo2y",
-      authApiIdentifier: "https://lavrat.space/api/",
+      authApiIdentifier: "https://lavrat.space/dev",
       gcpProjectId: "saucy-toxtricity-84969",
     },
   },

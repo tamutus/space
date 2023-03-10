@@ -50,7 +50,10 @@ const backgroundColors = [
 <style scoped>
 .gallery-container {
   height: 150vh;
-  margin-top: 0;
+  margin-top: -100px;
+}
+.gallery-container > * {
+  height: 100%;
 }
 .image-container {
   display: flex;
