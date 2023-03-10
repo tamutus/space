@@ -88,7 +88,7 @@ const projections = [
     link: "",
     img: "/assets/flowers portrait.jpg",
     description: [
-      "I have many features that I'm excited to add to this website, like streamlining my contracting process, adding (and writing) a blog, ",
+      "I have many features that I'm excited to add to this website, like streamlining my contracting process, writing in my blog, expanding the simple photo galleries I made into a more full-fledged experience, and creating a shopfront for my services that uses Stripe.",
     ],
   },
   {
