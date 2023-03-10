@@ -5,8 +5,13 @@ import {
   GetSignedUrlResponse,
   Storage,
 } from "@google-cloud/storage";
-import { bucketScope, createGoogleStorage } from "@/utils/googleStorage";
+import { bucketScope } from "@/utils/googleStorage";
+
 import { reqHasScope } from "@/utils/authUtils";
+
+// export type BucketScopes = {
+//   [key: string]: string;
+// };
 
 const makeConfig = function (): GetSignedUrlConfig {
   return {
@@ -37,11 +42,14 @@ export default defineEventHandler(async (event: H3Event) => {
       bucketName === "adult-gallery"
         ? runtimeConfig.gcpClientNsfwEmail
         : runtimeConfig.gcpClientEmail;
-    const storage: Storage | null = createGoogleStorage(
-      runtimeConfig.gcpProjectId,
-      privKey,
-      clientEmail
-    );
+    const storage: Storage | null = new Storage({
+      projectId: runtimeConfig.gcpProjectId,
+      credentials: {
+        type: "service_account",
+        private_key: privKey.split(String.raw`\n`).join("\n"),
+        client_email: clientEmail,
+      },
+    });
     if (!storage) {
       return [];
     }

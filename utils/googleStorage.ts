@@ -13,21 +13,6 @@ export const bucketScope = function (bucketName: string): string {
   return "";
 };
 
-export const createGoogleStorage = (
-  gcpProjectId: string,
-  gcpPrivateKey: string,
-  gcpClientEmail: string
-) => {
-  return new Storage({
-    projectId: gcpProjectId,
-    credentials: {
-      type: "service_account",
-      private_key: gcpPrivateKey.split(String.raw`\n`).join("\n"),
-      client_email: gcpClientEmail,
-    },
-  });
-};
-
 export const gcsSignedUrl = async (
   bucketName: string,
   filename: string,
