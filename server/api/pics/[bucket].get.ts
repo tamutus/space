@@ -1,17 +1,13 @@
 import { H3Event } from "h3";
+import { bucketScope } from "@/utils/googleStorage";
+import { reqHasScope } from "@/utils/authUtils";
 import {
   GetFilesResponse,
   GetSignedUrlConfig,
   GetSignedUrlResponse,
-  Storage,
 } from "@google-cloud/storage";
-import { bucketScope } from "@/utils/googleStorage";
 
-import { reqHasScope } from "@/utils/authUtils";
-
-// export type BucketScopes = {
-//   [key: string]: string;
-// };
+const gcs = require("@google-cloud/storage");
 
 const makeConfig = function (): GetSignedUrlConfig {
   return {
@@ -41,7 +37,7 @@ export default defineEventHandler(async (event: H3Event) => {
     bucketName === "adult-gallery"
       ? runtimeConfig.gcpClientNsfwEmail
       : runtimeConfig.gcpClientEmail;
-  const storage: Storage = new Storage({
+  const storage: Storage = new gcs.Storage({
     projectId: runtimeConfig.public.gcpProjectId,
     credentials: {
       type: "service_account",
