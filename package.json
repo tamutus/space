@@ -1,6 +1,6 @@
 {
   "name": "space",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "Personal Web Portfolio",
   "main": "app.js",
   "scripts": {

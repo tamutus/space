@@ -1,7 +1,3 @@
-export type BucketScopes = {
-  [key: string]: string;
-};
-
 export const bucketScope = function (bucketName: string): string {
   if (bucketName === "homepage-gallery") {
     return "read:content";

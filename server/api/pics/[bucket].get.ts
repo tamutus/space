@@ -1,5 +1,4 @@
 import { H3Event } from "h3";
-import "uuid";
 import {
   GetFilesResponse,
   GetSignedUrlConfig,
