@@ -33,7 +33,7 @@
     "@vitest/coverage-c8": "^0.25.8",
     "@vue/test-utils": "^2.2.7",
     "jsdom": "^20.0.3",
-    "nuxt": "^3.1.0",
+    "nuxt": "^3.3.1",
     "unplugin-auto-import": "^0.12.2",
     "unplugin-vue-components": "^0.22.12",
     "vitest": "^0.25.2"
