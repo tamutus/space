@@ -51,8 +51,8 @@ export const updateAtAuth = function (
   updater: Function,
   auth0: Auth0VueClient
 ) {
-  updater();
   onMounted(async () => {
+    updater();
     watch(auth0.isAuthenticated, () => {
       updater();
     });

@@ -24,9 +24,12 @@ type TagRemoveQuery = {
 };
 
 // Logic may need to be called again, so it needs to be a named function.
-const putBlog = async (event: H3Event) => {
+const putBlog = async function (event: H3Event) {
+  if (!event.context.params) {
+    return "No params given";
+  }
+  const blogID = parseInt(event.context.params.blogId) as number;
   if ((await reqHasScope(event, "create:content")) === true) {
-    const blogID = parseInt(event.context.params.blogId) as number;
     if (!Number.isInteger(blogID)) {
       throw createError({
         statusCode: 400,
@@ -132,6 +135,7 @@ const putBlog = async (event: H3Event) => {
         await prisma.$disconnect();
         process.exit(1);
       });
+    return "success";
   } else {
     return;
   }

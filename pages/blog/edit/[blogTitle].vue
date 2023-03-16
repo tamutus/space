@@ -67,7 +67,7 @@ const save = async function (contents: BlogPostWithTagStrings) {
       .getAccessTokenSilently()
       .then(async (token) => {
         if (post.value?.id) {
-          await useFetch(`/api/blog/${post.value.id}`, {
+          return await useFetch(`/api/blog/${post.value.id}`, {
             method: "put",
             headers: {
               Authorization: `Bearer ${token}`,
@@ -78,8 +78,15 @@ const save = async function (contents: BlogPostWithTagStrings) {
           });
         }
       })
-      .then(() => {
-        navigateTo(`/blog/read/${contents.title.replaceAll(/\s/g, "_")}`);
+      .then((res) => {
+        if (res) {
+          if (res.data.value === "success") {
+            navigateTo(`/blog/read/${contents.title.replaceAll(/\s/g, "_")}`);
+          } else {
+            console.error("Update not successful.");
+            console.error(res.data.value);
+          }
+        }
       });
   }
 };
@@ -88,7 +95,7 @@ const deletePost = async function (id: string) {
     auth0
       .getAccessTokenSilently()
       .then(async (token) => {
-        const deleteResult = await useFetch(`/api/blog/${id}`, {
+        return useFetch(`/api/blog/${id}`, {
           method: "delete",
           headers: {
             Authorization: `Bearer ${token}`,
@@ -96,7 +103,10 @@ const deletePost = async function (id: string) {
         });
       })
       .then((res) => {
-        console.log(res);
+        if (res?.data.value) {
+          console.log("Delete response:");
+          console.log(res.data.value);
+        }
         navigateTo("/blog");
       });
   }
