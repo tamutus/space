@@ -23,6 +23,9 @@ const makeConfig = function (): GetSignedUrlConfig {
 
 // Gets signed file URLs for temporary access to bucket images
 export default defineEventHandler(async (event: H3Event) => {
+  if (!event.context.params) {
+    return "No params given";
+  }
   const bucketName: string = event.context.params.bucket;
   if (!bucketName) {
     return [];

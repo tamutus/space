@@ -6,6 +6,9 @@ const prisma: PrismaClient = new PrismaClient();
 
 const deleteBlog = async (event: H3Event) => {
   if ((await reqHasScope(event, "create:content")) === true) {
+    if (!event.context.params) {
+      return "No params given";
+    }
     const blogID = parseInt(event.context.params.blogId) as number;
     if (!Number.isInteger(blogID)) {
       throw createError({

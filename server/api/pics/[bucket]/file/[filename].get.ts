@@ -18,6 +18,9 @@ const bucketName = "homepage-gallery",
   };
 
 export default defineEventHandler(async (event) => {
+  if (!event.context.params) {
+    return "No params given";
+  }
   const fileName = event.context.params.filename;
   // Downloads the file
   const signedURL = await storage

@@ -11,33 +11,25 @@ export const useUpdateSelection = async function (
   if (loadingRef) {
     loadingRef.value = true;
   }
+  const fetchOptions: any = {
+    method: "GET",
+  };
+  let tokenValue;
   if (auth0 && auth0.isAuthenticated.value) {
-    auth0.getAccessTokenSilently().then(async (token) => {
-      let { data: newSelection } = await useFetch(fetchURL, {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      selectionRef.value = newSelection.value;
-      if (loadingRef) {
-        loadingRef.value = false;
-      }
-      if (tokenCallback) {
-        tokenCallback(token);
-      }
+    await auth0.getAccessTokenSilently().then((token) => {
+      fetchOptions.headers = {
+        Authorization: `Bearer ${token}`,
+      };
+      tokenValue = token;
     });
-  } else {
-    let { data: newSelection } = await useFetch(fetchURL, {
-      method: "GET",
-    });
-    selectionRef.value = newSelection.value;
-    if (loadingRef) {
-      loadingRef.value = false;
-    }
-    if (tokenCallback) {
-      tokenCallback();
-    }
+  }
+  let { data: newSelection } = await useFetch(fetchURL, fetchOptions);
+  selectionRef.value = newSelection.value;
+  if (loadingRef) {
+    loadingRef.value = false;
+  }
+  if (tokenCallback) {
+    tokenCallback(tokenValue);
   }
   if (typeof selectionRef.value === "string") {
     console.warn(

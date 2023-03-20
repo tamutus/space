@@ -9,6 +9,9 @@ type TagUpdate = {
   info?: string;
 };
 const putTag = async function (event: H3Event) {
+  if (!event.context.params) {
+    return "No params given";
+  }
   const id = event.context.params.tagId;
   if (/\d/.test(id)) {
     const body = await readBody(event),

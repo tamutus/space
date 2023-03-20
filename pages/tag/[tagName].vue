@@ -61,8 +61,16 @@ import { useAuth0 } from "@auth0/auth0-vue";
 
 const route = useRoute();
 
+const pageTitle = computed(() => {
+  if (route?.params?.tagName) {
+    return `${String(route.params.tagName).replaceAll(
+      "_",
+      " "
+    )} – Lavra's tags`;
+  } else return "[Untitled] in L's Tags";
+});
 useHead({
-  title: `${String(route.params.tagName).replaceAll("_", " ")} – Lavra`,
+  titleTemplate: pageTitle,
 });
 
 const tag: Ref<Tag | null> = ref(null);

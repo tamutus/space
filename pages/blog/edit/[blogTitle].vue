@@ -29,8 +29,14 @@ import { Ref } from "vue";
 import { useAuth0 } from "@auth0/auth0-vue";
 
 const route = useRoute();
+
+const pageTitle = computed(() => {
+  if (route?.params?.blogTitle) {
+    return `Editing ${String(route.params.blogTitle).replaceAll("_", " ")}`;
+  } else return "Editing [Untitled] @ L's Blog";
+});
 useHead({
-  title: `Editing ${String(route.params.blogTitle).replaceAll("_", " ")}`,
+  titleTemplate: pageTitle,
 });
 
 const auth0 = useAuth0();

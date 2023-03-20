@@ -5,6 +5,9 @@ import { BlogPostWithTags } from "@/types/models";
 
 const prisma: PrismaClient = new PrismaClient();
 const getBlogPostsWithTags = async function (event: H3Event) {
+  if (!event.context.params) {
+    return "No params given";
+  }
   const blogPost: BlogPostWithTags | null = await prisma.blogPost.findFirst({
     where: {
       title: decodeURIComponent(

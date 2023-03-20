@@ -77,8 +77,13 @@ import { useAuth0 } from "@auth0/auth0-vue";
 
 const route = useRoute();
 
+const pageTitle = computed(() => {
+  if (route?.params?.blogTitle) {
+    return `${String(route.params.blogTitle).replaceAll("_", " ")} – Lavra`;
+  } else return "[Untitled] @ Blog of Lavra";
+});
 useHead({
-  title: `${String(route.params.blogTitle).replaceAll("_", " ")} – Lavra`,
+  titleTemplate: pageTitle,
 });
 
 const rawPost: Ref<BlogPostWithTags | string | null> = ref(null);

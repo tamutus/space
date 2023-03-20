@@ -41,7 +41,7 @@
     <BackgroundTexture texture="solarpunk">
       <section>
         <BoxNeon color="orange">
-          Technologies:
+          <template #default> Technologies: </template>
           <template #paragraph>
             <TableTech>
               <template #1>
@@ -105,9 +105,9 @@
 </template>
 
 <script setup lang="ts">
-useHead({
-  title: `Lavra Tamutus`,
-});
+// useHead({
+//   title: `Lavra Tamutus`,
+// });
 </script>
 
 <style scoped>
