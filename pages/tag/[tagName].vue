@@ -19,7 +19,7 @@
                   >
                 </h1>
                 <div class="header-buttons">
-                  <ButtonStandard @click="toggleEditing">{{
+                  <ButtonStandard v-if="lavra" @click="toggleEditing">{{
                     editing ? "Stop" : "Edit"
                   }}</ButtonStandard>
                   <ButtonStandard v-if="lavra && editing" @click="save"

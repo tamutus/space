@@ -6,7 +6,13 @@
   </div>
   <footer>
     <ImageLogo logoSize="small" alignment="right">
-      <p>Website created by Lavra Tamutus.</p>
+      <div>
+        <p>Website created by Lavra Tamutus.</p>
+        <div id="boring-links">
+          <NuxtLink to="/privacy-policy">Privacy Policy</NuxtLink>
+          <NuxtLink to="/tos">Terms of Service</NuxtLink>
+        </div>
+      </div>
     </ImageLogo>
   </footer>
 </template>
@@ -17,6 +23,11 @@
 #app-box {
 }
 /* animation classes */
+
+#boring-links > * {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
 
 /* ensure leaving items are taken out of layout flow so that moving
 animations can be calculated correctly. */

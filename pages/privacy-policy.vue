@@ -125,7 +125,11 @@
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+useHead({
+  title: "Privacy Policy @ LavraT.space",
+});
+</script>
 
 <style scoped>
 h2 {
@@ -134,6 +138,7 @@ h2 {
 li {
   margin-top: 0rem;
   margin-bottom: 0;
+  list-style: disc;
 }
 .bite-size {
   display: flex;

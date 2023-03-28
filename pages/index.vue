@@ -105,9 +105,9 @@
 </template>
 
 <script setup lang="ts">
-// useHead({
-//   title: `Lavra Tamutus`,
-// });
+useHead({
+  title: `Lavra Tamutus`,
+});
 </script>
 
 <style scoped>
