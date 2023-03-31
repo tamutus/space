@@ -193,7 +193,7 @@ function activate(projectionIndex: number) {
   flex-flow: row nowrap;
   align-items: flex-start;
   height: 100%;
-  transition: translate 0.6s cubic-bezier(0.63, 0.37, 0.645, 1.375);
+  transition: translate 0.6s cubic-bezier(0.22, 0.85, 0.55, 0.97);
 }
 .projections .projection {
   flex: 0 0 76vmin;
@@ -222,7 +222,7 @@ function activate(projectionIndex: number) {
   border-width: 10px 0;
   border-color: rgba(168, 137, 106, 0.719);
   border-style: dashed none;
-  transition: translate 0.6s cubic-bezier(0.63, 0.37, 0.645, 1.375);
+  transition: translate 0.6s cubic-bezier(0.22, 0.85, 0.55, 0.97);
 }
 .film::before {
   content: "Click these →";
