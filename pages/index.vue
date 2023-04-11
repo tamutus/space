@@ -32,6 +32,44 @@
           </TableTech>
         </div>
       </section>
+      <section id="glass-array">
+        <div id="all-art-link" class="glass-link">
+          <BoxGlass mode="dark">
+            <div class="padded-links">
+              <NuxtLink to="/furry/gaze"
+                ><span class="glass-text">Furry Art</span></NuxtLink
+              >
+            </div>
+          </BoxGlass>
+        </div>
+        <div id="blog-splash-link" class="glass-link">
+          <BoxGlass mode="dark">
+            <div class="padded-links">
+              <NuxtLink to="/blog">
+                <span class="glass-text"> Writing </span>
+              </NuxtLink>
+            </div>
+          </BoxGlass>
+        </div>
+        <div id="tag-splash-link" class="glass-link">
+          <BoxGlass mode="dark">
+            <div class="padded-links">
+              <NuxtLink to="/tag"
+                ><span class="glass-text">Content By Tag</span></NuxtLink
+              >
+            </div>
+          </BoxGlass>
+        </div>
+        <div id="photos-link" class="glass-link">
+          <BoxGlass mode="dark">
+            <div class="padded-links">
+              <NuxtLink to="/photos"
+                ><span class="glass-text">Plain old photographs</span></NuxtLink
+              >
+            </div>
+          </BoxGlass>
+        </div>
+      </section>
     </BackgroundTexture>
     <BackgroundTexture texture="velvet">
       <section>
@@ -114,6 +152,39 @@ useHead({
 section:first-of-type {
   padding-top: 0;
 }
+#glass-array {
+  position: relative;
+  height: 30rem;
+}
+.glass-link {
+  position: absolute;
+  font-size: 2rem;
+}
+.padded-links {
+  padding: 2rem;
+}
+
+.glass-text {
+  color: rgb(221, 243, 255);
+  transition: color 0.2s ease-out;
+}
+#all-art-link {
+  left: 10vw;
+  top: 8rem;
+}
+#blog-splash-link {
+  left: 20vw;
+  top: 16rem;
+}
+#tag-splash-link {
+  left: 30vw;
+  top: 24rem;
+}
+#photos-link {
+  left: 40vw;
+  top: 32rem;
+}
+
 section:not(:first-of-type) {
   padding-top: 150px;
   padding-bottom: 150px;

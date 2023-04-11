@@ -1,26 +1,44 @@
 <template>
   <div>
     <BackgroundImage imageFileName="assets/photos/misty.jpg">
-      <NavHeader> Reconcilography </NavHeader>
+      <NavHeader>Reconcilography</NavHeader>
       <div class="padded">
         <ImageFocused
           image-file-name="assets/photos/Transparent Wreck.png"
           alt-text="Goat person in jeans and "
-          alignment="right"
+          alignment="left"
         >
           <BoxWaterfall>
-            <template #1> Look! </template>
-            <template #5> I'm a </template>
-            <template #7> goat! </template>
+            <template #1> <h1 class="soft">Furries!</h1> </template>
+            <template #4> <h1 class="soft">Queers!</h1> </template>
+            <template #7> <h1 class="soft">Anarchy!</h1> </template>
           </BoxWaterfall>
         </ImageFocused>
       </div>
     </BackgroundImage>
     <BackgroundTexture texture="velvet">
-      <section>
+      <section id="art-links">
         <NavHeader>Reconcile's Art</NavHeader>
-        <div class="gallery-container">
-          <GalleryPrismGooglePics bucket="homepage-gallery" />
+        <div id="all-art-link" class="glass-link">
+          <BoxGlass>
+            <div class="padded-links">
+              <NuxtLink to="/furry/gaze">Browse art</NuxtLink>
+            </div>
+          </BoxGlass>
+        </div>
+        <div id="tag-splash-link" class="glass-link">
+          <BoxGlass>
+            <div class="padded-links">
+              <NuxtLink to="/tag">Explore Tags</NuxtLink>
+            </div>
+          </BoxGlass>
+        </div>
+        <div id="photos-link" class="glass-link">
+          <BoxGlass>
+            <div class="padded-links">
+              <NuxtLink to="/photos">Plain old photographs</NuxtLink>
+            </div>
+          </BoxGlass>
         </div>
       </section>
     </BackgroundTexture>
@@ -67,14 +85,42 @@ useHead({
 </script>
 
 <style scoped>
-.gallery-container {
-  height: 150vh;
-  margin-top: 0;
+h1.soft {
+  /* font-family: "Comfortaa"; */
+  font-size: 3rem;
+  color: #e1f87d;
 }
-.gallery-container > * {
-  height: 100%;
+.glass-link {
+  position: absolute;
+  font-size: 2rem;
 }
-.nsfw {
-  color: white;
+#all-art-link {
+  right: 20vw;
+  top: calc(8rem);
+}
+#tag-splash-link {
+  right: 30vw;
+  top: calc(18rem);
+}
+
+#photos-link {
+  right: 40vw;
+  top: calc(28rem);
+}
+.padded-links {
+  padding: 2rem;
+  color: rgb(221, 243, 255);
+}
+.padding-links:hover {
+  color: rgb(113, 255, 212);
+}
+
+@media screen and (max-width: 1200px) {
+  .glass-link {
+    translate: 10vw 35vh;
+  }
+  #art-links {
+    min-height: 120vh;
+  }
 }
 </style>

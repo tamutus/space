@@ -1,9 +1,17 @@
 <template>
   <transition name="modal-fade">
     <div id="modal-backdrop" @click="close" :aria-hidden="!isOpen">
-      <div class="focused-content" @click.stop="">
+      <div
+        id="focused-content"
+        :class="`${fullScreen ? 'fullscreen' : ''}`"
+        @click.stop=""
+      >
         <button id="closer" @click="close">
-          Close <span aria-hidden="true">❌</span>
+          Close <span aria-hidden="true">❌</span> [Esc]
+        </button>
+        <button id="filler" @click="toggleFullScreen">
+          {{ fullScreen ? "Small Screen" : "Full Screen" }}
+          <span aria-hidden="true"></span> [F]
         </button>
         <slot></slot>
       </div>
@@ -13,14 +21,35 @@
 
 <script setup lang="ts">
 import { watch } from "vue";
+import { useActiveElement, useMagicKeys, whenever } from "@vueuse/core";
+import { logicAnd, logicOr } from "@vueuse/math";
 
-const emit = defineEmits(["close"]);
+const props = defineProps({
+  isOpen: {
+    type: Boolean,
+    required: true,
+  },
+  nextable: {
+    type: Boolean,
+    default: false,
+  },
+  backable: {
+    type: Boolean,
+    default: false,
+  },
+});
+const emit = defineEmits(["close", "forward", "backward"]);
+
+const activeElement = useActiveElement();
+
+const fullScreen = ref(false);
+function toggleFullScreen() {
+  fullScreen.value = !fullScreen.value;
+}
 function close(e: MouseEvent) {
   emit("close");
 }
-const props = defineProps({
-  isOpen: Boolean,
-});
+
 watch(
   () => props.isOpen,
   async () => {
@@ -46,6 +75,29 @@ watch(
     }
   }
 );
+
+const { escape, arrowLeft, a, arrowRight, d, f } = useMagicKeys();
+
+watch(escape, (k) => {
+  if (k) {
+    emit("close");
+  }
+});
+
+const notUsingInput = computed(
+  () =>
+    activeElement.value?.tagName !== "INPUT" &&
+    activeElement.value?.tagName !== "TEXTAREA"
+);
+whenever(logicAnd(logicOr(arrowLeft, a), notUsingInput), () => {
+  emit("backward");
+});
+whenever(logicAnd(logicOr(arrowRight, d), notUsingInput), () => {
+  emit("forward");
+});
+whenever(logicAnd(f, notUsingInput), () => {
+  toggleFullScreen();
+});
 </script>
 
 <style scoped>
@@ -61,7 +113,7 @@ watch(
   background-color: rgba(24, 24, 31, 0.87);
   z-index: 20;
 }
-.focused-content {
+#focused-content {
   background-image: radial-gradient(
       at 47% 20%,
       rgba(206, 255, 232, 0.747) 10%,
@@ -72,13 +124,19 @@ watch(
   box-shadow: 2px 2px 20px 1px rgb(59, 59, 124);
   flex: 0 1 80%;
   height: 80%;
+  max-height: 100%;
   overflow-y: auto;
+  transition: flex 0.2s ease-out, height 0.2s ease-out;
+}
+#focused-content.fullscreen {
+  flex: 0 1 100%;
+  height: 100%;
 }
 .backdrop {
 }
-#closer {
+#closer,
+#filler {
   position: absolute;
-  top: 12%;
   right: 12%;
   z-index: 21;
   font-size: 1rem;
@@ -86,6 +144,29 @@ watch(
   line-height: 1rem;
   background-color: rgb(234, 213, 255);
   border-radius: 10px 0 10px 30% / 10px 20px;
+  transition: top 0.2s ease-out, right 0.2s ease-out, opacity 0.3s ease-out;
+}
+#closer {
+  top: 12%;
+}
+#filler {
+  top: calc(12% + 3.5rem);
+}
+.fullscreen #closer,
+.fullscreen #filler {
+  right: 3%;
+  opacity: 0.05;
+}
+.fullscreen #closer {
+  top: 3%;
+}
+.fullscreen #filler {
+  top: calc(3% + 3.5rem);
+}
+
+#closer:hover,
+#filler:hover {
+  opacity: 1;
 }
 /* Fade in and out transitions */
 .modal-fade-enter-from,

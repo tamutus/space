@@ -5,13 +5,9 @@ import {
   GetSignedUrlResponse,
   Storage,
 } from "@google-cloud/storage";
-import { bucketScope } from "@/utils/googleStorage";
 
 import { reqHasScope } from "@/utils/authUtils";
-
-// export type BucketScopes = {
-//   [key: string]: string;
-// };
+import { bucketScope } from "@/types/googleStorage";
 
 const makeConfig = function (): GetSignedUrlConfig {
   return {
@@ -24,16 +20,33 @@ const makeConfig = function (): GetSignedUrlConfig {
 // Gets signed file URLs for temporary access to bucket images
 export default defineEventHandler(async (event: H3Event) => {
   if (!event.context.params) {
-    return "No params given";
+    throw createError({
+      statusCode: 400,
+      statusMessage: "No params given",
+    });
   }
   const bucketName: string = event.context.params.bucket;
   if (!bucketName) {
-    return [];
+    throw createError({
+      statusCode: 400,
+      statusMessage: "No params given",
+    });
   }
 
   const requiredScope = bucketScope(bucketName);
   if (!requiredScope) {
-    return [];
+    throw createError({
+      statusCode: 404,
+      statusMessage:
+        "Couldn't determine what permissions the provided bucket requires, so you couldn't be authorized.",
+    });
+  }
+  if ((await reqHasScope(event, requiredScope)) !== true) {
+    throw createError({
+      statusCode: 403,
+      statusMessage:
+        "You aren't authorized to view these images. Log in with Auth0 at the bottom right of the screen.",
+    });
   }
   const runtimeConfig = useRuntimeConfig();
   const privKey =
@@ -44,6 +57,7 @@ export default defineEventHandler(async (event: H3Event) => {
     bucketName === "adult-gallery"
       ? runtimeConfig.gcpClientNsfwEmail
       : runtimeConfig.gcpClientEmail;
+
   const storage: Storage = new Storage({
     projectId: runtimeConfig.public.gcpProjectId,
     credentials: {
@@ -52,23 +66,20 @@ export default defineEventHandler(async (event: H3Event) => {
       client_email: clientEmail,
     },
   });
-  if ((await reqHasScope(event, requiredScope)) === true) {
-    const fileListResponse: GetFilesResponse = await storage
-      .bucket(bucketName)
-      .getFiles();
-    const signedURLs: Array<Promise<GetSignedUrlResponse>> = [];
 
-    const fileList = fileListResponse[0];
-    fileList.reduce((urlList, file) => {
-      const signedURL = file.getSignedUrl(makeConfig());
-      urlList.push(signedURL);
-      return urlList;
-    }, signedURLs);
+  const fileListResponse: GetFilesResponse = await storage
+    .bucket(bucketName)
+    .getFiles();
+  const signedURLs: Array<Promise<GetSignedUrlResponse>> = [];
 
-    return await Promise.all(signedURLs).then((urlList) =>
-      urlList.map((res) => res[0])
-    );
-  } else {
-    return [];
-  }
+  const fileList = fileListResponse[0];
+  fileList.reduce((urlList, file) => {
+    const signedURL = file.getSignedUrl(makeConfig());
+    urlList.push(signedURL);
+    return urlList;
+  }, signedURLs);
+
+  return await Promise.all(signedURLs).then((urlList) =>
+    urlList.map((res) => res[0])
+  );
 });
