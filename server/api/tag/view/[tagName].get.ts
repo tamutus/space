@@ -5,7 +5,10 @@ const prisma: PrismaClient = new PrismaClient();
 
 export default defineEventHandler(async function (event: H3Event) {
   if (!event.context.params) {
-    return "No params given";
+    throw createError({
+      statusCode: 400,
+      statusMessage: "No params given",
+    });
   }
   return await prisma.tag.findUnique({
     where: {

@@ -60,6 +60,7 @@ model Tag {
   id    Int           @id @default(autoincrement())
   name  String        @unique
   info  String?
+  nsfw  Boolean       @default(false)
   art   TagsOnArt[]
   posts TagsOnPosts[]
 }
@@ -74,34 +75,106 @@ model TagsOnArt {
 }
 
 model Art {
-  id       Int         @id @default(autoincrement())
-  bucket   String
-  fileName String
-  title    String
-  info     String?
-  tags     TagsOnArt[]
+  id        Int         @id @default(autoincrement())
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  bucket    String
+  fileName  String
+  title     String
+  info      String?
+  published Boolean     @default(false)
+  tags      TagsOnArt[]
 }
 
 // model Contract {
-//   id        Int       @id @default(autoincrement())
-//   ordinal   Int       @unique
-//   person    Person    @relation(fields: [personId], references: [id])
+//   id        Int            @id @default(autoincrement())
+//   ordinal   Int            @unique
+//   person    Person         @relation(fields: [personId], references: [id], onUpdate: Cascade, onDelete: Restrict)
 //   personId  Int
-//   medium    String
-//   payments  Json?
-//   charges   Json?
-//   createdAt DateTime  @default(now())
-//   updatedAt DateTime  @updatedAt
+//   website   Website?        @relation(fields: [websiteId], references: [id], onUpdate: Cascade, onDelete: SetNull)
+//   websiteId Int?
+//   status    ContractStatus @default(PENDING)
+//   payments  Payment[]
+//   charges   Charge[]
+//   createdAt DateTime       @default(now())
+//   updatedAt DateTime       @updatedAt
 //   startDate DateTime?
 //   endDate   DateTime?
+//   info String?
+// }
+
+// enum ContractStatus {
+//   PENDING
+//   ACTIVE
+//   ON_HOLD
+//   COMPLETE
+//   TERMINATED
+//   CANCELLED
+//   EXPIRED
 // }
 
 // model Payment {
-
+//   id         Int      @id @default(autoincrement())
+//   amount     Decimal  @db.Money
+//   currency String
+//   receiptGiven Boolean  @default(false)
+//   contract   Contract @relation(fields: [contractId], references: [id])
+//   contractId Int
+//   paidAt DateTime
 // }
 
 // model Charge {
-//   id   Int     @id @default(autoincrement())
-//   paid Decimal @db.Money
-//   cost Decimal @db.Money
+//   id           Int      @id @default(autoincrement())
+//   units Int @default(1)
+//   unitCost     Decimal  @db.Money
+//   totalCost         Decimal  @db.Money
+//   description  String
+//   service Service @relation(fields: [serviceId], references: [id])
+//   serviceId Int
+//   contract     Contract @relation(fields: [contractId], references: [id])
+//   contractId   Int
+// }
+// model Service {
+//   id Int @id @default(autoincrement())
+//   unitCost Decimal @db.Money
+//   charges Charge[]
+//   available Boolean @default(true)
+//   stripeId String
+// }
+// model Website {
+//   id        Int            @id @default(autoincrement())
+//   name      String
+//   url       String
+//   createdAt DateTime       @default(now())
+//   steps     WebsiteSteps[]
+//   contracts Contract[]
+//   contractId Int
+// }
+
+// model Step {
+//   id          Int            @id @default(autoincrement())
+//   name        String
+//   description Json
+//   websites    WebsiteSteps[]
+// }
+
+// model WebsiteSteps {
+//   site      Website    @relation(fields: [siteId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+//   siteId    Int
+//   step      Step       @relation(fields: [stepId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+//   stepId    Int
+//   status    StepStatus
+//   startedAt DateTime   @default(now())
+//   finishedAt DateTime @default(now())
+//   updatedAt DateTime   @updatedAt
+//   hours Decimal @default(0.00)
+
+//   @@id([siteId, stepId])
+// }
+
+// enum StepStatus {
+//   PLANNED
+//   DOING
+//   STAGED
+//   LIVE
 // }
