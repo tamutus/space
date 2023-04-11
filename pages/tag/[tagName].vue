@@ -75,12 +75,13 @@
 </template>
 
 <script setup lang="ts">
-import { Tag } from "@prisma/client";
+import { Tag } from ".prisma/client";
 import { Ref } from "vue";
 import { FetchError } from "ofetch";
 import { useAuth0 } from "@auth0/auth0-vue";
 
 import { validateTag } from "@/types/models";
+import { authFetchWithId } from "@/composables/auth";
 
 const route = useRoute();
 
