@@ -481,15 +481,15 @@ const loadingAuth = computed(() => {
 
 const route = useRoute();
 
-const sourceGallery = ref("e621");
+const sourceGallery = ref("lavra");
 
 const yesList: Ref<Set<string>> = ref(new Set());
 const noList: Ref<Set<string>> = ref(new Set());
 const maybeList: Ref<Set<string>> = ref(new Set());
 
 const safeAllowed = ref(true);
-const questionableAllowed = ref(true);
-const explicitAllowed = ref(true);
+const questionableAllowed = ref(false);
+const explicitAllowed = ref(false);
 
 const sortOrder: Ref<SortOrder> = ref("");
 const minScore: Ref<number> = ref(0);
@@ -499,6 +499,8 @@ const e621ModeActivate = function () {
   sourceGallery.value = "e621";
   searchString.value = "";
   sortOrder.value = "order:score";
+  questionableAllowed.value = true;
+  explicitAllowed.value = true;
   calculateSearchString();
 };
 const lavraModeActivate = function () {
