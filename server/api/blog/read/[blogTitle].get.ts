@@ -6,7 +6,10 @@ import { BlogPostWithTags } from "@/types/models";
 const prisma: PrismaClient = new PrismaClient();
 const getBlogPostsWithTags = async function (event: H3Event) {
   if (!event.context.params) {
-    return "No params given";
+    throw createError({
+      statusCode: 400,
+      statusMessage: "No params given",
+    });
   }
   const blogPost: BlogPostWithTags | null = await prisma.blogPost.findFirst({
     where: {
@@ -24,8 +27,17 @@ const getBlogPostsWithTags = async function (event: H3Event) {
   });
   if (!blogPost?.published) {
     if (!(await reqHasScope(event, "create:content"))) {
-      return "Unauthorized";
+      throw createError({
+        statusCode: 404,
+        statusMessage: "Could not find content",
+      });
     }
+  }
+  if (!blogPost) {
+    throw createError({
+      statusCode: 401,
+      statusMessage: "Could not find content",
+    });
   }
   return blogPost;
 };

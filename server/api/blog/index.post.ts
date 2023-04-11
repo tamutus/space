@@ -17,13 +17,6 @@ type TagQuery = {
   };
 };
 
-export type NewBlogPost = {
-  title: string;
-  tags: string[];
-  content: Prisma.InputJsonValue;
-  published: boolean;
-};
-
 // Logic may need to be called again, so it needs to be a named function.
 const postBlog = async (event: H3Event, prisma: PrismaClient) => {
   if ((await reqHasScope(event, "create:content")) === true) {
@@ -59,7 +52,7 @@ const postBlog = async (event: H3Event, prisma: PrismaClient) => {
       []
     );
 
-    await prisma.blogPost
+    const newPost = await prisma.blogPost
       .create({
         data: {
           title: blogPost.title,
@@ -80,6 +73,7 @@ const postBlog = async (event: H3Event, prisma: PrismaClient) => {
         await prisma.$disconnect();
         process.exit(1);
       });
+    return "Success";
   }
 };
 
