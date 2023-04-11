@@ -6,7 +6,8 @@ export const useUpdateSelection = async function (
   fetchURL: string,
   auth0?: Auth0VueClient | undefined,
   loadingRef?: Ref<boolean>,
-  tokenCallback?: Function
+  tokenCallback?: Function,
+  errorRef?: Ref<any>
 ) {
   if (loadingRef) {
     loadingRef.value = true;
@@ -23,10 +24,19 @@ export const useUpdateSelection = async function (
       tokenValue = token;
     });
   }
-  let { data: newSelection } = await useFetch(fetchURL, fetchOptions);
+  let { data: newSelection, error: fetchError } = await useFetch(
+    fetchURL,
+    fetchOptions
+  );
   selectionRef.value = newSelection.value;
   if (loadingRef) {
     loadingRef.value = false;
+  }
+  if (errorRef) {
+    errorRef.value = fetchError.value;
+    if (errorRef.value) {
+      console.error(errorRef.value);
+    }
   }
   if (tokenCallback) {
     tokenCallback(tokenValue);

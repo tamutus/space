@@ -1,4 +1,4 @@
-import { Ref } from "nuxt/dist/app/compat/capi";
+import { Ref } from "vue";
 
 export function cssVar(
   target: Ref | null,

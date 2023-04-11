@@ -37,7 +37,12 @@
       <div class="central" v-if="nextable">
         <ButtonStandard @click="nextPage">Next Page</ButtonStandard>
       </div>
-      <div class="central removers">
+      <div class="removers">
+        <Transition name="phase"
+          ><h3 v-if="postsWithTagStrings.length === 0">
+            No posts with these filters
+          </h3></Transition
+        >
         <ButtonStandard
           color="rgb(219, 67, 138)"
           v-if="tags.length > 0"
@@ -92,6 +97,12 @@ const lastPostInResults: ComputedRef<BlogPostWithTags | null> = computed(() => {
     return null;
   }
 });
+const cursor: ComputedRef<number | null> = computed(() => {
+  if (lastPostInResults.value) {
+    return lastPostInResults.value.id;
+  } else return null;
+});
+
 const firstPostInResults: ComputedRef<BlogPostWithTags | null> = computed(
   () => {
     if (blogPosts.value && typeof blogPosts.value !== "string") {
@@ -101,11 +112,6 @@ const firstPostInResults: ComputedRef<BlogPostWithTags | null> = computed(
     }
   }
 );
-const cursor: ComputedRef<number | null> = computed(() => {
-  if (lastPostInResults.value) {
-    return lastPostInResults.value.id;
-  } else return null;
-});
 const backCursor: ComputedRef<number | null> = computed(() => {
   if (firstPostInResults.value) {
     return firstPostInResults.value.id;
@@ -113,6 +119,7 @@ const backCursor: ComputedRef<number | null> = computed(() => {
     return null;
   }
 });
+
 const nextable = computed(() => {
   if (Array.isArray(blogPosts.value) && blogPosts.value.length === 0) {
     return false;
@@ -136,6 +143,7 @@ const backable = computed(() => {
 const past = ref(route.query.past ? `past=${route.query.past}` : "");
 const take = ref(route.query.take ? `take=${route.query.take}` : "");
 const tags = ref(route.query.tags ? `tags=${route.query.tags}` : "");
+
 const queryParams: ComputedRef<string[]> = computed(() => {
   let params = [];
   if (past.value) {
@@ -298,6 +306,11 @@ watch(route, (newRoute) => {
 }
 .removers {
   margin-top: 2rem;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+  max-height: 100%;
 }
 
 .phase-enter-active,

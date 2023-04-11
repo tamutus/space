@@ -23,6 +23,7 @@ const props = defineProps({
   background-attachment: fixed;
   background-repeat: none;
   background-size: 100vw 100%;
+  position: relative;
 }
 
 .velvet.bg {

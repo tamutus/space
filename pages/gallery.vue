@@ -3,17 +3,44 @@
     <BackgroundTexture texture="sherbet">
       <NavHeader>Gallery</NavHeader>
 
-      <BoxFocus>
-        <BoxTube>
-          <ul class="separated">
-            <li><NuxtLink to="#animations">Animations</NuxtLink></li>
-            <li><NuxtLink to="#experiments">Experiments</NuxtLink></li>
-            <li><NuxtLink to="#websites">Websites</NuxtLink></li>
-            <li><NuxtLink to="#pictures">Pictures</NuxtLink></li>
-            <!-- <li><NuxtLink to="#"></NuxtLink></li> -->
-          </ul>
-        </BoxTube>
-      </BoxFocus>
+      <section id="gallery-jumps">
+        <div id="animations-jump" class="glass-jump">
+          <BoxGlass mode="dark">
+            <div class="padded-links">
+              <NuxtLink to="#animations"
+                ><span class="glass-text">Animations</span></NuxtLink
+              >
+            </div>
+          </BoxGlass>
+        </div>
+        <div id="experiments-jump" class="glass-jump">
+          <BoxGlass mode="dark">
+            <div class="padded-links">
+              <NuxtLink to="#experiments"
+                ><span class="glass-text">Experiments</span></NuxtLink
+              >
+            </div>
+          </BoxGlass>
+        </div>
+        <div id="websites-jump" class="glass-jump">
+          <BoxGlass mode="dark">
+            <div class="padded-links">
+              <NuxtLink to="#websites"
+                ><span class="glass-text">Websites</span></NuxtLink
+              >
+            </div>
+          </BoxGlass>
+        </div>
+        <div id="pictures-jump" class="glass-jump">
+          <BoxGlass mode="dark">
+            <div class="padded-links">
+              <NuxtLink to="#pictures"
+                ><span class="glass-text">Pictures</span></NuxtLink
+              >
+            </div>
+          </BoxGlass>
+        </div>
+      </section>
     </BackgroundTexture>
     <BackgroundTexture texture="solarpunk">
       <section>
@@ -96,6 +123,10 @@ useHead({
 </script>
 
 <style scoped>
+#gallery-page {
+  position: relative;
+  z-index: 0;
+}
 ul.separated {
   display: flex;
   flex-flow: row wrap;
@@ -110,8 +141,47 @@ ul.separated li {
 section {
   padding: 50px 7%;
 }
-#gallery-page {
-  position: relative;
-  z-index: 0;
+#gallery-jumps {
+  min-height: 33rem;
+}
+.glass-jump {
+  position: absolute;
+  font-size: 2rem;
+}
+.glass-text {
+  color: rgb(221, 243, 255);
+  transition: color 0.2s ease-out;
+}
+.glass-text:hover {
+  color: rgb(113, 255, 212);
+}
+#animations-jump {
+  right: 20vw;
+  top: calc(15rem);
+}
+#experiments-jump {
+  right: 28vw;
+  top: calc(25rem);
+}
+
+#websites-jump {
+  right: 48vw;
+  top: calc(34rem);
+}
+#pictures-jump {
+  right: 70vw;
+  top: calc(42rem);
+}
+.padded-links {
+  padding: 2rem;
+}
+
+@media screen and (max-width: 1200px) {
+  .glass-jump {
+    translate: 16vw 5vh;
+  }
+  #gallery-jumps {
+    min-height: 46rem;
+  }
 }
 </style>

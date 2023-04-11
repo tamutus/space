@@ -14,6 +14,8 @@ export default <RouterConfig>{
             ...savedPosition,
             behavior: "smooth",
           });
+        } else if (to.path === from.path && from.path === "/furry/gaze") {
+          resolve({});
         } else {
           resolve({
             top: 0,

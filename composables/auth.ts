@@ -1,5 +1,6 @@
 import { Ref } from "vue";
 import * as jose from "jose";
+import { RouterMethod } from "h3";
 import { Auth0VueClient } from "@auth0/auth0-vue";
 
 export async function userHasScope(auth0: Auth0VueClient, scope: string) {
@@ -40,4 +41,41 @@ export function useLavra(auth0: Auth0VueClient) {
     });
   }
   return lavra;
+}
+
+export async function authFetchWithId<DatabaseObject extends { id: number }>(
+  dbObject: Ref<DatabaseObject | null>,
+  relativeURL: string,
+  auth: Auth0VueClient,
+  logicGate: Ref<boolean>,
+  method: RouterMethod = "get",
+  body?: object
+) {
+  if (logicGate.value && dbObject.value?.id) {
+    const id = dbObject.value.id;
+    return auth.getAccessTokenSilently().then(async (token) => {
+      let maybeBody = {};
+      if (body !== undefined) {
+        maybeBody = { ...body };
+      }
+      return useFetch(relativeURL + id, {
+        method,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        ...maybeBody,
+      });
+    });
+  }
+  return {
+    data: ref(null),
+    pending: ref(false),
+    error: ref(
+      createError({
+        statusCode: 404,
+        statusMessage:
+          "Can't fetch the thing because it doesn't have an id, or you aren't authorized.",
+      })
+    ),
+  };
 }

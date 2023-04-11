@@ -23,3 +23,21 @@ export const reqHasScope = async function (event: H3Event, scope: string) {
   }
   return false;
 };
+
+export const reqUserPayload = async function (event: H3Event) {
+  const jwt: string | undefined = event.node.req.headers.authorization;
+  if (jwt && jwt.slice(0, 7) === "Bearer ") {
+    const JWKS = jose.createRemoteJWKSet(
+      new URL(`https://${runtimeConfig.authDomain}/.well-known/jwks.json`)
+    );
+    const { payload, protectedHeader } = await jose.jwtVerify(
+      jwt.slice(7),
+      JWKS,
+      {
+        audience: runtimeConfig.authApiIdentifier,
+        issuer: `https://${runtimeConfig.authDomain}/`,
+      }
+    );
+    return payload;
+  }
+};

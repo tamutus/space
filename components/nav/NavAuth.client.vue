@@ -31,6 +31,16 @@
             ></NuxtLink
           >
         </div>
+        <div
+          v-if="lavra"
+          :class="`user-action ${
+            '/furry/post' === currentPath ? 'focused' : ''
+          }`"
+        >
+          <NuxtLink v-if="authenticated" to="/furry/post"
+            ><ButtonStandard color="transparent">Post</ButtonStandard></NuxtLink
+          >
+        </div>
       </div>
       <a v-if="authenticated && user?.picture"
         ><img
@@ -59,7 +69,7 @@ const toggleActions = (): void => {
 const route = useRoute();
 const currentPath = ref(route.path);
 
-const lavra = useLavra(auth0);
+const lavra: Ref<boolean> = useLavra(auth0);
 
 watch(
   () => route.path,
@@ -106,7 +116,7 @@ watch(
     padding 0.25s ease;
 }
 .user-actions.revealed > * {
-  width: 100px;
+  width: 4.5rem;
 }
 .pfp-icon {
   border-radius: 10%;

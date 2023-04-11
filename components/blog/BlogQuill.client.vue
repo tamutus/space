@@ -5,7 +5,7 @@
         v-if="mode === 'write'"
         class="post-title"
         type="text"
-        placeholder="Title"
+        placeholder="Title of Blog Entry"
         v-model="blogPost.title.value"
       />
       <h2 v-else-if="postTitle">
@@ -71,16 +71,20 @@
                 <button class="tag-adder" title="Add to search filter" @click="addTag(tag)">+</button>
                 <button class="tag-subtractor" title="Remove from search filter" @click="subtractTag(tag)">-</button>
               </div>
-            <NuxtLink
-              :to="`/tag/${tag}`"
-              class="tag"
-              >{{ tag }}</NuxtLink
-            ></div>
+              <NuxtLink
+                :to="`/tag/${tag}`"
+                class="tag"
+                >{{ tag }}
+              </NuxtLink>
+            </div>
           </p>
         </td>
         <td v-if="!(published === true)"><h3>Draft</h3></td>
       </tr>
     </table>
+    <ButtonStandard v-if="mode === 'write'" @click="save"
+        >Save</ButtonStandard
+      >
     
     <TheaterModal v-show="deleting" :isOpen="deleting" @close="resetDeletion">
       <form id="delete-menu" @submit.prevent="deletePost">
@@ -95,6 +99,9 @@
 
 <script setup lang="ts">
 import { PropType, Ref } from "vue";
+
+import { useMagicKeys, whenever } from "@vueuse/core";
+
 import { Delta, QuillEditor } from "@vueup/vue-quill";
 import "@vueup/vue-quill/dist/vue-quill.snow.css";
 import "@vueup/vue-quill/dist/vue-quill.bubble.css";
@@ -174,6 +181,13 @@ const save = function () {
   });
 };
 
+if(props.mode === "write"){
+
+    const keys = useMagicKeys();
+    
+    whenever(keys.alt_s, save);
+  }
+
 const deleting = ref(false);
 const deleteName = ref("");
 const promptDelete = function(){
@@ -252,7 +266,7 @@ h3 {
   }
 }
 .post-meta-section {
-  margin: 2rem .5rem 0 .5rem;
+  margin: 2rem .5rem 2rem .5rem;
   width: calc(100% - 1rem);
   overflow-x: auto;
 }

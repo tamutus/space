@@ -17,7 +17,7 @@
 
 <script setup lang="ts">
 import { useAuth0 } from "@auth0/auth0-vue";
-import { NewBlogPost } from "@/server/api/blog/index.post";
+import { NewBlogPost } from "@/types/models";
 
 useHead({
   title: "Write @ LavraT",
@@ -27,22 +27,22 @@ const auth0 = useAuth0();
 const lavra = useLavra(auth0);
 
 const save = async function (contents: NewBlogPost) {
-  auth0
-    .getAccessTokenSilently()
-    .then(async (token) => {
-      await useFetch("/api/blog", {
-        method: "post",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        body: {
-          blogPost: contents,
-        },
-      });
-    })
-    .then(() => {
-      navigateTo(`/blog/read/${contents.title.replaceAll(/\s/g, "_")}`);
+  auth0.getAccessTokenSilently().then(async (token) => {
+    const { data, error } = await useFetch("/api/blog", {
+      method: "post",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      body: {
+        blogPost: contents,
+      },
     });
+    if (data.value === "Success") {
+      navigateTo(`/blog/read/${contents.title.replaceAll(/\s/g, "_")}`);
+    } else if (error.value) {
+      console.error(error.value);
+    }
+  });
 };
 </script>
 
