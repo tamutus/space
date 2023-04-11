@@ -22,7 +22,7 @@
 <script setup lang="ts">
 import { watch } from "vue";
 import { useActiveElement, useMagicKeys, whenever } from "@vueuse/core";
-import { logicAnd, logicOr } from "@vueuse/math";
+import { logicAnd, logicOr, logicNot } from "@vueuse/math";
 
 const props = defineProps({
   isOpen: {
@@ -76,7 +76,7 @@ watch(
   }
 );
 
-const { escape, arrowLeft, a, arrowRight, d, f } = useMagicKeys();
+const { escape, arrowLeft, a, arrowRight, d, alt, f } = useMagicKeys();
 
 watch(escape, (k) => {
   if (k) {
@@ -89,12 +89,18 @@ const notUsingInput = computed(
     activeElement.value?.tagName !== "INPUT" &&
     activeElement.value?.tagName !== "TEXTAREA"
 );
-whenever(logicAnd(logicOr(arrowLeft, a), notUsingInput), () => {
-  emit("backward");
-});
-whenever(logicAnd(logicOr(arrowRight, d), notUsingInput), () => {
-  emit("forward");
-});
+whenever(
+  logicAnd(logicOr(logicAnd(arrowLeft, logicNot(alt)), a), notUsingInput),
+  () => {
+    emit("backward");
+  }
+);
+whenever(
+  logicAnd(logicOr(logicAnd(arrowRight, logicNot(alt)), d), notUsingInput),
+  () => {
+    emit("forward");
+  }
+);
 whenever(logicAnd(f, notUsingInput), () => {
   toggleFullScreen();
 });

@@ -108,7 +108,9 @@
       <GalleryAnnotatedPic
         v-if="focusedArt"
         :nextable="
-          focusedArtIndex ? focusedArtIndex + 1 < artworks.length : false
+          typeof focusedArtIndex === 'number'
+            ? focusedArtIndex + 1 < sortedArtworks.length
+            : false
         "
         :backable="focusedArtIndex ? focusedArtIndex > 0 : false"
         @next="nextArt"
@@ -185,10 +187,8 @@
                   target="_blank"
                   ><ButtonStandard>See main page</ButtonStandard></a
                 >
-                <a v-for="pool of focusedArt.pools" target="_blank"
-                  ><ButtonStandard @click="loadPool(pool)"
-                    >Load pool #{{ pool }}</ButtonStandard
-                  ></a
+                <a v-for="pool of focusedArt.pools" @click="loadPool(pool)"
+                  ><ButtonStandard>Load pool #{{ pool }}</ButtonStandard></a
                 >
               </div>
               <div class="tag-links">
@@ -306,6 +306,16 @@
               v-model="sortOrder"
             />
             <label for="score-asc">↑ Score</label>
+          </div>
+
+          <div v-if="sourceGallery === 'e621'">
+            <input
+              type="radio"
+              id="random"
+              value="order:random"
+              v-model="sortOrder"
+            />
+            <label for="random">Random ✨</label>
           </div>
 
           <div v-if="sourceGallery === 'e621'">
@@ -467,7 +477,9 @@ const searchString: Ref<string> = ref("");
 
 const pageTitle = computed(() => {
   if (searchString.value.length > 0) {
-    return `${searchString.value.replaceAll("_", " ")} – ${
+    return `${
+      focusedArtIndex.value ? "[" + focusedArtIndex.value + "] in " : ""
+    }${searchString.value.replaceAll("_", " ")} – ${
       sourceGallery.value === "e621"
         ? "Reconcile's e621 Viewer"
         : "Reconcile's Gallery"
@@ -505,6 +517,8 @@ const e621ModeActivate = function () {
   sortOrder.value = "order:score";
   questionableAllowed.value = true;
   explicitAllowed.value = true;
+  nextable.value = true;
+  pageNumber.value = 1;
   calculateSearchString();
 };
 const lavraModeActivate = function () {
@@ -547,7 +561,7 @@ const artworks: Ref<Array<ArtWithTagStrings & { [key: string]: any }>> = ref(
 const sortedArtworks = computed(() => {
   if (sortOrder.value === "order:id") {
     return artworks.value.sort((a, b) => {
-      return b.id - a.id;
+      return a.id - b.id;
     });
   } else if (sortOrder.value === "order:score") {
     return artworks.value.sort((a, b) => {
@@ -597,9 +611,11 @@ const sortedArtworks = computed(() => {
     return artworks.value.sort((a, b) => {
       return a.width / a.height - b.width / b.height;
     });
+  } else if (sortOrder.value === "order:random") {
+    return artworks.value;
   } else {
     return artworks.value.sort((a, b) => {
-      return a.id - b.id;
+      return b.id - a.id;
     });
   }
 });
@@ -762,6 +778,11 @@ const queryParams: ComputedRef<string[]> = computed(() => {
   }
   return params;
 });
+const currentQuery = ref(
+  upon.value?.length > 0
+    ? queryParams.value.slice(1).join("&")
+    : queryParams.value.join("&")
+);
 
 const focusing = ref(false);
 const activeElement = useActiveElement();
@@ -810,6 +831,7 @@ watch(thumbScale, (newValue) => {
 const reflectTagChange = async function () {
   calculateSearchString();
   pageNumber.value = 1;
+  nextable.value = true;
   unfocusArt();
   setParams();
   search();
@@ -912,7 +934,8 @@ type SortOrder =
   | "order:duration"
   | "order:duration_asc"
   | "order:landscape"
-  | "order:portrait";
+  | "order:portrait"
+  | "order:random";
 const validateSortOrder = function (maybeOrder: any): maybeOrder is SortOrder {
   return [
     "",
@@ -929,6 +952,7 @@ const validateSortOrder = function (maybeOrder: any): maybeOrder is SortOrder {
     "order:duration_asc",
     "order:landscape",
     "order:portrait",
+    "order:random",
   ].includes(maybeOrder);
 };
 const oppositeOrder = function (backwards: SortOrder): SortOrder {
@@ -979,6 +1003,8 @@ const oppositeOrder = function (backwards: SortOrder): SortOrder {
     case "order:portrait":
       rightOrder = "order:landscape";
       break;
+    default:
+      rightOrder = "order:random";
   }
   return rightOrder;
 };
@@ -1087,15 +1113,26 @@ const inputQuery = async function ($event: string) {
   calculateSearchString();
   setParams();
   pageNumber.value = 1;
+  nextable.value = true;
   search();
   navigateTo(`/furry/gaze?${queryParams.value.join("&")}`);
 };
 const search = async function (singlet?: boolean) {
   console.log("search ran");
-  if (searching.value === true || nextable.value === false) {
+  if (searching.value === true) {
+    return;
+  }
+  if (nextable.value === false) {
     return;
   }
   searching.value = true;
+  if (!singlet) {
+    currentQuery.value =
+      upon.value?.length > 0
+        ? queryParams.value.slice(1).join("&")
+        : queryParams.value.join("&");
+  }
+
   let ratedSearch = searchString.value.replaceAll(" ", "+");
   if (sourceGallery.value === "e621") {
     if (explicitAllowed.value !== true && questionableAllowed.value !== true) {
@@ -1107,11 +1144,14 @@ const search = async function (singlet?: boolean) {
     if (safeAllowed.value !== true && questionableAllowed.value !== true) {
       ratedSearch += "+rating:explicit";
     }
-    ratedSearch += `+score:>${minScore.value}`;
+    ratedSearch += `+score:>${minScore.value - 1}`;
   }
 
   if (sortOrder.value.length > 0) {
     ratedSearch += `+${sortOrder.value}`;
+    if (sortOrder.value === "order:random") {
+      ratedSearch += "&randseed:666";
+    }
   }
 
   let pagePart = "";
@@ -1123,11 +1163,13 @@ const search = async function (singlet?: boolean) {
       if (["", "order:id"].includes(sortOrder.value)) {
         const relevantCursor = tempCursor.value
           ? tempCursor.value
-          : sortOrder.value === "order:id"
-          ? backCursor.value
-          : cursor.value;
+          : // : sortOrder.value === "order:id"
+            // ? backCursor.value
+            cursor.value;
         if (relevantCursor) {
-          pagePart = `&page=b${relevantCursor}`;
+          pagePart = `&page=${
+            sortOrder.value === "order:id" ? "a" : "b"
+          }${relevantCursor}`;
         }
       } else {
         pagePart = `&page=${pageNumber.value}`;
@@ -1135,7 +1177,6 @@ const search = async function (singlet?: boolean) {
     }
   }
 
-  ratedSearch = ratedSearch.replaceAll(":", "%3A");
   if (sourceGallery.value === "lavra") {
   } else if (sourceGallery.value === "e621") {
     const { data: e621Response, error: e621Error } = await useFetch(
@@ -1154,6 +1195,7 @@ const search = async function (singlet?: boolean) {
       if (validateE6Res(res)) {
         if (res.posts.length === 0) {
           nextable.value = false;
+          searching.value = false;
           return;
         }
         const artToAdd = res.posts
@@ -1207,6 +1249,8 @@ const search = async function (singlet?: boolean) {
             tempCursor.value = res.posts[res.posts.length - 1].id;
           }
           if (pageNumber.value === 1) {
+            artworks.value = [];
+            await nextTick();
             artworks.value = artToAdd;
           } else {
             artworks.value = [...artworks.value, ...artToAdd];
@@ -1225,14 +1269,28 @@ const search = async function (singlet?: boolean) {
   //   fetchError
   // );
   if (!focusing.value && pageNumber.value === 1) {
-    viewer.value.scrollIntoView({
+    viewer.value?.scrollIntoView({
       behavior: "smooth",
       top: 500,
     });
   }
 };
+watchEffect(() => {
+  console.log(nextable.value);
+});
 const loadPool = async function (poolID: number) {
   artworks.value = [];
+  pageNumber.value = 1;
+  nextable.value = true;
+  noList.value.clear();
+  maybeList.value.clear();
+
+  yesList.value = new Set([`pool:${poolID}`]);
+  sortOrder.value = "order:id";
+  calculateSearchString();
+
+  unfocusArt();
+  await search();
   navigateTo(`/furry/gaze?yes=pool:${poolID}&order=id`);
 };
 
@@ -1312,10 +1370,11 @@ const unfocusArt = function () {
   focusing.value = false;
   focusedArtIndex.value = null;
   focusedArt.value = null;
+  upon.value = "";
 };
 const unfocusNavigate = function () {
   console.log("unfocusNavigate called");
-  unfocusArt();
+  captureParams();
   upon.value = "";
   navigateTo(`/furry/gaze?${queryParams.value.join("&")}`);
 };
@@ -1351,33 +1410,30 @@ const pauseVideo = function (videoPlayerID: string) {
 // This is where params are parsed into new search queries (not page turns, because it gets complicated) and art-focusing that create new history entries. By sorting entries in sync with the search queries, users should be able to follow a link to a focused art *over* a search query, load just that art, yet access the search that led to that art—preserving a more semantic state. As the user pages forward they'll eventually come to that piece's original spot in the sort order, but before that point it needs to not be added to the artworks. Separate. (it would otherwise be at the end, messing up the paged searching that uses the computed last entry as its cursor).
 
 const loadRoute = async function () {
-  const oldParams = queryParams.value.join("&");
-  console.log(oldParams);
   captureParams();
-  // applyParams();
-
+  const underlyingQuery =
+    upon.value?.length > 0
+      ? queryParams.value.slice(1).join("&")
+      : queryParams.value.join("&");
   if (upon.value?.length > 0) {
     const toFocus = artworks.value.findIndex(
       (piece) => String(piece.id) === upon.value.replace("upon=", "")
     );
     if (toFocus > -1) {
       focusArt(toFocus);
-      return;
     } else {
       searchString.value = `id:${upon.value.replace("upon=", "")}`;
       await search(true);
-      applyParams();
-      return;
     }
-  } else if (focusedArtIndex.value) {
+  } else if (focusedArtIndex.value || focusedArt.value) {
     unfocusArt();
-    return;
+    captureParams();
   }
-
   applyParams();
-  console.log(queryParams.value.join("&"));
+  console.log(currentQuery.value);
+  console.log(underlyingQuery);
   if (
-    oldParams !== queryParams.value.join("&") ||
+    currentQuery.value !== underlyingQuery ||
     (artworks.value.length === 0 && queryParams.value.length > 0)
     // !(
     //   [...yesList.value].every((tagName) =>
