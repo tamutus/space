@@ -7,9 +7,9 @@
     "test": "vitest",
     "test:c": "vitest run --coverage",
     "start": "node app.js",
-    "build": "nuxt build",
+    "build": "nuxt build && prisma migrate deploy",
     "dev": "nuxt dev",
-    "generate": "prisma generate && prisma migrate deploy && nuxt generate",
+    "generate": "prisma generate && nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare"
   },
