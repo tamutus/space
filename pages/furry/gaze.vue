@@ -19,6 +19,10 @@
         @loosen="loosenTag"
         @block="blockTag"
       />
+      <button id="gaze-widener" @click="toggleWideMode">
+        {{ wideMode ? "+ Margins" : "– Margins" }}
+        [W]
+      </button>
       <section id="search-splash"></section>
       <div class="gallery-container">
         <!-- <GalleryPrismGooglePics bucket="homepage-gallery" /> -->
@@ -1103,6 +1107,7 @@ const search = async function (singlet?: boolean) {
     if (safeAllowed.value !== true && questionableAllowed.value !== true) {
       ratedSearch += "+rating:explicit";
     }
+    ratedSearch += `+score:>${minScore.value}`;
   }
 
   if (sortOrder.value.length > 0) {
@@ -1896,7 +1901,23 @@ div.info {
   border-radius: 0 0.4rem 0.4rem 0.4rem;
   transition: color 0.3s ease-out, background-color 0.3s ease-out;
 }
-
+#gaze-widener {
+  position: fixed;
+  right: 0.5rem;
+  top: 4.5rem;
+  z-index: 2;
+  font-size: 1rem;
+  font-family: Cabin;
+  line-height: 1rem;
+  background-color: rgb(234, 213, 255);
+  border-radius: 10px 0 10px 30% / 10px 20px;
+  transition: top 0.2s ease-out, right 0.2s ease-out, opacity 0.3s ease-out;
+}
+@media screen and (max-width: 1150px) {
+  #gaze-widener {
+    top: calc(60px + 11rem);
+  }
+}
 #search-settings {
   opacity: 0.2;
   transition: opacity 0.3s ease-out;

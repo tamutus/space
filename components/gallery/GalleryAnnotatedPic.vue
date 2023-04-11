@@ -139,13 +139,11 @@ button:focus {
   margin-left: 5vw;
 }
 .left-button {
-  /* translate: 0 100%; */
   bottom: 0.5rem;
   left: 30%;
   opacity: 1;
 }
 .right-button {
-  /* translate: 0 100%; */
   bottom: 0.5rem;
   right: 30%;
   opacity: 1;
@@ -153,5 +151,24 @@ button:focus {
 .fullscreen .right-button:not(:hover),
 .fullscreen .left-button:not(:hover) {
   opacity: 0.15;
+}
+@media screen and (max-width: 1500px) {
+  .left-button button,
+  .right-button button {
+    width: 5rem;
+  }
+}
+@media screen and (max-width: 600px) {
+  .left-button button,
+  .right-button button {
+    scale: 0.8;
+    font-size: 1rem;
+  }
+  .left-button {
+    translate: -15% 0;
+  }
+  .right-button {
+    translate: 15% 0;
+  }
 }
 </style>
