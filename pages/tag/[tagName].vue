@@ -139,61 +139,62 @@ const toggleEditing = function () {
 };
 
 const save = async function () {
-  loadingTag.value = true;
-  if (tag.value?.id && auth0) {
-    const { data: savedTag, error: saveError } = await authFetchWithId(
-      tag,
-      "/api/tag/",
-      auth0,
-      lavra,
-      "put",
-      {
-        body: {
-          tag: {
-            name: updatedName.value,
-            info: updatedInfo.value,
-            nsfw: nsfw.value,
-          },
-        },
-      }
-    );
-    fetchError.value = saveError.value;
-    if (savedTag.value && !fetchError.value) {
-      const t = savedTag.value;
-      if (validateTag(t)) {
-        tag.value = t;
-        reflectTagUpdate();
-      }
-      toggleEditing();
-    }
-    // const id = tag.value.id;
-    // auth0.getAccessTokenSilently().then(async (token) => {
-    //   if (tag.value?.id) {
-    //     const { data: tagResponse } = await useFetch(
-    //       `/api/tag/${tag.value.id}`,
-    //       {
-    //         method: "put",
-    //         headers: {
-    //           Authorization: `Bearer ${token}`,
-    //         },
-    //         body: {
-    //           tag: {
-    //             name: updatedName.value,
-    //             info: updatedInfo.value,
-    //           },
-    //         },
-    //       }
-    //     );
-    //     if (tagResponse.value && typeof tagResponse.value !== "string") {
-    //       tag.value = tagResponse.value;
-    //       reflectTagUpdate();
-    //       toggleEditing();
-    //     } else {
-    //       console.log(tagResponse.value);
-    //     }
-    //   }
-    // });
-  }
+  // loadingTag.value = true;
+  // if (tag.value?.id && auth0) {
+  //   const { data: savedTag, error: saveError } = await authFetchWithId(
+  //     tag,
+  //     "/api/tag/",
+  //     auth0,
+  //     lavra,
+  //     "put",
+  //     {
+  //       body: {
+  //         tag: {
+  //           name: updatedName.value,
+  //           info: updatedInfo.value,
+  //           nsfw: nsfw.value,
+  //         },
+  //       },
+  //     }
+  //   );
+  //   fetchError.value = saveError.value;
+  //   if (savedTag.value && !fetchError.value) {
+  //     const t = savedTag.value;
+  //     if (validateTag(t)) {
+  //       tag.value = t;
+  //       reflectTagUpdate();
+  //     }
+  //     toggleEditing();
+  //   }
+  //******************** */
+  // const id = tag.value.id;
+  // auth0.getAccessTokenSilently().then(async (token) => {
+  //   if (tag.value?.id) {
+  //     const { data: tagResponse } = await useFetch(
+  //       `/api/tag/${tag.value.id}`,
+  //       {
+  //         method: "put",
+  //         headers: {
+  //           Authorization: `Bearer ${token}`,
+  //         },
+  //         body: {
+  //           tag: {
+  //             name: updatedName.value,
+  //             info: updatedInfo.value,
+  //           },
+  //         },
+  //       }
+  //     );
+  //     if (tagResponse.value && typeof tagResponse.value !== "string") {
+  //       tag.value = tagResponse.value;
+  //       reflectTagUpdate();
+  //       toggleEditing();
+  //     } else {
+  //       console.log(tagResponse.value);
+  //     }
+  //   }
+  // });
+  // }
 };
 // Delete functionality
 const deleting = ref(false);
@@ -207,21 +208,21 @@ const resetDeletion = function () {
   deleteName.value = "";
 };
 const deleteTag = async function () {
-  const { data: deleteResult, error: deleteError } = await authFetchWithId(
-    tag,
-    "/api/tag/",
-    auth0,
-    lavra,
-    "delete"
-  );
-  fetchError.value = deleteError.value;
-  if (deleteResult.value && !deleteError.value) {
-    console.log(`Deleted ${JSON.stringify(deleteResult.value, null, 2)}`);
-    navigateTo("/tag");
-  } else {
-    console.error("Couldn't delete tag");
-  }
-  // if (deleteName.value === liveName.value && tag.value?.id) {
+  // const { data: deleteResult, error: deleteError } = await authFetchWithId(
+  //   tag,
+  //   "/api/tag/",
+  //   auth0,
+  //   lavra,
+  //   "delete"
+  // );
+  // fetchError.value = deleteError.value;
+  // if (deleteResult.value && !deleteError.value) {
+  //   console.log(`Deleted ${JSON.stringify(deleteResult.value, null, 2)}`);
+  //   navigateTo("/tag");
+  // } else {
+  //   console.error("Couldn't delete tag");
+  // }
+  // if (auth0 && deleteName.value === liveName.value && tag.value?.id) {
   //   const id = tag.value.id;
   //   auth0.getAccessTokenSilently().then(async (token) => {
   //     const { data: deleteResult, error: deleteError } = await useFetch(
@@ -235,7 +236,7 @@ const deleteTag = async function () {
   //     );
   //   });
   // }
-  resetDeletion();
+  // resetDeletion();
 };
 </script>
 
