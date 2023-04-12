@@ -51,21 +51,23 @@ export async function authFetchWithId<DatabaseObject extends { id: number }>(
   method: RouterMethod = "get",
   body?: object
 ) {
-  if (logicGate.value && dbObject.value?.id) {
-    const id = dbObject.value.id;
-    return auth.getAccessTokenSilently().then(async (token) => {
-      let maybeBody = {};
-      if (body !== undefined) {
-        maybeBody = { ...body };
-      }
-      return useFetch(relativeURL + id, {
-        method,
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        ...maybeBody,
+  if (auth) {
+    if (logicGate.value && dbObject.value?.id) {
+      const id = dbObject.value.id;
+      return auth.getAccessTokenSilently().then(async (token) => {
+        let maybeBody = {};
+        if (body !== undefined) {
+          maybeBody = { ...body };
+        }
+        return useFetch(relativeURL + id, {
+          method,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          ...maybeBody,
+        });
       });
-    });
+    }
   }
   return {
     data: ref(null),

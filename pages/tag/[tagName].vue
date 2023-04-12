@@ -75,19 +75,13 @@
 </template>
 
 <script setup lang="ts">
+import { Tag } from ".prisma/client";
 import { Ref } from "vue";
 import { FetchError } from "ofetch";
 import { useAuth0 } from "@auth0/auth0-vue";
 
 import { validateTag } from "@/types/models";
 import { authFetchWithId } from "@/composables/auth";
-
-type Tag = {
-  id: number;
-  name: string;
-  info: string | null;
-  nsfw: boolean;
-};
 
 const route = useRoute();
 
@@ -145,7 +139,8 @@ const toggleEditing = function () {
 };
 
 const save = async function () {
-  if (tag.value?.id) {
+  loadingTag.value = true;
+  if (tag.value?.id && auth0) {
     const { data: savedTag, error: saveError } = await authFetchWithId(
       tag,
       "/api/tag/",
@@ -222,8 +217,9 @@ const deleteTag = async function () {
   fetchError.value = deleteError.value;
   if (deleteResult.value && !deleteError.value) {
     console.log(`Deleted ${JSON.stringify(deleteResult.value, null, 2)}`);
-  } else {
     navigateTo("/tag");
+  } else {
+    console.error("Couldn't delete tag");
   }
   // if (deleteName.value === liveName.value && tag.value?.id) {
   //   const id = tag.value.id;
