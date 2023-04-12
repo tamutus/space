@@ -32,7 +32,7 @@
                     </NuxtLink>
                   </ButtonStandard>
                   <ButtonStandard>
-                    <NuxtLink :to="`/furry/gaze?tags=${tag.name}`">
+                    <NuxtLink :to="`/furry/gaze?yes=${tag.name}`">
                       Tagged artwork
                     </NuxtLink>
                   </ButtonStandard>
@@ -75,13 +75,19 @@
 </template>
 
 <script setup lang="ts">
-import { Tag } from ".prisma/client";
 import { Ref } from "vue";
 import { FetchError } from "ofetch";
 import { useAuth0 } from "@auth0/auth0-vue";
 
 import { validateTag } from "@/types/models";
 import { authFetchWithId } from "@/composables/auth";
+
+type Tag = {
+  id: number;
+  name: string;
+  info: string | null;
+  nsfw: boolean;
+};
 
 const route = useRoute();
 

@@ -11,6 +11,7 @@ export default defineEventHandler(async (event: H3Event) => {
     select: {
       id: true,
       name: true,
+      nsfw: true,
     },
     orderBy: [{ name: "asc" }],
   };
@@ -24,10 +25,9 @@ export default defineEventHandler(async (event: H3Event) => {
       statusMessage: "Couldn't find tags",
     });
   }
-  return tags.map((tag: { id: number; name: string }) => {
+  return tags.map((tag: Tag) => {
     return {
-      id: tag.id,
-      name: tag.name,
+      ...tag,
       info: null,
     } as Tag;
   });
