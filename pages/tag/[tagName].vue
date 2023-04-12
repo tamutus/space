@@ -79,9 +79,10 @@ import { Tag } from ".prisma/client";
 import { Ref } from "vue";
 import { FetchError } from "ofetch";
 import { useAuth0 } from "@auth0/auth0-vue";
+import { useMagicKeys, whenever } from "@vueuse/core";
+import { logicAnd } from "@vueuse/math";
 
 import { validateTag } from "@/types/models";
-import { authFetchWithId } from "@/composables/auth";
 
 const route = useRoute();
 
@@ -166,36 +167,46 @@ const save = async function () {
   //     }
   //     toggleEditing();
   //   }
-  //******************** */
-  // const id = tag.value.id;
-  // auth0.getAccessTokenSilently().then(async (token) => {
-  //   if (tag.value?.id) {
-  //     const { data: tagResponse } = await useFetch(
-  //       `/api/tag/${tag.value.id}`,
-  //       {
-  //         method: "put",
-  //         headers: {
-  //           Authorization: `Bearer ${token}`,
-  //         },
-  //         body: {
-  //           tag: {
-  //             name: updatedName.value,
-  //             info: updatedInfo.value,
-  //           },
-  //         },
-  //       }
-  //     );
-  //     if (tagResponse.value && typeof tagResponse.value !== "string") {
-  //       tag.value = tagResponse.value;
-  //       reflectTagUpdate();
-  //       toggleEditing();
-  //     } else {
-  //       console.log(tagResponse.value);
-  //     }
-  //   }
-  // });
-  // }
+  if (auth0 && lavra.value === true && tag.value) {
+    const id = tag.value.id;
+    auth0.getAccessTokenSilently().then(async (token) => {
+      if (id) {
+        const { data: tagResponse, error: saveError } = await useFetch(
+          `/api/tag/${id}`,
+          {
+            method: "put",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+            body: {
+              tag: {
+                name: updatedName.value,
+                info: updatedInfo.value,
+                nsfw: nsfw.value,
+              },
+            },
+          }
+        );
+        fetchError.value = saveError.value;
+        if (tagResponse.value && !fetchError.value) {
+          const t = tagResponse.value;
+          if (validateTag(t)) {
+            tag.value = t;
+            reflectTagUpdate();
+          }
+        } else {
+          console.log(tagResponse.value);
+        }
+        toggleEditing();
+      }
+    });
+  }
 };
+
+const keys = useMagicKeys();
+
+whenever(logicAnd(keys.alt_s, editing), save);
+
 // Delete functionality
 const deleting = ref(false);
 const deleteName = ref("");
@@ -208,35 +219,35 @@ const resetDeletion = function () {
   deleteName.value = "";
 };
 const deleteTag = async function () {
-  // const { data: deleteResult, error: deleteError } = await authFetchWithId(
-  //   tag,
-  //   "/api/tag/",
-  //   auth0,
-  //   lavra,
-  //   "delete"
-  // );
-  // fetchError.value = deleteError.value;
-  // if (deleteResult.value && !deleteError.value) {
-  //   console.log(`Deleted ${JSON.stringify(deleteResult.value, null, 2)}`);
-  //   navigateTo("/tag");
-  // } else {
-  //   console.error("Couldn't delete tag");
-  // }
-  // if (auth0 && deleteName.value === liveName.value && tag.value?.id) {
-  //   const id = tag.value.id;
-  //   auth0.getAccessTokenSilently().then(async (token) => {
-  //     const { data: deleteResult, error: deleteError } = await useFetch(
-  //       `/api/pics/homepage-gallery/file/${id}`,
-  //       {
-  //         method: "DELETE",
-  //         headers: {
-  //           Authorization: `Bearer ${token}`,
-  //         },
-  //       }
-  //     );
-  //   });
-  // }
-  // resetDeletion();
+  if (
+    auth0 &&
+    lavra.value === true &&
+    deleteName.value === liveName.value &&
+    tag.value
+  ) {
+    const id = tag.value.id;
+    if (id) {
+      auth0.getAccessTokenSilently().then(async (token) => {
+        const { data: deleteResult, error: deleteError } = await useFetch(
+          `/api/tag/${id}`,
+          {
+            method: "DELETE",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        fetchError.value = deleteError.value;
+        resetDeletion();
+        if (deleteResult.value && !deleteError.value) {
+          console.log(`Deleted ${JSON.stringify(deleteResult.value, null, 2)}`);
+          navigateTo("/tag");
+        } else {
+          console.error("Couldn't delete tag");
+        }
+      });
+    }
+  }
 };
 </script>
 

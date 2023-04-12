@@ -39,13 +39,14 @@ const prisma: PrismaClient = new PrismaClient();
 
 const getBlogPostsWithTags = async function (event: H3Event) {
   const query = getQuery(event);
-  const queryTags = [];
   const requestTags = query.tags;
+  let queryTags: string[] = [];
   if (typeof requestTags === "string") {
-    queryTags.push(String(requestTags));
+    queryTags = [...requestTags.split(/[\+\s]/g)];
   } else if (Array.isArray(requestTags)) {
-    queryTags.push(...requestTags.map((tagName) => String(tagName)));
+    queryTags = [...requestTags.map((tagName) => String(tagName))];
   }
+  console.log(queryTags);
 
   const prismaQuery: Prisma.BlogPostFindManyArgs = {
     take:

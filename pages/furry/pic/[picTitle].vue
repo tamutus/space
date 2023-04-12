@@ -113,7 +113,6 @@ import {
   validBucket,
   validImageFile,
 } from "@/types/googleStorage";
-import { authFetchWithId } from "@/composables/auth";
 
 const route = useRoute();
 
@@ -242,24 +241,31 @@ whenever(logicAnd(keys.alt_s, editing), save);
 // Picture uploading
 
 const openUploader = async function () {
-  const artPostRes = authFetchWithId<ArtWithTagStrings>(
-    art,
-    `/api/pics/${activeAction.value}/file/`,
-    auth0,
-    lavra,
-    "post"
-  );
-  const { data: artUploadURL, error: uploadingError } = await artPostRes;
-  if (
-    artUploadURL.value &&
-    typeof artUploadURL.value === "string" &&
-    !uploadingError.value
-  ) {
-    uploadURL.value = artUploadURL.value;
-    uploading.value = true;
-  } else {
-    fetchError.value = uploadingError.value;
-    cancelUpload();
+  if (auth0 && lavra.value === true && art.value?.id) {
+    const id = art.value.id;
+    auth0.getAccessTokenSilently().then(async (token) => {
+      const { data: artUploadURL, error: uploadError } = await useFetch(
+        `/api/pics/${activeAction.value}/file/`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      fetchError.value = uploadError.value;
+      if (
+        artUploadURL.value &&
+        typeof artUploadURL.value === "string" &&
+        !uploadError.value
+      ) {
+        uploadURL.value = artUploadURL.value;
+        uploading.value = true;
+      } else {
+        fetchError.value = uploadError.value;
+        cancelUpload();
+      }
+    });
   }
 };
 
