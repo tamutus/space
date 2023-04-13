@@ -1,20 +1,24 @@
 import { Prisma } from "@prisma/client";
 import { Art, BlogPost, Tag, TagsOnArt, TagsOnPosts } from ".prisma/client";
 
-// const blogPostWithTags = Prisma.validator<Prisma.BlogPostArgs>()({
-//   include: {
-//     tags: {
-//       include: {
-//         tag: true,
-//       },
-//     },
-//   },
-// });
-export type BlogPostWithTags = BlogPost & {
-  tags: (TagsOnPosts & {
-    tag: Tag;
-  })[];
-};
+const blogPostWithTags = Prisma.validator<Prisma.BlogPostArgs>()({
+  include: {
+    tags: {
+      include: {
+        tag: true,
+      },
+    },
+  },
+});
+export type BlogPostWithTags = Prisma.BlogPostGetPayload<
+  typeof blogPostWithTags
+>;
+// export type BlogPostWithTags = BlogPost & {
+//   tags: (TagsOnPosts & {
+//     tag: Tag;
+//   })[];
+// };
+
 export type BlogPostWithTagStrings = BlogPost & {
   tags: string[];
 };
@@ -26,28 +30,27 @@ export type NewBlogPost = {
   published: boolean;
 };
 
-// const artWithTags = Prisma.validator<Prisma.ArtArgs>()({
-//   include: {
-//     tags: {
-//       include: {
-//         tag: true,
-//       },
-//     },
-//   },
-// });
+const artWithTags = Prisma.validator<Prisma.ArtArgs>()({
+  include: {
+    tags: {
+      include: {
+        tag: true,
+      },
+    },
+  },
+});
+export type ArtWithTags = Prisma.ArtGetPayload<typeof artWithTags> & {
+  url?: string;
+  artists?: string[];
+};
 // export type ArtWithTags = Art & {
 //   tags: (TagsOnArt & {
 //     tag: Tag;
 //   })[];
+// } & {
+//   url?: string | undefined;
+//   artists?: string[] | undefined;
 // };
-export type ArtWithTags = Art & {
-  tags: (TagsOnArt & {
-    tag: Tag;
-  })[];
-} & {
-  url?: string | undefined;
-  artists?: string[] | undefined;
-};
 export type ArtWithTagStrings = Art & {
   tags: string[];
   url?: string;
