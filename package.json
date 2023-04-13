@@ -1,13 +1,13 @@
 {
   "name": "space",
-  "version": "2.3.4",
+  "version": "2.3.5",
   "description": "Personal Web Portfolio",
   "main": "app.js",
   "scripts": {
     "test": "vitest",
     "test:c": "vitest run --coverage",
     "start": "node app.js",
-    "build": "nuxt build && prisma migrate deploy && prisma generate",
+    "build": "prisma migrate deploy && prisma generate && nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
