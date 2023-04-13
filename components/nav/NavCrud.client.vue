@@ -1,30 +1,32 @@
 <template>
-  <div id="crud-buttons" v-if="editable">
-    <TransitionGroup name="list">
-      <div v-if="editing" class="crud-button" key="1">
-        <ButtonStandard
-          color="rgb(219, 67, 138)"
-          @click="() => $emit('promptDelete')"
-          >Delete</ButtonStandard
-        >
-      </div>
+  <div id="crud-buttons">
+    <div v-if="editable">
+      <TransitionGroup name="list">
+        <div v-if="editing" class="crud-button" key="1">
+          <ButtonStandard
+            color="rgb(219, 67, 138)"
+            @click="() => $emit('promptDelete')"
+            >Delete</ButtonStandard
+          >
+        </div>
 
-      <div v-if="uploadable" class="crud-button" key="2">
-        <ButtonStandard @click="() => $emit('openUploader')">
-          Upload
-        </ButtonStandard>
-      </div>
+        <div v-if="uploadable" class="crud-button" key="2">
+          <ButtonStandard @click="() => $emit('openUploader')">
+            Upload
+          </ButtonStandard>
+        </div>
 
-      <div v-if="editing" class="crud-button" key="3">
-        <ButtonStandard @click="() => $emit('save')">Save</ButtonStandard>
-      </div>
+        <div v-if="editing" class="crud-button" key="3">
+          <ButtonStandard @click="() => $emit('save')">Save</ButtonStandard>
+        </div>
 
-      <div class="crud-button" key="4">
-        <ButtonStandard @click="() => $emit('toggleEditing')">{{
-          editing ? "Stop" : "Edit"
-        }}</ButtonStandard>
-      </div>
-    </TransitionGroup>
+        <div class="crud-button" key="4">
+          <ButtonStandard @click="() => $emit('toggleEditing')">{{
+            editing ? "Stop" : "Edit"
+          }}</ButtonStandard>
+        </div>
+      </TransitionGroup>
+    </div>
   </div>
 </template>
 
@@ -48,7 +50,7 @@ const props = defineProps({
   },
 });
 
-const emits = defineEmits([
+const emit = defineEmits([
   "openUploader",
   "promptDelete",
   "save",
