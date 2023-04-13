@@ -46,9 +46,9 @@ const lavra = useLavra(auth0);
 
 const rawPost: Ref<BlogPostWithTags | null> = ref(null);
 const post: Ref<BlogPostWithTagStrings | null> = ref(null);
-const fetchError: Ref<FetchError<any> | null> = ref(null);
 
 const loadingBlog = ref(true);
+const fetchError: Ref<FetchError<any> | null> = ref(null);
 
 const reflectBlogUpdate = function () {
   if (rawPost.value) {

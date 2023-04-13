@@ -2,28 +2,35 @@
   <div id="crud-buttons">
     <div v-if="editable">
       <TransitionGroup name="list">
-        <div v-if="editing" class="crud-button" key="1">
-          <ButtonStandard
-            color="rgb(219, 67, 138)"
-            @click="() => $emit('promptDelete')"
-            >Delete</ButtonStandard
-          >
+        <div
+          v-if="editing"
+          class="crud-button"
+          key="1"
+          @click="() => $emit('promptDelete')"
+        >
+          <ButtonStandard color="rgb(219, 67, 138)">Delete</ButtonStandard>
         </div>
 
-        <div v-if="uploadable" class="crud-button" key="2">
-          <ButtonStandard @click="() => $emit('openUploader')">
-            Upload
-          </ButtonStandard>
+        <div
+          v-if="uploadable"
+          class="crud-button"
+          key="2"
+          @click="() => $emit('openUploader')"
+        >
+          <ButtonStandard> Upload </ButtonStandard>
         </div>
 
-        <div v-if="editing" class="crud-button" key="3">
-          <ButtonStandard @click="() => $emit('save')">Save</ButtonStandard>
+        <div
+          v-if="editing"
+          class="crud-button"
+          key="3"
+          @click="() => $emit('save')"
+        >
+          <ButtonStandard>Save</ButtonStandard>
         </div>
 
-        <div class="crud-button" key="4">
-          <ButtonStandard @click="() => $emit('toggleEditing')">{{
-            editing ? "Stop" : "Edit"
-          }}</ButtonStandard>
+        <div class="crud-button" key="4" @click="() => $emit('toggleEditing')">
+          <ButtonStandard>{{ editing ? "Stop" : "Edit" }}</ButtonStandard>
         </div>
       </TransitionGroup>
     </div>

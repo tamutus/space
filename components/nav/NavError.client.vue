@@ -1,11 +1,13 @@
 <template>
-  <div v-if="error" class="error" ref="errorBlock">
-    <h2>Error</h2>
-    <code>
-      {{ error.statusCode }}
-      {{ error.statusMessage }}
-      {{ error.data }}
-    </code>
+  <div class="error" ref="errorBlock">
+    <div v-if="error">
+      <h2>Error</h2>
+      <code>
+        {{ error.statusCode }}
+        {{ error.statusMessage }}
+        {{ error.data }}
+      </code>
+    </div>
   </div>
 </template>
 
