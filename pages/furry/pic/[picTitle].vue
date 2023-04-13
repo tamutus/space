@@ -133,6 +133,7 @@ const lavra = useLavra(auth0);
 
 const rawArt: Ref<ArtWithTags | null> = ref(null);
 const art: Ref<ArtWithTagStrings | null> = ref(null);
+
 const loadingArt = ref(true);
 const fetchError: Ref<FetchError<any> | null> = ref(null);
 

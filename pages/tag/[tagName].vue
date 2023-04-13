@@ -59,7 +59,7 @@
         </BackgroundHologram>
         <BackgroundHologram v-else> No Such Tag </BackgroundHologram>
       </section>
-      <NavError v-show="lavra && fetchError" :error="fetchError"></NavError>
+      <NavError v-if="lavra && fetchError" :error="fetchError"></NavError>
     </BackgroundTexture>
     <TheaterModal v-show="deleting" :isOpen="deleting" @close="resetDeletion">
       <form id="delete-menu" @submit.prevent="deleteTag">
