@@ -246,7 +246,7 @@ const openUploader = async function () {
     const id = art.value.id;
     auth0.getAccessTokenSilently().then(async (token) => {
       const { data: artUploadURL, error: uploadError } = await useFetch(
-        `/api/pics/${activeAction.value}/file/`,
+        `/api/pics/${activeAction.value}/file/${id}`,
         {
           method: "POST",
           headers: {
@@ -291,6 +291,8 @@ const upload = async function () {
       });
       if (!uploadError.value) {
         navigateTo(`${art.value?.title.replaceAll(/\s/g, "_")}`);
+        fetchArt();
+        cancelUpload();
       } else {
         console.error("Error uploading picture to GCS:", uploadError.value);
       }
@@ -312,9 +314,10 @@ const resetDeletion = function () {
 const deleteArt = async function () {
   if (deleteName.value === liveTitle.value && art.value?.id) {
     const id = art.value.id;
+    const bucket = art.value.bucket;
     auth0.getAccessTokenSilently().then(async (token) => {
       const { data: deleteResult, error: deleteError } = await useFetch(
-        `/api/pics/homepage-gallery/file/${id}`,
+        `/api/pics/${bucket.replace("gallery", "upload")}/file/${id}`,
         {
           method: "DELETE",
           headers: {
@@ -325,8 +328,9 @@ const deleteArt = async function () {
       fetchError.value = deleteError.value;
       if (deleteResult.value && !deleteError.value) {
         console.log(`Deleted ${JSON.stringify(deleteResult.value, null, 2)}`);
-      } else {
         navigateTo("/furry/gaze");
+      } else {
+        console.log(deleteResult.value);
       }
     });
   }
@@ -434,7 +438,8 @@ div.info {
   background-color: rgba(248, 219, 249, 0.9);
 }
 
-#upload-menu {
+#upload-menu,
+#delete-menu {
   display: flex;
   flex-flow: column nowrap;
   justify-content: space-evenly;

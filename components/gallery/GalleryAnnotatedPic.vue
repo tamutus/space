@@ -127,9 +127,9 @@ button:focus {
 }
 .down-button {
   align-self: flex-end;
-  bottom: 4.5rem;
+  bottom: 5.7rem;
   margin-top: 0;
-  margin-right: 5vw;
+  margin-right: 6.5rem;
 }
 .up-button {
   align-self: flex-start;
@@ -156,6 +156,18 @@ button:focus {
   .left-button button,
   .right-button button {
     width: 5rem;
+  }
+}
+@media screen and (max-width: 1150px) {
+  #crud-buttons {
+    flex-flow: row nowrap;
+  }
+}
+
+@media screen and (max-height: 600px) {
+  .down-button {
+    bottom: 0.5rem;
+    margin-right: 5rem;
   }
 }
 @media screen and (max-width: 600px) {

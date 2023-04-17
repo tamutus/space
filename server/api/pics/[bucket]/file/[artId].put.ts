@@ -44,7 +44,7 @@ export default defineEventHandler(async (event: H3Event) => {
     });
   }
 
-  const requiredScope = bucketScope(bucketName);
+  const requiredScope = bucketScope(bucketAction);
   if (!requiredScope) {
     throw createError({
       statusCode: 401,

@@ -46,11 +46,11 @@
                   <div class="art-thumbnail">
                     <img
                       v-if="
-                        artwork.preview &&
-                        imageFileTypes.includes(`image/${artwork.ext}`)
+                        imageFileTypes.includes(`image/${artwork.ext}`) ||
+                        imageFileTypes.includes(`${artwork.ext}`)
                       "
                       :id="`art-${artwork.id}`"
-                      :src="artwork.preview"
+                      :src="artwork.preview || artwork.url"
                     />
                     <video
                       v-else-if="artwork.url"
@@ -125,12 +125,16 @@
             <div
               :class="`image-container ${widePicture ? 'wide' : ''}`"
               :style="{
-                '--ratio': `${(winX * focusedArt.height) / focusedArt.width}px`,
+                '--ratio': `${(winX * computedHeight) / computedWidth}px`,
               }"
             >
               <img
-                v-if="imageFileTypes.includes(`image/${focusedArt.ext}`)"
+                v-if="
+                  imageFileTypes.includes(`image/${focusedArt.ext}`) ||
+                  imageFileTypes.includes(`${focusedArt.ext}`)
+                "
                 class="artwork"
+                ref="focusedImgElement"
                 :src="focusedArt.url"
               />
               <video
@@ -178,7 +182,7 @@
                   :to="`/furry/${
                     focusedArt.bucket === 'adult-gallery' ? 'dic' : 'pic'
                   }/${focusedArt.title}`"
-                  @click="unfocusNavigate"
+                  @click="unfocusArt"
                   ><ButtonStandard>See main page</ButtonStandard></NuxtLink
                 >
                 <a
@@ -233,8 +237,9 @@
                   </div>
                   <NuxtLink
                     v-if="sourceGallery === 'lavra'"
-                    :to="`/furry/gaze?tags=${tag}`"
+                    :to="`/tag/${tag}`"
                     class="tag-box"
+                    @click="unfocusArt"
                   >
                     <ButtonStandard>
                       {{ tag }}
@@ -471,7 +476,6 @@ import {
 } from "@/types/models";
 import { useUpdateSelection } from "@/composables/selections";
 import { useWindowResize } from "@/composables/windowResize";
-import { sort } from "d3-array";
 
 const searchString: Ref<string> = ref("");
 
@@ -644,7 +648,7 @@ const cursor: ComputedRef<number | null> = computed(() => {
     return lastArtInResults.value.id;
   } else return null;
 });
-// Relevant for order:id searches
+// Relevant for order:id searches (no?)
 const backCursor: ComputedRef<number | null> = computed(() => {
   if (firstArtInResults.value) {
     return firstArtInResults.value.id;
@@ -662,7 +666,6 @@ const fetchError: Ref<FetchError<any> | null> = ref(null);
 
 // Param refs. Params are used at route change.
 const upon = ref("");
-const past = ref("");
 const take = ref("");
 const yes = ref("");
 const no = ref("");
@@ -755,9 +758,6 @@ const queryParams: ComputedRef<string[]> = computed(() => {
   if (upon.value) {
     params.push(upon.value);
   }
-  if (past.value) {
-    params.push(past.value);
-  }
   if (take.value) {
     params.push(take.value);
   }
@@ -813,6 +813,14 @@ const toggleWidePicture = () => {
 const { winX } = useWindowResize();
 
 const viewer = ref();
+const focusedImgElement = ref();
+const computedWidth = computed(() => {
+  console.log(focusedImgElement.value);
+  return Number(focusedImgElement.value?.naturalWidth);
+});
+const computedHeight = computed(() => {
+  return Number(focusedImgElement.value?.naturalHeight);
+});
 const focusedArtIndex: Ref<number | null> = ref(null);
 const focusedArt: Ref<(ArtWithTagStrings & { [key: string]: any }) | null> =
   ref(null);
@@ -1071,7 +1079,7 @@ const inputQuery = async function ($event: string) {
     lavraModeActivate();
     return;
   }
-  if (sourceGallery.value !== "e621" && $event === "e621") {
+  if (sourceGallery.value !== "e621" && $event.toLowerCase() === "e621") {
     e621ModeActivate();
     return;
   }
@@ -1145,47 +1153,97 @@ const search = async function (singlet?: boolean) {
       ratedSearch += "+rating:explicit";
     }
     ratedSearch += `+score:>${minScore.value - 1}`;
-  }
-
-  if (sortOrder.value.length > 0) {
-    ratedSearch += `+${sortOrder.value}`;
-    if (sortOrder.value === "order:random") {
-      ratedSearch += "&randseed:666";
+    if (sortOrder.value.length > 0) {
+      ratedSearch += `+${sortOrder.value}`;
+      if (sortOrder.value === "order:random") {
+        ratedSearch += "&randseed:123";
+      }
     }
   }
 
   let pagePart = "";
 
-  if (sourceGallery.value === "lavra") {
-    searching.value = false;
-  } else if (sourceGallery.value === "e621") {
-    if (pageNumber.value > 1) {
-      if (["", "order:id"].includes(sortOrder.value)) {
-        const relevantCursor = tempCursor.value
-          ? tempCursor.value
-          : // : sortOrder.value === "order:id"
-            // ? backCursor.value
-            cursor.value;
-        if (relevantCursor) {
-          pagePart = `&page=${
-            sortOrder.value === "order:id" ? "a" : "b"
-          }${relevantCursor}`;
-        }
-      } else {
-        pagePart = `&page=${pageNumber.value}`;
+  if (pageNumber.value > 1) {
+    if (
+      sourceGallery.value === "e621" ||
+      !["", "order:id"].includes(sortOrder.value)
+    ) {
+      pagePart += "&page=";
+    } else {
+      pagePart += "&past=";
+    }
+    if (["", "order:id"].includes(sortOrder.value)) {
+      const relevantCursor = tempCursor.value
+        ? tempCursor.value
+        : // : sortOrder.value === "order:id"
+          // ? backCursor.value
+          cursor.value;
+      if (relevantCursor) {
+        pagePart += `${
+          sourceGallery.value === "lavra"
+            ? ""
+            : sortOrder.value === "order:id"
+            ? "a"
+            : "b"
+        }${relevantCursor}`;
       }
+    } else {
+      pagePart += pageNumber.value;
     }
   }
-
+  let artToAdd: Array<ArtWithTagStrings & { [key: string]: any }> = [];
   if (sourceGallery.value === "lavra") {
-  } else if (sourceGallery.value === "e621") {
-    const { data: e621Response, error: e621Error } = await useFetch(
-      `https://e621.net/posts.json?limit=30&tags=${ratedSearch}${pagePart}`,
-      {
-        headers: {
-          "User-Agent": "lavrat.space/2.2 (by reconcile on e621)",
-        },
+    await auth0.getAccessTokenSilently().then(async (token) => {
+      const { data: arts, error: searchError } = await useFetch(
+        `/api/pics?${queryParams.value.join("&")}${pagePart}`,
+        {
+          method: "get",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      tempCursor.value = null;
+      if (searchError.value) {
+        fetchError.value = searchError.value;
+      } else if (arts.value) {
+        if (arts.value.length === 0) {
+          nextable.value = false;
+          searching.value = false;
+          return;
+        }
+        artToAdd = arts.value
+          .map((rawArt) => {
+            return {
+              ...rawArt,
+              createdAt: new Date(rawArt.createdAt),
+              updatedAt: new Date(rawArt.updatedAt),
+            } as ArtWithTagStrings;
+          })
+          .filter((ratedArt) => {
+            return (
+              (safeAllowed.value || ratedArt.bucket !== "homepage-gallery") &&
+              ((questionableAllowed.value && explicitAllowed.value) ||
+                ratedArt.bucket !== "adult-gallery")
+            );
+          });
+        console.log(artToAdd);
+        if (!singlet && artToAdd.length === 0) {
+          tempCursor.value = arts.value[arts.value.length - 1].id;
+        }
+
+        // artToAdd = [...res.map(JSON.parse)];
       }
+    });
+  } else if (sourceGallery.value === "e621") {
+    console.log(navigator.userAgent);
+    const { data: e621Response, error: e621Error } = await useFetch(
+      `https://e621.net/posts.json?limit=30&tags=${ratedSearch}${pagePart}${
+        // navigator.userAgent.toLowerCase().indexOf("firefox") > -1 ?
+        "&_client=" +
+        encodeURIComponent("lavrat.space/2.3 (by reconcile on e621)")
+        // : ""
+      }`
     );
     tempCursor.value = null;
     if (e621Error.value) {
@@ -1198,7 +1256,7 @@ const search = async function (singlet?: boolean) {
           searching.value = false;
           return;
         }
-        const artToAdd = res.posts
+        artToAdd = res.posts
           .map((post) => {
             return {
               id: post.id,
@@ -1238,25 +1296,25 @@ const search = async function (singlet?: boolean) {
               (explicitAllowed.value || ratedArt.rating !== "e")
             );
           });
-        if (singlet) {
-          focusedArt.value = artToAdd[0];
-          focusing.value = true;
-          await nextTick();
-          focusedContent.value.setAttribute("tabindex", 0);
-          focusedContent.value.focus();
-        } else {
-          if (artToAdd.length === 0) {
-            tempCursor.value = res.posts[res.posts.length - 1].id;
-          }
-          if (pageNumber.value === 1) {
-            artworks.value = [];
-            await nextTick();
-            artworks.value = artToAdd;
-          } else {
-            artworks.value = [...artworks.value, ...artToAdd];
-          }
+        if (!singlet && artToAdd.length === 0) {
+          tempCursor.value = res.posts[res.posts.length - 1].id;
         }
       }
+    }
+  }
+  if (singlet) {
+    focusedArt.value = artToAdd[0];
+    focusing.value = true;
+    await nextTick();
+    focusedContent.value.setAttribute("tabindex", 0);
+    focusedContent.value.focus();
+  } else {
+    if (pageNumber.value === 1) {
+      artworks.value = [];
+      await nextTick();
+      artworks.value = artToAdd;
+    } else {
+      artworks.value = [...artworks.value, ...artToAdd];
     }
   }
   searching.value = false;

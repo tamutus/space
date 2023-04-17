@@ -101,8 +101,8 @@ const getBlogPostsWithTags = async function (event: H3Event) {
   return blogPosts.map(trimPost);
 };
 
-export type GetBlogPostsWithTags = Prisma.PromiseReturnType<
-  typeof getBlogPostsWithTags
->;
+// export type GetBlogPostsWithTags = Prisma.PromiseReturnType<
+//   typeof getBlogPostsWithTags
+// >;
 
 export default defineEventHandler(getBlogPostsWithTags);

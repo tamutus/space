@@ -1,6 +1,6 @@
 <template>
-  <div id="crud-buttons">
-    <div v-if="editable">
+  <div>
+    <div v-if="editable" id="crud-buttons">
       <TransitionGroup name="list">
         <div
           v-if="editing"
@@ -26,7 +26,7 @@
           key="3"
           @click="() => $emit('save')"
         >
-          <ButtonStandard>Save</ButtonStandard>
+          <ButtonStandard color="rgb(53, 104, 94)">Save</ButtonStandard>
         </div>
 
         <div class="crud-button" key="4" @click="() => $emit('toggleEditing')">
@@ -71,12 +71,42 @@ const emit = defineEmits([
   bottom: 6.5rem;
   right: 1rem;
   z-index: 2;
+  display: flex;
+  flex-flow: column nowrap;
 }
 .crud-button {
   width: 100%;
   height: 3rem;
   margin-top: 0.5rem;
   overflow: hidden;
+}
+@media screen and (max-width: 1150px) {
+  #crud-buttons {
+    flex-flow: row nowrap;
+  }
+  .crud-button {
+    margin-top: 0;
+    margin-left: 0.25rem;
+  }
+}
+@media screen and (max-height: 600px) {
+  #crud-buttons {
+    bottom: 4.6rem;
+    right: 0.5rem;
+  }
+  .crud-button {
+    height: 2.5rem;
+  }
+}
+@media screen and (max-width: 800px) {
+  #crud-buttons {
+    bottom: 5rem;
+  }
+}
+@media screen and (max-width: 600px) {
+  #crud-buttons {
+    bottom: 5.7rem;
+  }
 }
 .crud-button button {
   height: 100%;

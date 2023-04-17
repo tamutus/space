@@ -1,7 +1,7 @@
 <template>
   <div id="active-tags-nav">
     <TransitionGroup name="list">
-      <div class="tag-box" v-for="(tag, tagIndex) of yesList" :key="tagIndex">
+      <div class="tag-box" v-for="tag of yesList" :key="`yes-${tag}`">
         <NuxtLink
           v-if="!tag.split('').includes(':')"
           :to="`/tag/${tag}`"
@@ -35,11 +35,7 @@
         </div>
       </div>
 
-      <div
-        class="tag-box"
-        v-for="(tag, tagIndex) of maybeList"
-        :key="tagIndex + 1 + yesList.size"
-      >
+      <div class="tag-box" v-for="tag of maybeList" :key="`maybe-${tag}`">
         <NuxtLink :to="`/tag/${tag}`" class="maybe tag">{{ tag }} </NuxtLink>
         <div class="tag-buttons">
           <button
@@ -66,11 +62,7 @@
         </div>
       </div>
 
-      <div
-        class="tag-box"
-        v-for="(tag, tagIndex) of noList"
-        :key="tagIndex + 1 + yesList.size + 1 + maybeList.size"
-      >
+      <div class="tag-box" v-for="tag of noList" :key="`no-${tag}`">
         <NuxtLink :to="`/tag/${tag}`" class="no tag">{{ tag }} </NuxtLink>
         <div class="tag-buttons">
           <button
