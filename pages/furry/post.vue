@@ -214,6 +214,7 @@ const upload = async function () {
         body: activeFile.value,
       });
       if (!uploadError.value) {
+        cancelUpload();
         navigateTo(`/furry/pic/${art.title.value.replaceAll(/\s/g, "_")}`);
       } else {
         console.error("Error uploading picture to GCS:", uploadError.value);

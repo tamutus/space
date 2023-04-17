@@ -23,7 +23,7 @@
               <div class="tag-links">
                 <NuxtLink
                   v-for="tag of art.tags"
-                  :to="`/furry/gaze?tags=${tag}`"
+                  :to="`/furry/gaze?yes=${tag}`"
                   class="tag-box"
                 >
                   <ButtonStandard>
@@ -53,6 +53,7 @@
                     placeholder="Comma-separated tags"
                     v-model="tagText"
                   />
+                  <input type="checkbox" v-model="publish" />
                 </div>
               </Transition>
             </div>
