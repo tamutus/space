@@ -17,6 +17,7 @@ const props = defineProps({
 });
 
 const auth0 = useAuth0();
+auth0.checkSession();
 
 const logLabel = computed(() => {
   return auth0.isAuthenticated.value ? "Log Out" : "Log In";
