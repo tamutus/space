@@ -8,6 +8,8 @@
 
 <script setup lang="ts">
 import { useAuth0 } from "@auth0/auth0-vue";
+import { whenever } from "@vueuse/core";
+import { logicNot } from "@vueuse/math";
 
 const props = defineProps({
   color: {
@@ -17,7 +19,9 @@ const props = defineProps({
 });
 
 const auth0 = useAuth0();
-auth0.checkSession();
+whenever(logicNot(auth0.isLoading), () => {
+  auth0.checkSession();
+});
 
 const logLabel = computed(() => {
   return auth0.isAuthenticated.value ? "Log Out" : "Log In";
