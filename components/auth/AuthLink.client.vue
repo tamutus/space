@@ -20,7 +20,7 @@ const props = defineProps({
 
 const auth0 = useAuth0();
 whenever(logicNot(auth0.isLoading), () => {
-  auth0.checkSession();
+  auth0.getAccessTokenSilently();
 });
 
 const logLabel = computed(() => {
