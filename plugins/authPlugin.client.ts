@@ -14,6 +14,7 @@ export default defineNuxtPlugin((nuxtApp) => {
       scope: "openid profile",
       audience: auth0ApiId,
       redirect_uri: window.location.origin,
+      cacheLocation: "localstorage",
     })
   );
 });
