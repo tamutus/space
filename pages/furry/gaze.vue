@@ -529,6 +529,8 @@ const lavraModeActivate = function () {
   sourceGallery.value = "lavra";
   searchString.value = "";
   sortOrder.value = "";
+  nextable.value = true;
+  pageNumber.value = 1;
   calculateSearchString();
 };
 const sampleDbArtworks: Ref<ArtWithTagStrings[]> = ref([
@@ -1126,7 +1128,6 @@ const inputQuery = async function ($event: string) {
   navigateTo(`/furry/gaze?${queryParams.value.join("&")}`);
 };
 const search = async function (singlet?: boolean) {
-  console.log("search ran");
   if (searching.value === true) {
     return;
   }
@@ -1227,7 +1228,6 @@ const search = async function (singlet?: boolean) {
                 ratedArt.bucket !== "adult-gallery")
             );
           });
-        console.log(artToAdd);
         if (!singlet && artToAdd.length === 0) {
           tempCursor.value = arts.value[arts.value.length - 1].id;
         }
@@ -1236,7 +1236,6 @@ const search = async function (singlet?: boolean) {
       }
     });
   } else if (sourceGallery.value === "e621") {
-    console.log(navigator.userAgent);
     const { data: e621Response, error: e621Error } = await useFetch(
       `https://e621.net/posts.json?limit=30&tags=${ratedSearch}${pagePart}${
         // navigator.userAgent.toLowerCase().indexOf("firefox") > -1 ?
@@ -1333,9 +1332,7 @@ const search = async function (singlet?: boolean) {
     });
   }
 };
-watchEffect(() => {
-  console.log(nextable.value);
-});
+
 const loadPool = async function (poolID: number) {
   artworks.value = [];
   pageNumber.value = 1;
