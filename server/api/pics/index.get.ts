@@ -220,11 +220,7 @@ const getArtWithTagStrings = async (event: H3Event) => {
       clientEmail: runtimeConfig.gcpClientEmail,
     });
   }
-  if (
-    artMetadata.find((somePiece) => {
-      somePiece.bucket === "adult-gallery";
-    })
-  ) {
+  if (artMetadata.find((somePiece) => somePiece.bucket === "adult-gallery")) {
     bucketQueries.push({
       name: "adult-gallery",
       privKey: runtimeConfig.gcpPrivateNsfwKey,
