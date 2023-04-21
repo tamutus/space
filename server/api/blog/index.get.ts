@@ -46,7 +46,6 @@ const getBlogPostsWithTags = async function (event: H3Event) {
   } else if (Array.isArray(requestTags)) {
     queryTags = [...requestTags.map((tagName) => String(tagName))];
   }
-  console.log(queryTags);
 
   const prismaQuery: Prisma.BlogPostFindManyArgs = {
     take:

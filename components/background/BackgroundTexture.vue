@@ -44,6 +44,19 @@ const props = defineProps({
     ),
     linear-gradient(180deg, rgba(125, 51, 223, 0.76) 0%, rgb(189, 79, 240) 100%);
 }
+.gae.bg {
+  background-image: radial-gradient(
+      at 47% 20%,
+      rgba(255, 190, 241, 0.747) 10%,
+      rgba(240, 133, 183, 0.488) 50%,
+      rgba(165, 8, 196, 0.6) 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(248, 17, 144, 0.76) 0%,
+      rgba(235, 45, 118, 0.5) 100%
+    );
+}
 .solarpunk.bg {
   background-image: linear-gradient(
       -40deg,

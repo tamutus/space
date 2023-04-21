@@ -1,6 +1,6 @@
 {
   "name": "space",
-  "version": "2.3.5",
+  "version": "2.3.6",
   "description": "Personal Web Portfolio",
   "main": "app.js",
   "scripts": {
@@ -34,7 +34,7 @@
     "@vitest/coverage-c8": "^0.25.8",
     "@vue/test-utils": "^2.3.2",
     "jsdom": "^20.0.3",
-    "nuxt": "^3.4.1",
+    "nuxt": "^3.4.2",
     "unplugin-auto-import": "^0.12.2",
     "unplugin-vue-components": "^0.22.12",
     "vitest": "^0.25.2"

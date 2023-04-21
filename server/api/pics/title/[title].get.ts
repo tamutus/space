@@ -50,7 +50,6 @@ export default defineEventHandler(async (event: H3Event) => {
     "_",
     " "
   );
-  console.log(givenTitle);
 
   const metadata: ArtWithTags | null = await prisma.art.findFirst({
     where: {
