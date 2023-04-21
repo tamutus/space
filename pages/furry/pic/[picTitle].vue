@@ -185,7 +185,7 @@ const reflectArtUpdate = function () {
 const fetchArt = async function () {
   useUpdateSelection(
     rawArt,
-    `/api/pics/${activeBucket.value}/title/${String(route.params.picTitle)}`,
+    `/api/pics/title/${String(route.params.picTitle)}`,
     auth0,
     loadingArt,
     reflectArtUpdate,
