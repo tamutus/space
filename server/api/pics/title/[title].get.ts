@@ -37,33 +37,12 @@ export default defineEventHandler(async (event: H3Event) => {
   // info
   // published
   // tags
-  const bucketName: string = event.context.params.bucket;
-  if (!validBucket(bucketName)) {
-    throw createError({
-      statusCode: 400,
-      statusMessage: "No valid bucket name given",
-    });
-  }
+
   const requestedTitle: string = event.context.params.title;
   if (!requestedTitle) {
     throw createError({
       statusCode: 400,
       statusMessage: "No artwork title given",
-    });
-  }
-  const requiredScope = bucketScope(bucketName);
-  if (!requiredScope) {
-    throw createError({
-      statusCode: 401,
-      statusMessage:
-        "Couldn't determine what permissions the provided bucket requires, so you couldn't be authorized.",
-    });
-  }
-  if ((await reqHasScope(event, requiredScope)) !== true) {
-    throw createError({
-      statusCode: 403,
-      statusMessage:
-        "You aren't authorized to view these images. Log in with Auth0 at the bottom right of the screen.",
     });
   }
 
@@ -98,6 +77,30 @@ export default defineEventHandler(async (event: H3Event) => {
     throw createError({
       statusCode: 403,
       statusMessage: "No artwork in that bucket found with that title",
+    });
+  }
+
+  const bucketName: string = metadata.bucket;
+  if (!validBucket(bucketName)) {
+    throw createError({
+      statusCode: 400,
+      statusMessage:
+        "File's bucket name was invalid. Mention this to Lavra, and tell them with which file is causing this problem.",
+    });
+  }
+  const requiredScope = bucketScope(bucketName);
+  if (!requiredScope) {
+    throw createError({
+      statusCode: 401,
+      statusMessage:
+        "Couldn't determine what permissions the provided bucket requires, so you couldn't be authorized.",
+    });
+  }
+  if ((await reqHasScope(event, requiredScope)) !== true) {
+    throw createError({
+      statusCode: 403,
+      statusMessage:
+        "You aren't authorized to view these images. Log in with Auth0 at the bottom right of the screen.",
     });
   }
 
