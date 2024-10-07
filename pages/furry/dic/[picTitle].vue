@@ -104,13 +104,13 @@ import { useAuth0 } from "@auth0/auth0-vue";
 import { FetchError } from "ofetch";
 
 import {
-  ArtWithTags,
-  ArtWithTagStrings,
   validateArtWithTags,
+  type ArtWithTags,
+  type ArtWithTagStrings,
 } from "@/types/models";
 import {
-  Bucket,
-  BucketUploadAction,
+  type Bucket,
+  type BucketUploadAction,
   validBucket,
   validImageFile,
 } from "@/types/googleStorage";

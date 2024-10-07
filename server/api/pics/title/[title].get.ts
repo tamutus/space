@@ -1,7 +1,7 @@
 import { H3Event } from "h3";
 import { PrismaClient } from "@prisma/client";
-import { ArtWithTags } from "@/types/models";
-import {
+import { type ArtWithTags } from "@/types/models";
+import type {
   GetSignedUrlConfig,
   GetSignedUrlResponse,
 } from "@google-cloud/storage";

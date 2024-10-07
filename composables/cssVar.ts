@@ -1,5 +1,3 @@
-import { Ref } from "vue";
-
 export function cssVar(
   target: Ref | null,
   name: string,

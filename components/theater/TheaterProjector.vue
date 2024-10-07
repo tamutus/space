@@ -32,7 +32,7 @@
           data-title="projection.frameTitle"
           @click="activate(pIndex)"
         >
-          <h6>{{ projection.frameTitle }}</h6>
+          <h4>{{ projection.frameTitle }}</h4>
         </div>
       </div>
     </div>
@@ -160,9 +160,9 @@ function activate(projectionIndex: number) {
   /* font-size: 60px; */
 }
 .theater h3 {
-  /* font-size: 40px; */
+  font-size: 40px;
 }
-.theater h6 {
+.theater h4 {
   font-size: 1rem;
 }
 .theater p {
@@ -256,7 +256,7 @@ function activate(projectionIndex: number) {
 .film .still.active {
   filter: brightness(1.5);
 }
-@media screen and (max-width: 500px), @media screen and (max-height: 500px) {
+@media screen and (max-width: 500px), screen and (max-height: 500px) {
   .theater h2 {
     font-size: 2em;
   }

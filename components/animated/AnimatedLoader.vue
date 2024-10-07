@@ -63,13 +63,13 @@ function toggleLoading() {
       break;
     case "loading":
       status.value = "unloading";
-      window.setTimeout(() => {
+      useTimeout(() => {
         status.value = "complete";
       }, 1500);
       break;
     case "complete":
       status.value = "reloading";
-      window.setTimeout(() => {
+      useTimeout(() => {
         status.value = "loading";
       }, 1500);
       break;

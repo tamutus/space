@@ -1,5 +1,5 @@
 import { H3Event } from "h3";
-import { GetSignedUrlConfig, Storage } from "@google-cloud/storage";
+import { type GetSignedUrlConfig, Storage } from "@google-cloud/storage";
 import { PrismaClient } from "@prisma/client";
 import { useGoogleStorage } from "@/utils/googleStorage";
 import { reqHasScope } from "@/utils/authUtils";

@@ -24,8 +24,6 @@
 </template>
 
 <script setup lang="ts">
-import { ComputedRef, Ref } from "vue";
-
 const props = defineProps({
   perspective: {
     type: Number,
@@ -143,7 +141,7 @@ function rotatePrismForward() {
     prismRotation.value += 360;
     prismTransition.value = "none";
 
-    setTimeout(() => {
+    useTimeout(() => {
       prismTransition.value =
         "transform .4s ease, height 0.4s ease, width 0.4s ease";
       prismRotation.value -= prismRotationQuantum.value;
@@ -156,7 +154,7 @@ function rotatePrismBackward() {
   if (prismRotation.value >= 360) {
     prismRotation.value -= 360;
     prismTransition.value = "none";
-    setTimeout(() => {
+    useTimeout(() => {
       prismTransition.value =
         "transform .4s ease, height 0.4s ease, width 0.4s ease";
       prismRotation.value += prismRotationQuantum.value;

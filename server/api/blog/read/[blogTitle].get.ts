@@ -1,7 +1,7 @@
 import { H3Event } from "h3";
 import { PrismaClient } from "@prisma/client";
 import { reqHasScope } from "@/utils/authUtils";
-import { BlogPostWithTags } from "@/types/models";
+import { type BlogPostWithTags } from "@/types/models";
 
 const prisma: PrismaClient = new PrismaClient();
 const getBlogPostsWithTags = async function (event: H3Event) {

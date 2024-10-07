@@ -19,8 +19,10 @@ const props = defineProps({
   },
 });
 
-const { componentX, componentY, componentX2, componentY2 } =
-  useComponentRect(frame);
+const { componentX, componentY, componentX2, componentY2 } = useComponentRect(
+  frame,
+  { passive: true }
+);
 const { vh, vw } = useVProperties();
 
 const rotation = computed(() => {
@@ -59,7 +61,7 @@ const rotation = computed(() => {
   box-shadow: 3px -2px 10px rgba(29, 3, 63, 0.7),
     3px 4px 10px rgba(29, 3, 63, 0.9), -1px 4px 10px rgba(187, 247, 255, 0.6),
     -1px -4px 10px rgba(187, 247, 255, 0.6);
-  transition: transform 0.35s ease-out, box-shadow 0.7s ease-in-out,
+  transition: transform 0.35s 0.02s ease-out, box-shadow 0.7s ease-in-out,
     color 0.5s ease, translate 0.4s ease-out;
   transform-style: preserve-3d;
   max-height: 100%;

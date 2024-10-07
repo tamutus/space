@@ -16,55 +16,57 @@
         <h3 id="description-label">Description:</h3>
         <textarea v-model="artInfo" class="art-info"></textarea>
         <table class="art-meta-section">
-          <tr class="art-meta-item">
-            <td><label for="art-tags">Tags for this artwork</label></td>
-            <td>
-              <input
-                class="art-tags"
-                type="text"
-                placeholder="Comma-separated tags"
-                v-model="tagText"
-              />
-            </td>
-          </tr>
-          <tr class="art-meta-item">
-            <td><label for="mark-published">Publish this work</label></td>
-            <td>
-              <input
-                class="mark-published"
-                type="checkbox"
-                v-model="art.published.value"
-                checked
-              />
-            </td>
-          </tr>
-          <tr class="art-meta-item">
-            <td>Bucket</td>
-            <td>
-              <span
-                v-for="action of bucketActions"
-                @click="
-                  ($event) => {
-                    activeAction = action;
-                  }
-                "
-                class="bucket-action"
-              >
+          <tbody>
+            <tr class="art-meta-item">
+              <td><label for="art-tags">Tags for this artwork</label></td>
+              <td>
                 <input
-                  type="radio"
-                  :id="`${action}-radio`"
-                  :value="action"
-                  v-model="activeAction"
+                  class="art-tags"
+                  type="text"
+                  placeholder="Comma-separated tags"
+                  v-model="tagText"
                 />
-                <label :for="`${action}-radio`">
-                  {{
-                    action.charAt(0).toUpperCase() +
-                    action.slice(1).replaceAll(/-/g, " ")
-                  }}
-                </label>
-              </span>
-            </td>
-          </tr>
+              </td>
+            </tr>
+            <tr class="art-meta-item">
+              <td><label for="mark-published">Publish this work</label></td>
+              <td>
+                <input
+                  class="mark-published"
+                  type="checkbox"
+                  v-model="art.published.value"
+                  checked
+                />
+              </td>
+            </tr>
+            <tr class="art-meta-item">
+              <td>Bucket</td>
+              <td>
+                <span
+                  v-for="action of bucketActions"
+                  @click="
+                    ($event) => {
+                      activeAction = action;
+                    }
+                  "
+                  class="bucket-action"
+                >
+                  <input
+                    type="radio"
+                    :id="`${action}-radio`"
+                    :value="action"
+                    v-model="activeAction"
+                  />
+                  <label :for="`${action}-radio`">
+                    {{
+                      action.charAt(0).toUpperCase() +
+                      action.slice(1).replaceAll(/-/g, " ")
+                    }}
+                  </label>
+                </span>
+              </td>
+            </tr>
+          </tbody>
         </table>
         <ButtonStandard @click="save">Save and get upload URL</ButtonStandard>
         <TheaterModal
@@ -109,7 +111,7 @@ import { FetchError } from "ofetch";
 
 import { useMagicKeys, whenever } from "@vueuse/core";
 
-import { BucketUploadAction } from "@/types/googleStorage";
+import { type BucketUploadAction } from "@/types/googleStorage";
 
 useHead({
   title: "Post Art @ LavraT",

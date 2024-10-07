@@ -71,8 +71,7 @@
 </template>
 
 <script setup lang="ts">
-import { BlogPostWithTags, BlogPostWithTagStrings } from "@/types/models";
-import { ComputedRef, Ref } from "vue";
+import type { BlogPostWithTags, BlogPostWithTagStrings } from "@/types/models";
 import { useAuth0 } from "@auth0/auth0-vue";
 
 const route = useRoute();

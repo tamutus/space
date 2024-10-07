@@ -1,8 +1,9 @@
 // Suffix components using this with .client.vue
 
-import { Ref } from "vue";
-
-export function useComponentRect(el: Ref<null | HTMLElement>) {
+export function useComponentRect(
+  el: Ref<null | HTMLElement>,
+  options: AddEventListenerOptions = { passive: true }
+) {
   const componentX = ref(0),
     componentY = ref(0),
     componentX2 = ref(0),
@@ -18,8 +19,8 @@ export function useComponentRect(el: Ref<null | HTMLElement>) {
     }
   }
 
-  useEventListener(window, "scroll", update);
-  useEventListener(window, "resize", update);
+  useEventListener(window, "scroll", update, options);
+  useEventListener(window, "resize", update, options);
   onMounted(async () => {
     await nextTick();
     update();

@@ -17,7 +17,7 @@
 
 <script setup lang="ts">
 import { useAuth0 } from "@auth0/auth0-vue";
-import { NewBlogPost } from "@/types/models";
+import type { NewBlogPost } from "@/types/models";
 
 useHead({
   title: "Write @ LavraT",

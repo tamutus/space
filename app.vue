@@ -20,9 +20,13 @@
 <script setup lang="ts"></script>
 
 <style>
-#app-box {
+footer {
+  font-family: "Odibee sans";
 }
-/* animation classes */
+footer a {
+  font-family: "Cinzel decorative";
+  color: rgba(224, 184, 241, 0.86);
+}
 
 #boring-links > * {
   margin-left: 1rem;

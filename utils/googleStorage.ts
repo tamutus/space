@@ -1,6 +1,6 @@
-import { RuntimeConfig } from "nuxt/schema";
+import { type RuntimeConfig } from "nuxt/schema";
 import { Storage } from "@google-cloud/storage";
-import { BucketAction } from "@/types/googleStorage";
+import { type BucketAction } from "@/types/googleStorage";
 
 // Don't store exports here that don't call useGoogleStorage. The google auth module seems to mess things up if you do!
 
@@ -22,7 +22,7 @@ export const useGoogleStorage = function (
       : runtimeVars.gcpClientEmail;
 
   return new Storage({
-    projectId: runtimeVars.gcpProjectId,
+    projectId: runtimeVars.public.gcpProjectId,
     credentials: {
       type: "service_account",
       private_key: privKey.split(String.raw`\n`).join("\n"),

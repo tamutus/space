@@ -1,5 +1,3 @@
-import { Ref } from "vue";
-
 export type Pronoun = {
   canonicalName: string;
   description: string;

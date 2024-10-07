@@ -1,6 +1,6 @@
 import { H3Event } from "h3";
 import { Prisma, PrismaClient } from "@prisma/client";
-import { Tag } from ".prisma/client";
+import { type Tag } from ".prisma/client";
 import { reqHasScope } from "@/utils/authUtils";
 
 const prisma: PrismaClient = new PrismaClient();

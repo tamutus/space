@@ -59,9 +59,8 @@
 </template>
 
 <script setup lang="ts">
-import { ComputedRef, Ref } from "vue";
 import { useAuth0 } from "@auth0/auth0-vue";
-import { BlogPostWithTags, BlogPostWithTagStrings } from "@/types/models";
+import type { BlogPostWithTags, BlogPostWithTagStrings } from "@/types/models";
 
 useHead({
   title: "Lavra's Writing",

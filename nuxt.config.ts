@@ -22,7 +22,9 @@ export default defineNuxtConfig({
         download: true,
       },
     ],
+    "@nuxt/test-utils/module",
   ],
+
   app: {
     head: {
       meta: [
@@ -46,7 +48,9 @@ export default defineNuxtConfig({
       name: "page",
     },
   },
+
   components: true,
+
   routeRules: {
     "/profile": { ssr: false },
     "/blog/**": { ssr: false },
@@ -54,6 +58,7 @@ export default defineNuxtConfig({
     "/tag/**": { ssr: false },
     "/furry/**": { ssr: false },
   },
+
   runtimeConfig: {
     gcpPrivateKeyId: "",
     gcpPrivateNsfwKeyId: "",
@@ -68,11 +73,15 @@ export default defineNuxtConfig({
     gcpClientNsfwId: "",
     gcpClientX509CertUrl: "",
     gcpClientNsfwX509CertUrl: "",
+    stripeSk: "",
     public: {
       authDomain: "dev-0ak48f02c4lk72ed.us.auth0.com",
       authClientId: "unDhjkc2PtfSU8BFQhHS30FQNRbTfo2y",
       authApiIdentifier: "https://lavrat.space/dev",
       gcpProjectId: "saucy-toxtricity-84969",
+      stripePk: "",
     },
   },
+
+  compatibilityDate: "2024-09-28",
 });

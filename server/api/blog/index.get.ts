@@ -2,18 +2,6 @@ import { H3Event } from "h3";
 import { Prisma, PrismaClient } from "@prisma/client";
 import { reqHasScope } from "@/utils/authUtils";
 
-const blogPostWithTags = Prisma.validator<Prisma.BlogPostArgs>()({
-  include: {
-    tags: {
-      include: {
-        tag: true,
-      },
-    },
-  },
-});
-
-type BlogPostWithTags = Prisma.BlogPostGetPayload<typeof blogPostWithTags>;
-
 const trimPost = function (fullPost: any) {
   const trimmedInsert = fullPost?.content?.ops[0]?.insert
     ?.split("\n")
@@ -70,7 +58,7 @@ const getBlogPostsWithTags = async function (event: H3Event) {
     publishedOnly.published = true;
   }
 
-  const blogPosts: BlogPostWithTags[] = await prisma.blogPost.findMany({
+  const blogPosts = await prisma.blogPost.findMany({
     ...prismaQuery,
     where: {
       ...publishedOnly,

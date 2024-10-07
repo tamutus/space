@@ -2,14 +2,14 @@ import { H3Event } from "h3";
 import { Prisma, PrismaClient } from "@prisma/client";
 import {
   File,
-  GetFilesResponse,
-  GetSignedUrlConfig,
-  GetSignedUrlResponse,
+  type GetFilesResponse,
+  type GetSignedUrlConfig,
+  type GetSignedUrlResponse,
   Storage,
 } from "@google-cloud/storage";
-import { Bucket } from "@/types/googleStorage";
+import { type Bucket } from "@/types/googleStorage";
 import { reqHasScope } from "@/utils/authUtils";
-import { ArtWithTagStrings } from "@/types/models";
+import { type ArtWithTagStrings } from "@/types/models";
 
 const prisma: PrismaClient = new PrismaClient();
 

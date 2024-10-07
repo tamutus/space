@@ -64,14 +64,12 @@
 </template>
 
 <script setup lang="ts">
-import { Ref } from "vue";
-
 const deanimated: Ref<string> = ref("");
 
 useInterval(resetColors, 3500);
 function resetColors() {
   deanimated.value = "deanimated";
-  setTimeout(() => {
+  useTimeout(() => {
     deanimated.value = "";
   }, 500);
 }

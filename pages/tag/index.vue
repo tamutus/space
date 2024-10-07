@@ -20,9 +20,8 @@
 </template>
 
 <script setup lang="ts">
-import { Ref } from "vue";
 import { useAuth0 } from "@auth0/auth0-vue";
-import { Tag } from ".prisma/client";
+import { type Tag } from ".prisma/client";
 
 const auth0 = useAuth0();
 const tags: Ref<Tag[] | null> = ref(null);

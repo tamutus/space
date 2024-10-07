@@ -1,7 +1,7 @@
 import { H3Event } from "h3";
 import {
-  GetSignedUrlConfig,
-  GetSignedUrlResponse,
+  type GetSignedUrlConfig,
+  type GetSignedUrlResponse,
   Storage,
 } from "@google-cloud/storage";
 import { Prisma, PrismaClient } from "@prisma/client";
@@ -12,7 +12,7 @@ import {
   validBucket,
   validBucketAction,
 } from "@/types/googleStorage";
-import { NewArt, TagAddQuery } from "@/types/models";
+import type { NewArt, TagAddQuery } from "@/types/models";
 
 const prisma: PrismaClient = new PrismaClient();
 

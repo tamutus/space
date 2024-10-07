@@ -17,7 +17,7 @@
 
 <script setup lang="ts">
 import { useActiveElement, useMagicKeys, whenever } from "@vueuse/core";
-import { logicAnd, logicNot } from "@vueuse/math";
+import { logicAnd } from "@vueuse/math";
 
 const emit = defineEmits(["search", "bottom", "escape"]);
 
@@ -43,7 +43,7 @@ watchEffect(() => {
   searchText.value = props.query;
 });
 
-const { componentY } = useComponentRect(searchbar);
+const { componentY } = useComponentRect(searchbar, { passive: true });
 const { winX, winY } = useWindowResize();
 const { scrollY } = useWindowScroll();
 const activeElement = useActiveElement();

@@ -75,8 +75,7 @@
 </template>
 
 <script setup lang="ts">
-import { Tag } from ".prisma/client";
-import { Ref } from "vue";
+import { type Tag } from ".prisma/client";
 import { FetchError } from "ofetch";
 import { useAuth0 } from "@auth0/auth0-vue";
 import { useMagicKeys, whenever } from "@vueuse/core";
@@ -329,9 +328,9 @@ input {
   align-items: flex-start;
   /* background-color: rgba(248, 219, 249, 0.9); */
 }
-.info p {
-  /* white-space: pre-wrap; */
-}
+/* .info p {
+   white-space: pre-wrap; 
+} */
 .edit-area {
   height: 12rem;
   width: 100%;

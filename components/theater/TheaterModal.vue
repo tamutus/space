@@ -20,7 +20,6 @@
 </template>
 
 <script setup lang="ts">
-import { watch } from "vue";
 import { useActiveElement, useMagicKeys, whenever } from "@vueuse/core";
 import { logicAnd, logicOr, logicNot } from "@vueuse/math";
 
@@ -138,8 +137,8 @@ whenever(logicAnd(f, notUsingInput), () => {
   flex: 0 1 100%;
   height: 100%;
 }
-.backdrop {
-}
+/* .backdrop {
+} */
 #closer,
 #filler {
   position: absolute;

@@ -468,10 +468,10 @@ import { FetchError } from "ofetch";
 import { useActiveElement, useMagicKeys, whenever } from "@vueuse/core";
 import { logicAnd } from "@vueuse/math";
 
-import { Bucket, imageFileTypes } from "@/types/googleStorage";
+import { type Bucket, imageFileTypes } from "@/types/googleStorage";
 import {
-  ArtWithTags,
-  ArtWithTagStrings,
+  type ArtWithTags,
+  type ArtWithTagStrings,
   validateArtWithTags,
 } from "@/types/models";
 import { useUpdateSelection } from "@/composables/selections";
@@ -1207,7 +1207,7 @@ const search = async function (singlet?: boolean) {
       tempCursor.value = null;
       if (searchError.value) {
         fetchError.value = searchError.value;
-      } else if (arts.value) {
+      } else if (Array.isArray(arts.value)) {
         if (arts.value.length === 0) {
           nextable.value = false;
           searching.value = false;
@@ -1268,13 +1268,12 @@ const search = async function (singlet?: boolean) {
                 .map((artist) => (artist === "sound_warning" ? "🔊⚡" : artist))
                 .filter((artist) => artist !== "conditional_dnp"),
               published: true,
-              tags:
-                [
-                  ...post.tags.species,
-                  ...post.tags.character,
-                  ...post.tags.general,
-                  ...post.tags.lore,
-                ] || [],
+              tags: [
+                ...post.tags.species,
+                ...post.tags.character,
+                ...post.tags.general,
+                ...post.tags.lore,
+              ],
               url: post.file.url,
               info: post.description,
               ext: post.file.ext,
@@ -1681,6 +1680,7 @@ watch(route, async (newRoute) => {
 }
 input[type="range"] {
   height: 42px;
+  appearance: none;
   -webkit-appearance: none;
   margin: 10px 0;
   width: 100%;
@@ -1693,7 +1693,6 @@ input[type="range"]::-webkit-slider-runnable-track {
   width: 100%;
   height: 15px;
   cursor: pointer;
-  animate: 0.2s;
   box-shadow: 2px 2px 4px #5f127a;
   background: #bb9dcf;
   border-radius: 6px;
@@ -1717,7 +1716,6 @@ input[type="range"]::-moz-range-track {
   width: 100%;
   height: 15px;
   cursor: pointer;
-  animate: 0.2s;
   box-shadow: 2px 2px 4px #5f127a;
   background: #bb9dcf;
   border-radius: 6px;
@@ -1736,7 +1734,6 @@ input[type="range"]::-ms-track {
   width: 100%;
   height: 15px;
   cursor: pointer;
-  animate: 0.2s;
   background: transparent;
   border-color: transparent;
   color: transparent;

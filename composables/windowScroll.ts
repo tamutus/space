@@ -1,5 +1,7 @@
 // Suffix components using this with .client.vue
-export function useWindowScroll() {
+export function useWindowScroll(
+  options: AddEventListenerOptions = { passive: true }
+) {
   const scrollX = ref(0),
     scrollY = ref(0);
 
@@ -8,7 +10,7 @@ export function useWindowScroll() {
     scrollY.value = window.scrollY;
   }
 
-  useEventListener(window, "scroll", update);
+  useEventListener(window, "scroll", update, options);
   useEventListener(window, "resize", update);
 
   return { scrollX, scrollY };

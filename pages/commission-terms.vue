@@ -29,12 +29,15 @@
                 Freelancers all have their own processes for how they work with
                 a client to get a website up and running. Corporate services
                 offer very powerful buzzwords with hefty lists of add-ons, but
-                the process can be confusing and off-putting. As a one-person
-                studio, I offer to create you personalized websites that aren’t
-                just a place to plant your flag, but are collaborative art
-                pieces with technological freedom. Let me guide you through my
-                process:
+                the process can be confusing and off-putting. I offer to create
+                you personalized websites that aren’t just a place to plant your
+                flag, but are collaborative art pieces with technological
+                freedom. You can hire me directly for limited projects, and if
+                you want the ongoing support of a growing team you can contract
+                the services of the small worker co-op of which I am a founding
+                member: HarrSoft Studio.
               </p>
+              <p>Let me guide you through my process:</p>
               <ol>
                 <li>
                   Send me a message outlining what kind of website you want me
@@ -326,5 +329,11 @@ h3 {
   color: white;
   text-align: left;
   margin-left: 0;
+}
+p {
+  margin: 2em 1.5em;
+}
+.tech-table {
+  margin-top: 4rem;
 }
 </style>

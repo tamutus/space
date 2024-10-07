@@ -1,5 +1,4 @@
-import { Ref } from "vue";
-import { Auth0VueClient } from "@auth0/auth0-vue";
+import { type Auth0VueClient } from "@auth0/auth0-vue";
 
 export const useUpdateSelection = async function (
   selectionRef: Ref<any>,

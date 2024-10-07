@@ -30,8 +30,6 @@ const props = defineProps({
   display: flex;
   justify-content: center;
 }
-.intriguer {
-}
 
 button {
   /* background-color: rgba(255, 77, 208, .4); */

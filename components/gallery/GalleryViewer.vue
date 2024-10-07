@@ -25,8 +25,6 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, Ref } from "vue";
-
 // unplugin's auto-import feature doesn't seem to work with the configurations on the internet for vitest. To unbreak tests, imports are explicit here.
 
 // import AnimatedFlag from "@/components/animated/AnimatedFlag.vue";
@@ -68,6 +66,8 @@ const activeAnimation = computed(() => {
   return animations.value[animationIndex.value];
 });
 const direction: Ref<"forward" | "backward"> = ref("forward");
+
+defineExpose({ animationIndex, animations });
 
 function previousAnimation(): void {
   direction.value = "backward";

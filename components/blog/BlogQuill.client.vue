@@ -37,6 +37,7 @@
       />
     </div>
     <table v-if="mode === 'write'" class="post-meta-section">
+      <tbody>
       <tr class="post-meta-item">
         <td><label for="post-tags">Tags for your post</label></td>
         <td>
@@ -58,8 +59,10 @@
           />
         </td>
       </tr>
+    </tbody>
     </table>
     <table v-else class="post-meta-section">
+      <tbody>
       <tr class="post-meta-item">
         <td>
           <h3>Tags:</h3>
@@ -81,6 +84,7 @@
         </td>
         <td v-if="!(published === true)"><h3>Draft</h3></td>
       </tr>
+    </tbody>
     </table>
     <ButtonStandard v-if="mode === 'write'" @click="save"
         >Save</ButtonStandard
@@ -98,8 +102,6 @@
 </template>
 
 <script setup lang="ts">
-import { PropType, Ref } from "vue";
-
 import { useMagicKeys, whenever } from "@vueuse/core";
 
 import { Delta, QuillEditor } from "@vueup/vue-quill";

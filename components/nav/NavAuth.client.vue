@@ -54,7 +54,6 @@
 </template>
 
 <script setup lang="ts">
-import { Ref } from "vue";
 import { useAuth0 } from "@auth0/auth0-vue";
 
 const auth0 = useAuth0();

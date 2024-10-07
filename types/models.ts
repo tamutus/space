@@ -1,5 +1,11 @@
 import { Prisma } from "@prisma/client";
-import { Art, BlogPost, Tag, TagsOnArt, TagsOnPosts } from ".prisma/client";
+import type {
+  Art,
+  BlogPost,
+  Tag,
+  TagsOnArt,
+  TagsOnPosts,
+} from ".prisma/client";
 
 // Used to generate below code, however any page that imports functions from this file will break if this code is uncommented.
 // const blogPostWithTags = Prisma.validator<Prisma.BlogPostArgs>()({

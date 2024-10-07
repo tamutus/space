@@ -1,13 +1,13 @@
 import { H3Event } from "h3";
 import { PrismaClient } from "@prisma/client";
-import { GetSignedUrlConfig } from "@google-cloud/storage";
+import type { GetSignedUrlConfig } from "@google-cloud/storage";
 
 import { reqHasScope } from "@/utils/authUtils";
 import { useGoogleStorage } from "@/utils/googleStorage";
 import {
   bucketScope,
-  BucketAction,
   validBucketAction,
+  type BucketAction,
 } from "@/types/googleStorage";
 
 const prisma: PrismaClient = new PrismaClient();

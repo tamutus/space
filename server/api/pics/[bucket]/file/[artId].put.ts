@@ -1,7 +1,7 @@
 import { H3Event } from "h3";
 import { Prisma, PrismaClient } from "@prisma/client";
 import { reqHasScope } from "@/utils/authUtils";
-import {
+import type {
   ArtWithTags,
   UpdateArt,
   TagAddQuery,

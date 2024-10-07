@@ -1,7 +1,6 @@
-import { Ref } from "vue";
 import * as jose from "jose";
-import { RouterMethod } from "h3";
-import { Auth0VueClient } from "@auth0/auth0-vue";
+// import { RouterMethod } from "h3";
+import { type Auth0VueClient } from "@auth0/auth0-vue";
 
 export async function userHasScope(auth0: Auth0VueClient, scope: string) {
   if (auth0 && auth0.isAuthenticated.value) {

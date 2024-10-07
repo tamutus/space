@@ -31,8 +31,6 @@
 </template>
 
 <script setup lang="ts">
-import { Ref } from "vue";
-
 const perspective: Ref<number> = ref(1500),
   colorMode: Ref<string> = ref("alternate"),
   prism: Ref<Array<Object>> = ref(new Array(3).fill({})),

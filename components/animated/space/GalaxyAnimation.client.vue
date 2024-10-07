@@ -42,9 +42,7 @@
 
 <script setup lang="ts">
 import * as d3 from "d3";
-import { onMounted, ref } from "vue";
 import type { BaseType } from "d3";
-import type { Ref } from "vue";
 
 const starMax = 300,
   starCycle = 130,
@@ -68,7 +66,7 @@ let space: d3.Selection<BaseType, unknown, HTMLElement, any>,
 
 // Dynamic variables, counters
 let starCount: number = 0,
-  nebula: Ref<NodeJS.Timeout | null> = ref(null), // tracks timeouts so the animation can be reset
+  nebula: Ref<NodeJS.Timeout | number | null> = ref(null), // tracks timeouts so the animation can be reset
   // Turn off for mobile by default
   exists: Ref<boolean> = ref(
     /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
@@ -99,10 +97,10 @@ function generateStar(
     .style("fill", starColor());
   starCount++;
   if (starCount < starMax) {
-    nebula.value = setTimeout(
+    nebula.value = useTimeout(
       () => generateStar(birthInterval * 0.99, stars),
       Math.floor(Math.random() * birthInterval)
-    );
+    ).timeoutId;
   }
 }
 
@@ -243,7 +241,6 @@ onMounted(async () => {
     filter: blur(1px);
     opacity: 0.8;
   }
-  ,
   45% {
     filter: blur(1px);
     opacity: 0.9;

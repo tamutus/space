@@ -1,8 +1,8 @@
 import { H3Event } from "h3";
 import {
-  GetFilesResponse,
-  GetSignedUrlConfig,
-  GetSignedUrlResponse,
+  type GetFilesResponse,
+  type GetSignedUrlConfig,
+  type GetSignedUrlResponse,
   Storage,
 } from "@google-cloud/storage";
 

@@ -12,8 +12,6 @@
 </template>
 
 <script setup lang="ts">
-import { Ref } from "vue";
-
 let pokemon: Ref<number> = ref(1);
 const baseUrl = "https://pokeapi.co/api/v2/pokemon/";
 

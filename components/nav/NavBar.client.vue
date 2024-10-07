@@ -24,8 +24,6 @@
 </template>
 
 <script setup lang="ts">
-import { Ref } from "vue";
-
 const route = useRoute();
 const currentPath = ref(route.path);
 
