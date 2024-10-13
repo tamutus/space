@@ -65,5 +65,5 @@ export async function usePronouns(subjectPronoun: string) {
 function hasPronounData(
   apiResponse: Ref<unknown>
 ): apiResponse is Ref<Pronoun> {
-  return (<Pronoun>apiResponse.value).morphemes !== undefined;
+  return (<Pronoun>apiResponse.value)?.morphemes !== undefined;
 }
